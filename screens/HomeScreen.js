@@ -8,7 +8,7 @@ class HomeScreen extends Component {
             <Text>This is HomeScreen</Text>
             <Button onPress={()=>this.props.navigation.navigate('AuthenticationScreen')} title="Authentication Screen"/>
             <Button onPress={()=>this.props.navigation.navigate('FloorScreen')} title="Floor Screen"/>
-            <Button onPress={()=>this.props.navigation.navigate('MainMapScreen')} title="MainMap Screen"/>
+            <Button onPress={()=>this.props.navigation.navigate('MainMapsScreen')} title="MainMap Screen"/>
         </View>
       );
     }

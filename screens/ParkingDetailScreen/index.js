@@ -25,7 +25,6 @@ class ParkingDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            parkingData: 
         }
     }
 

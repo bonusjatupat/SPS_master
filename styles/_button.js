@@ -52,6 +52,24 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    mapCtrlGroup: {
+        width: 40,
+        height: 100,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 20,
+        alignItems: 'center'
+    },
+    mapCtrlGroup__traffic: {
+        width: 40,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    mapCtrlGroup__locate: {
+        width: 40,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
-    
 })
