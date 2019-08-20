@@ -1,5 +1,6 @@
 import config from "../misc/config";
-//import { calculateDistance } from "../misc/utils";
+import { calculateDistance } from "../misc/utils";
+
 import axios from "axios";
 
 export function fetchLocations(lat, long, keyword) {
@@ -15,8 +16,6 @@ export function fetchLocations(lat, long, keyword) {
         null
       )
       .then(response => {
-        console.log("https://maps.googleapis.com/maps/api/place/autocomplete/json?location="+lat+","+long+"&input="+keyword+"&radius=5000&types=establishment&key="+
-          config.GOOGLE_PLACE_API_KEY)
         const formatting = cb => {
           response.data.predictions.map((item, index) => {
             var store = {};
@@ -32,14 +31,12 @@ export function fetchLocations(lat, long, keyword) {
                 null
               )
               .then(response => {
-                console.log(response.data)
                 if (response.data) {
                   store.latitude = response.data.result.geometry.location.lat;
                   store.longitude = response.data.result.geometry.location.lng;
                   stores.push(store);
                 }
               });
-             console.log(store) 
           });
           cb(stores);
         };

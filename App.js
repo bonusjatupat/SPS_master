@@ -1,34 +1,142 @@
-import React from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-
-import HomeScreen from './screens/HomeScreen';
-import AuthenticationScreen from './screens/AuthenticationScreen/index';
-import FloorScreen from './screens/FloorScreen/index';
-import MainMapsScreen from './screens/MainMapsScreen/index';
-
+import React from "react";
+import { AppLoading, Asset, Font } from "expo";
+import { Platform, StatusBar, YellowBox, SafeAreaView } from "react-native";
+import { createStackNavigator, createDrawerNavigator, createAppContainer } from "react-navigation";
 import { Provider } from "react-redux";
+
+import AuthenticationLandingScreen from "./screens/Authentication";
+import AuthenticationSignUpScreen from "./screens/AuthenticationSignUp";
+import AuthenticationSignUpFinalScreen from "./screens/AuthenticationSignUpFinal";
+import ForgotPasswordScreen from "./screens/ForgotPassword";
+import ChangePasswordScreen from "./screens/ChangePassword";
+import MainMapsScreen from "./screens/MainMaps";
+import EditProfileScreen from "./screens/EditProfile";
+import NewParkingScreen from "./screens/NewParking";
+import ParkingDetail from "./screens/ParkingDetail";
+import PrivCard from "./screens/PrivCard";
+
+import Sidebar from "./components/Sidebar";
+
+import styles from "./styles";
 import store from "./store";
 
-const AppNavigator = createStackNavigator({
-  HomeScreen: { screen: HomeScreen },
-  AuthenticationScreen: { screen: AuthenticationScreen },
-  FloorScreen: { screen: FloorScreen},
-  MainMapsScreen: {screen: MainMapsScreen}
-});
+console.disableYellowBox = ["Remote debugger"];
+YellowBox.ignoreWarnings([
+  "Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?"
+]);
 
-const NavigationAppContainer = createAppContainer(AppNavigator);
+const cacheImages = images => {
+  return images.map(image => {
+    if (typeof image === "string") {
+      return Image.prefetch(image);
+    } else {
+      return Asset.fromModule(image).downloadAsync();
+    }
+  });
+};
+const cacheFonts = fonts => {
+  return fonts.map(font => Font.loadAsync(font));
+};
+
+const generalConfig = {
+  cardStyle: {
+    paddingTop: Platform.OS == "ios" ? 0 : StatusBar.currentHeight,
+    backgroundColor: "#FFFFFF"
+  }
+};
+const MainAppStack = createStackNavigator(
+  {
+    MainMaps: { screen: MainMapsScreen, path: "/maps" },
+    ParkingDetail: { screen: ParkingDetail, path: "/parking-detail" },
+    NewParking: { screen: NewParkingScreen, path: "new-parking" }
+  },
+  generalConfig
+);
+
+const PrivCardAppStack = createStackNavigator(
+  {
+    PrivCard: { screen: PrivCard, path: "/priv-card/index" }
+  },
+  generalConfig
+);
+
+const UserProfileAppStack = createStackNavigator(
+  {
+    EditProfile: { screen: EditProfileScreen, path: "/user/profile" },
+    ChangePassword: { screen: ChangePasswordScreen, path: "/user/profile/change-password" }
+  },
+  generalConfig
+);
+
+const DrawerAppStack = createDrawerNavigator(
+  {
+    Home: { screen: MainAppStack, path: "" },
+    UserProfile: { screen: UserProfileAppStack, path: "/user" },
+    PrivCard: { screen: PrivCardAppStack, path: "/priv-card" }
+  },
+  {
+    drawerOpenRoute: "DrawerOpen",
+    drawerCloseRoute: "DrawerClose",
+    drawerToggleRoute: "DrawerToggle",
+    drawerWidth: 300,
+    navigationOptions: {
+      drawerLockMode: "locked-closed"
+    },
+    contentComponent: Sidebar
+  }
+);
+const NavigationAppContainer = createAppContainer(DrawerAppStack);
 
 class App extends React.Component {
+  state = {
+    isReady: false
+  };
+
+  async _loadAssetsAsync() {
+    const imageAssets = cacheImages([
+      require("./assets/logo/logo.png"),
+      require("./assets/logo_header/logo_header.png"),
+      require("./assets/logo_typo/logo_typo.png"),
+      require("./assets/parking_list_item_pin/parking_list_item_pin.png"),
+      require("./assets/box_arrow_down/box_arrow_down.png"),
+      require("./assets/searchbox_pin/searchbox_pin.png"),
+      require("./assets/traffic_light/traffic_light.png"),
+      require("./assets/traffic_light_off/traffic_light_off.png"),
+      require("./assets/parking_pin/parking_pin.png"),
+      require("./assets/gripper/gripper.png"),
+      require("./assets/star_activate/star_activate.png"),
+      require("./assets/star_deactivate/star_deactivate.png"),
+      require("./assets/faci_car_wash/faci_car_wash.png"),
+      require("./assets/faci_coffee/faci_coffee.png"),
+      require("./assets/faci_covered_parking/faci_covered_parking.png"),
+      require("./assets/faci_guard/faci_guard.png"),
+      require("./assets/faci_restaurant/faci_restaurant.png"),
+      require("./assets/faci_wifi/faci_wifi.png"),
+      require("./assets/preview_parking.png"),
+      require("./assets/visa_logo/visa_logo.png")
+    ]);
+
+    const fontAssets = cacheFonts([]);
+    await Promise.all([...imageAssets, ...fontAssets]);
+  }
 
   render() {
+    if (!this.state.isReady) {
+      return (
+        <AppLoading
+          startAsync={this._loadAssetsAsync}
+          onFinish={() => this.setState({ isReady: true })}
+          orError={console.warn}
+        />
+      );
+    }
+
     return (
       <Provider store={store}>
         <NavigationAppContainer />
       </Provider>
     );
   }
-
 }
 
 export default App;
-
