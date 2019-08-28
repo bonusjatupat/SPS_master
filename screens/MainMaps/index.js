@@ -652,15 +652,7 @@ class MainMapsScreen extends Component {
               <View style={styles.listItem.parkingItem__thumb_details_bottom}>
                 <Text style={styles.listItem.parkingItem__thumb_details_title}>{item.name}</Text>
                 <Text style={styles.listItem.parkingItem__thumb_details_price}>
-                  {item.price != null && item.price.paid.rate
-                    ? "฿" +
-                      item.price.paid.rate +
-                      (
-                        <Text style={styles.listItem.parkingItem__thumb_details_price_sub}>
-                          /hour
-                        </Text>
-                      )
-                    : "FREE"}
+                  {item.price != null && item.price.paid.rate ? "฿" + item.price.paid.rate + "/" + item.price.paid.per: "FREE"}
                 </Text>
               </View>
             </View>

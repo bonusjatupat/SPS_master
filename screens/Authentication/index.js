@@ -89,7 +89,38 @@ class AuthenticationScreen extends Component {
         }
     }
 
-    requestSignIn() {
+    requestSignIn(){
+        var data = {
+            email: this.state.emailTxt.trim().toLowerCase(),
+            password: this.state.passwordTxt
+        }
+        axios.get(`${_CONFIG.API_ENDPOINT_URL}/user/${data.email}/${data.password}/signInLocal`, null, null)
+            .then((response) => {
+                //console.log("response before if : "+ response.data.user.local.email);
+                if (response.status == 200) {
+                    console.log(response.data);
+                    if (response.data.user) {
+                        console.log(response.data.user);
+                        this.props.dispatch({ type: 'FETCH_USER_ACCOUNT_FULFILLED', payload: response.data });
+                        this.props.dispatch({ type: 'CLOSE_AUTHEN_MODAL' });
+                        console.log("User account = "+this.props.userAccount.data.user);
+                    } else {
+                        if (response.data.error) {
+                            this.setState({ errorVisible: true, errorMessage: response.data.error.message });
+                        } else {
+                            this.setState({ errorVisible: true, errorMessage: 'Error while signing in.' });
+                        }
+                    }
+                } else {
+                    this.setState({ errorVisible: true, errorMessage: response.data.error });
+                }
+            })
+            .catch((error) => {
+                this.setState({ errorVisible: true, errorMessage: response.data.error });
+            });
+    }
+
+/*   requestSignIn() {
         var data = {
             email: this.state.emailTxt.trim(),
             password: this.state.passwordTxt
@@ -115,7 +146,7 @@ class AuthenticationScreen extends Component {
             .catch((error) => {
                 this.setState({ errorVisible: true, errorMessage: response.data.error });
             });
-    }
+    }*/
 
     focusNextField(id) {
         this.inputs[id].focus();

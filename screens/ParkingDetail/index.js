@@ -543,8 +543,8 @@ class ParkingDetail extends Component {
                 )} */}
         {this._renderHeaderAndroid()}
         <ScrollView>{this._renderScrollViewContent()}</ScrollView>
-        <ModalSubmitButton onPress={this.openNavigator}>
-          <Text style={styles.button.modalSubmit__text}>NAVIGATE TO HERE</Text>
+        <ModalSubmitButton /*onPress={this.openNavigator}*/>
+          <Text style={styles.button.modalSubmit__text}>RESERVE</Text>
         </ModalSubmitButton>
       </SafeAreaView>
     );
