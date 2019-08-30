@@ -1,9 +1,9 @@
 {
   "packagerPort": 19001,
-  "packagerPid": 18148,
+  "packagerPid": 4592,
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://n2-zhc.anonymous.sps-master.exp.direct",
   "packagerNgrokUrl": "https://packager.n2-zhc.anonymous.sps-master.exp.direct",
-  "ngrokPid": 2828,
+  "ngrokPid": 992,
   "devToolsPort": 19002
 }

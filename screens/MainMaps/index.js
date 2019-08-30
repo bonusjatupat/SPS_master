@@ -203,11 +203,12 @@ class MainMapsScreen extends Component {
       var index = parkingData.findIndex(x => {
         return x._id == slotData.parkingID;
       });
-      parkingData[index].slotCounter = {
+      /*parkingData[index].slotCounter = {
         availableSlot: slotData.availableSlot,
         totalSlot: slotData.totalSlot
-      };
-      parkingData[index].available = (slotData.availableSlot / slotData.totalSlot) * 100;
+      };*/
+      parkingData[index].available = ((slotData.numberSlot.total - slotData.numberSlot.used) / slotData.numberSlot.total) * 100;
+      console.log("parkingData = "+parkingData);
       this.props.dispatch({ type: "FETCH_PARKING_FULFILLED", payload: parkingData });
     });
   }

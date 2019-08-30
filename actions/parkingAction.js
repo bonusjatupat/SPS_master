@@ -15,7 +15,8 @@ export function fetchNearBy(curLocation, dstLocation) {
                         parkingSpotRegion = item;
                         parkingSpotRegion.id = index;
                         parkingSpotRegion.opened = true;
-                        parkingSpotRegion.star = 5;
+                        parkingSpotRegion.star = 3;
+                        parkingSpotRegion.available = ((item.numberSlot.total - item.numberSlot.used) / item.numberSlot.total) * 100;
                         /*if (item.slotCounter.totalSlot > 0) {
                             parkingSpotRegion.available = item.slotCounter.availableSlot / item.slotCounter.totalSlot * 100;
                         } else {
