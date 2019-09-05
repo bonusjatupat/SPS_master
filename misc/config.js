@@ -1,17 +1,17 @@
 const ENDPOINT_SERVER = {
   PROTOCOL: "http",
-  HOST: "172.20.10.4",
+  HOST: "10.17.246.141",
   SUBDIR: "",
   PORT: 3030
 };
 const SOCKET_SERVER = {
   PROTOCOL: "http",
-  HOST: "172.20.10.4",
+  HOST: "10.17.246.141",
   PORT: 3031
 };
 const IMAGE_SERVER = {
   PROTOCOL: "http",
-  HOST: "172.20.10.4",
+  HOST: "10.17.246.141",
   SUBDIR: "",
   PORT: 3030
 };

@@ -14,6 +14,8 @@ import EditProfileScreen from "./screens/EditProfile";
 import NewParkingScreen from "./screens/NewParking";
 import ParkingDetail from "./screens/ParkingDetail";
 import PrivCard from "./screens/PrivCard";
+import FloorDetail from "./screens/FloorDetail";
+import ReservationDetail from "./screens/ReservationDetail";
 
 import Sidebar from "./components/Sidebar";
 
@@ -48,7 +50,9 @@ const MainAppStack = createStackNavigator(
   {
     MainMaps: { screen: MainMapsScreen, path: "/maps" },
     ParkingDetail: { screen: ParkingDetail, path: "/parking-detail" },
-    NewParking: { screen: NewParkingScreen, path: "new-parking" }
+    NewParking: { screen: NewParkingScreen, path: "new-parking" },
+    FloorDetail:{ screen:FloorDetail, path:"/floor-detail"},
+    ReservationDetail:{screen: ReservationDetail, path:'/reservation-detail'}
   },
   generalConfig
 );
