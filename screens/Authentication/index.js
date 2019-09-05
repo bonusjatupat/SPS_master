@@ -98,12 +98,9 @@ class AuthenticationScreen extends Component {
             .then((response) => {
                 //console.log("response before if : "+ response.data.user.local.email);
                 if (response.status == 200) {
-                    console.log(response.data);
                     if (response.data.user) {
-                        console.log(response.data.user);
-                        this.props.dispatch({ type: 'FETCH_USER_ACCOUNT_FULFILLED', payload: response.data });
+                        this.props.dispatch({ type: 'FETCH_USER_ACCOUNT_FULFILLED', payload: response.data.user });
                         this.props.dispatch({ type: 'CLOSE_AUTHEN_MODAL' });
-                        console.log("User account = "+this.props.userAccount.data.user);
                     } else {
                         if (response.data.error) {
                             this.setState({ errorVisible: true, errorMessage: response.data.error.message });
@@ -301,7 +298,7 @@ class AuthenticationScreen extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-        userAccount: state.userAccount,
+        userAccount: state.userAccoun1t,
         authenModal: state.authenModal
 	}
 }

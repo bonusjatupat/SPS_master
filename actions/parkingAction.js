@@ -15,8 +15,13 @@ export function fetchNearBy(curLocation, dstLocation) {
                         parkingSpotRegion = item;
                         parkingSpotRegion.id = index;
                         parkingSpotRegion.opened = true;
-                        parkingSpotRegion.star = 5;
-                        /*if (item.slotCounter.totalSlot > 0) {
+                        parkingSpotRegion.star = 3;
+                        if(item.numberSlot.total > 0){
+                            parkingSpotRegion.available = ((item.numberSlot.total - item.numberSlot.used) / item.numberSlot.total) * 100;
+                        }else{
+                            parkingSpotRegion.available = 0;
+                        }
+                            /*if (item.slotCounter.totalSlot > 0) {
                             parkingSpotRegion.available = item.slotCounter.availableSlot / item.slotCounter.totalSlot * 100;
                         } else {
                             parkingSpotRegion.available = 0;
