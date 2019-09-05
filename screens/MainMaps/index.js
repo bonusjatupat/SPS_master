@@ -29,6 +29,7 @@ import { connect } from "react-redux";
 import { Header, createStackNavigator, createAppContainer } from "react-navigation";
 import Carousel from "react-native-snap-carousel";
 import * as Animatable from "react-native-animatable";
+import {Timer} from "../../components/Timer";
 
 import {
   joinRealTimeParking,
@@ -192,7 +193,9 @@ class MainMapsScreen extends Component {
       safeAreaHeight: 0,
       mapShowTraffic: true,
       isCurrentRegion: false,
-      locationData: []
+      locationData: [],
+
+      timerActive:false
     };
   }
 
@@ -965,6 +968,11 @@ class MainMapsScreen extends Component {
     this.props.dispatch({ type: "CLOSE_AUTHEN_MODAL" });
   }
 
+  showTimer(){
+    if(this.state.timerActive=='true'){
+      //return
+    }
+  }
   render() {
     const { navigate } = this.props.navigation;
 

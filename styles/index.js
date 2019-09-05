@@ -7,6 +7,9 @@ import listItem from './_listItem';
 import popup from './_popup';
 import sidebar from './_sidebar';
 import alert from './_alert';
+import container from './_container';
+import image from './_image';
+import text from './_text';
 
 export default { 
     global, 
@@ -17,5 +20,8 @@ export default {
     listItem,
     popup,
     sidebar,
-    alert
+    alert,
+    container,
+    image,
+    text
 };

@@ -117,3 +117,160 @@ export class ModalLogoutButton extends Component {
         );
     }
 }
+
+export class ModalSubmitButton1 extends Component {
+    render(){
+        return (
+            <Button containerStyle={[styles.button.modalSubmit, this.props.style]} onPress={this.props.onPress}>
+                <LinearGradient
+                    colors={['#339900', '#6FD53B']}
+                    start={[0, 0.5]}
+                    end={[1, 0.5]}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        width: '100%',
+                        height: '100%',
+                    }}/>
+                <View style={styles.button.modalSubmit__placeholder}>
+                    {this.props.children}
+                </View>
+            </Button>
+        )
+    }
+}
+
+export class ModalSubmitButton2 extends Component {
+    render(){
+        return (
+            <Button containerStyle={[styles.button.modalSubmit, this.props.style]} onPress={this.props.onPress}>
+                <LinearGradient
+                    colors={['#4c4c4c', '#727272']}
+                    start={[0, 0.5]}
+                    end={[1, 0.5]}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        width: '100%',
+                        height: '100%',
+                    }}/>
+                <View style={styles.button.modalSubmit__placeholder}>
+                    {this.props.children}
+                </View>
+            </Button>
+        )
+    }
+}
+
+export class FloorButton extends Component {
+    render() {
+        return (
+            <Button containerStyle={[styles.button.floorButton, this.props.style]} onPress={this.props.onPress}>              
+                <View style={styles.button.modalSubmit__placeholder}>
+                    {this.props.children}
+                </View>
+            </Button>
+        )
+    }
+}
+
+export class ReserveButton extends Component {
+    render(){
+        return (
+            <Button containerStyle={[styles.button.modalSubmit, this.props.style]} onPress={this.props.onPress}>
+                <LinearGradient
+                colors={["#04d406", '#6FD53B',"#04d406"]}
+                   start={[0, 0.5]}
+                    end={[1, 0.5]}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        width: '100%',
+                        height: '100%',
+                    }}/>
+                <View style={styles.button.reserveSubmit}>
+                    {this.props.children}
+                </View>
+            </Button>
+        )
+    }
+}
+export class CancelButton extends Component {
+    render(){
+        return (
+            <Button containerStyle={[styles.button.modalSubmit, this.props.style]} onPress={this.props.onPress}>
+                <LinearGradient
+                    colors={['#d90303','#ff0000','#d90303']}
+                    start={[0, 0.5]}
+                    end={[1, 0.5]}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        width: '100%',
+                        height: '100%',
+                    }}/>
+                <View style={styles.button.cancelSubmit}>
+                    {this.props.children}
+                </View>
+            </Button>
+        )
+    }
+}
+
+export class CancelPopup extends Component {
+    render(){
+        return (
+            <Button containerStyle={[styles.button.modalPopup, this.props.style]} onPress={this.props.onPress}>
+                <LinearGradient
+                    colors={['#d90303','#ff0000','#d90303']}
+                    start={[0, 0.5]}
+                    end={[1, 0.5]}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        width: '100%',
+                        height: '100%',
+                        borderRadius:10
+                    }}/>
+                <View style={styles.button.cancelPopup}>
+                    {this.props.children}
+                </View>
+            </Button>
+        )
+    }
+}
+
+export class ConfirmPopup extends Component {
+    render(){
+        return (
+            <Button containerStyle={[styles.button.modalPopup, this.props.style]} onPress={this.props.onPress}>
+                <LinearGradient
+                colors={["#04d406", '#6FD53B',"#04d406"]}
+                   start={[0, 0.5]}
+                    end={[1, 0.5]}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        width: '100%',
+                        height: '100%',
+                        borderRadius:10
+                    }}/>
+                <View style={styles.button.confirmPopup}>
+                    {this.props.children}
+                </View>
+            </Button>
+        )
+    }
+}
