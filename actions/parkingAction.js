@@ -16,14 +16,19 @@ export function fetchNearBy(curLocation, dstLocation) {
                         parkingSpotRegion.id = index;
                         parkingSpotRegion.opened = true;
                         parkingSpotRegion.star = 3;
-                        parkingSpotRegion.available = ((item.numberSlot.total - item.numberSlot.used) / item.numberSlot.total) * 100;
-                        /*if (item.slotCounter.totalSlot > 0) {
+                        if(item.numberSlot.total > 0){
+                            parkingSpotRegion.available = ((item.numberSlot.total - item.numberSlot.used) / item.numberSlot.total) * 100;
+                        }else{
+                            parkingSpotRegion.available = 0;
+                        }
+                            /*if (item.slotCounter.totalSlot > 0) {
                             parkingSpotRegion.available = item.slotCounter.availableSlot / item.slotCounter.totalSlot * 100;
                         } else {
                             parkingSpotRegion.available = 0;
                         }*/
                         parkingSpotRegion.distance = calculateDistance(item.address.location.coordinates[1], item.address.location.coordinates[0], dstLocation.lat, dstLocation.long).toFixed(2);
                         parkingSpotRegions.push(parkingSpotRegion);
+                        console.log("parking = "+parkingSpotRegion);
                         resolve();
                     });
                 });

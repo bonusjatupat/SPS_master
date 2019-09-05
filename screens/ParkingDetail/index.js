@@ -142,6 +142,7 @@ class ParkingDetail extends Component {
     const { navigate } = this.props.navigation;
     const data = Array.from({ length: 20 });
 
+    console.log("in parkingDetail = "+this.props.userAccount.personalInfo.name);
     var availableColor = "#417505";
     if (this.state.parkingData.available > 0 && this.state.parkingData.available < 30) {
       availableColor = "#D0021B";
@@ -553,7 +554,8 @@ class ParkingDetail extends Component {
 
 const mapStateToProps = state => {
   return {
-    parking: state.parking
+    parking: state.parking,
+    userAccount: state.userAccount
   };
 };
 
