@@ -28,7 +28,6 @@ export function fetchNearBy(curLocation, dstLocation) {
                         }*/
                         parkingSpotRegion.distance = calculateDistance(item.address.location.coordinates[1], item.address.location.coordinates[0], dstLocation.lat, dstLocation.long).toFixed(2);
                         parkingSpotRegions.push(parkingSpotRegion);
-                        console.log("parking = "+parkingSpotRegion);
                         resolve();
                     });
                 });

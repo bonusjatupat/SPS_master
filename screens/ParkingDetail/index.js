@@ -142,15 +142,14 @@ class ParkingDetail extends Component {
     const { navigate } = this.props.navigation;
     const data = Array.from({ length: 20 });
 
-    console.log("in parkingDetail = "+this.props.userAccount.personalInfo.name);
     var availableColor = "#417505";
-    if (this.state.parkingData.available > 0 && this.state.parkingData.available < 30) {
+    /*if (this.state.parkingData.available > 0 && this.state.parkingData.available < 30) {
       availableColor = "#D0021B";
     } else if (this.state.parkingData.available > 30 && this.state.parkingData.available < 70) {
       availableColor = "#F5A623";
     } else if (this.state.parkingData.available > 70) {
       availableColor = "#7ED321";
-    }
+    }*/
 
     return (
       <View style={{ padding: 20 }}>
@@ -363,6 +362,7 @@ class ParkingDetail extends Component {
             </View>
           </View>
           <Animated.View style={{ flex: 0, opacity: headerTextOpacity }}>
+            <Ionicons name="md-pin" size={12} color="#FFFFFF" />
             <Text
               numberOfLines={2}
               style={{
@@ -375,8 +375,7 @@ class ParkingDetail extends Component {
                 textShadowRadius: 4
               }}
             >
-              <Ionicons name="md-pin" size={12} color="#FFFFFF" /> Rama I Road, Pathum Wan, Bangkok,
-              Thailand
+              Thailand {this.state.parkingData.address.description}
             </Text>
           </Animated.View>
         </View>
