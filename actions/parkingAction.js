@@ -37,7 +37,7 @@ export function fetchNearBy(curLocation, dstLocation) {
                             parkingSpotRegions.sort(function(a, b) {
                                 return parseFloat(a.distance) - parseFloat(b.distance);
                             });
-
+                           
                             // JOIN INTO Real-Time Socket
                             let parkingIDs = parkingSpotRegions.map((x) => { return x._id });
                             joinRealTimeParking(parkingIDs, (err, ids) => {

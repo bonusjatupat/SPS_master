@@ -1,35 +1,65 @@
 import React, {Component } from 'react';
-import { Text, View, Image, ScrollView , TouchableOpacity} from 'react-native';
-import { ModalSubmitButton1, ModalSubmitButton2, FloorButton} from "../../components/Button";
+import { Text, View, Image, ScrollView , TouchableOpacity, SafeAreaView, StatusBar} from 'react-native';
+import { NavBackButton_Pure, ModalSubmitButton1, ModalSubmitButton2, FloorButton} from "../../components/Button";
+import { RatingMini } from "../../components/General";
+import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient} from "expo";
 import styles  from '../../styles';
+
+import { connect } from "react-redux";
 
 class FloorDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Floor"
+    title: "Floor",
+    headerStyle: styles.navbar.white,
+    headerTitleStyle: styles.navbar.white__title,
+    headerLeft: <NavBackButton_Pure title="BACK" onPress={() => navigation.goBack()} />
   });
 
   constructor(props) {
     super(props);
     this.state = {
-        floorsWFacilities:[{floor:1,facilities:"Accessorize , Marks & Spensors "},
+        floors: [],
+        /*floorsWFacilities:[{floor:1,facilities:"Accessorize , Marks & Spensors "},
                            {floor:2,facilities:"H&M , Adidas , Nike , Pink Wissy"},
                            {floor:3,facilities:"Topshop , Miss Selfridge"},
                            {floor:4,facilities:"Shabu Shabu , Playground , Burger King , Dessert World"},
                            {floor:5,facilities:"Topshop , Miss Selfridge"},
-                           {floor:6,facilities:"Shabu Shabu , Playground , Burger King , Dessert World"}],//database the floors and their facilities
+                           {floor:6,facilities:"Shabu Shabu , Playground , Burger King , Dessert World"}],//database the floors and their facilities*/
         floorChosen: false,
-        location:'999/9 Rama I Road, Pathum Wan, Bangkok, Thailand',// database get address of location
-        score:'4.5',// database get score of the location
+        location: this.props.currentParking.data.address.description, // database get address of location
+        score: this.props.currentParking.data.star, // database get score of the location
         color:'',
         active:0,
         activeCount:0,
         buttonCount:0, 
       };
-      this.countFloorChosen=this.countFloorChosen.bind(this);
+
+      this.countFloorChosen = this.countFloorChosen.bind(this);
+      this.setFloors = this.setFloors.bind(this);
+
+      this.setFloors();
   }
 
   componentDidMount(){
-    this.setState({data:this.loadButton(this.state.floorsWFacilities)})
+    /*if(this.state.floors.length > 0){
+      this.setState({data:this.loadButton(this.state.floors)});
+    }*/
+  }
+
+  setFloors(){
+    var tempFloors = this.state.floors;
+    this.props.currentParking.data.floor.map((item, index) => {
+        var tempFloor = {}
+        tempFloor = item;     
+        tempFloors.push(tempFloor);
+    });
+
+    this.setState({ floors: tempFloors });
+
+    if(this.state.floors.length > 0){
+      this.setState({data:this.loadButton(this.state.floors)});
+    }
   }
 
   countFloorChosen = () => {
@@ -62,39 +92,62 @@ class FloorDetail extends Component {
     for (let i =0;i<temp.length;i++){
       if(this.state.activeCount==0){
         result.push(
-          <View key={i} style={{flex: 1,minHeight:70,maxHeight:70,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity  style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'gray'}} onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}>
+          <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity  
+              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#AAAAAA'}} 
+              onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}>
             <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
-                <FloorButton style={{backgroundColor:'orange'}} onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}} ><Text>{temp[i].floor}</Text></FloorButton>
+                <FloorButton 
+                  style={{backgroundColor:'#F6CF3F'}} 
+                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                >
+                  <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
+                </FloorButton>
               </View>
               <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
-                <Text>{temp[i].facilities}</Text>
+                <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
               </View>
             </TouchableOpacity>
-          </View>)
+          </View>
+        )
       }
       else{
         if(i==this.state.active){
           result.push(
-          <View key={i} style={{flex: 1,minHeight:70,maxHeight:70,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity  style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'gray'}} onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}>
+          <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity  
+              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#AAAAAA'}} 
+              onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}>
               <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
-                <FloorButton style={{backgroundColor:'red'}} onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}><Text>{temp[i].floor}</Text></FloorButton>
+                <FloorButton 
+                  style={{backgroundColor:'red'}} 
+                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                >
+                    <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
+                </FloorButton>
               </View>
               <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
-                <Text>{temp[i].facilities}</Text>
+                <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
               </View>
             </TouchableOpacity>
           </View>)
         }else{
           result.push(
-          <View key={i} style={{flex: 1,minHeight:70,maxHeight:70,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity  style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'gray'}} onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}>
+          <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity  
+              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#AAAAAA'}} 
+              onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+            >
               <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
-                <FloorButton style={{backgroundColor:'orange'}} onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}><Text>{temp[i].floor}</Text></FloorButton>
+                <FloorButton 
+                  style={{backgroundColor:'#F6CF3F'}} 
+                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                >
+                  <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
+                </FloorButton>
               </View>
               <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
-                <Text>{temp[i].facilities}</Text>
+                <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
               </View>
             </TouchableOpacity>
           </View>)
@@ -104,53 +157,160 @@ class FloorDetail extends Component {
     return result;
   }
 
+  _renderHeaderAndroid() {
+    return (
+      <View
+        style={[{
+            overflow: "hidden",
+            height: 180
+          }]}
+      >
+        <View
+          style={{
+            flex: 0,
+            flexDirection: "column",
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            padding: 20,
+            zIndex: 99
+          }}
+        >
+          <View style={{ flex: 1, width: "100%" }}>
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center"
+                }}
+              >
+                <Text
+                  numberOfLines={2}
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "#FFFFFF",
+                    fontWeight: "800",
+                    fontSize: 20,
+                    textShadowOffset: { width: 0, height: 2 },
+                    textShadowColor: "rgba(0, 0, 0, 0.1)",
+                    textShadowRadius: 4
+                  }}
+                >
+                  {this.props.currentParking.data.name}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 0,
+                  justifyContent: "center",
+                  marginLeft: 10,
+                  alignItems: "flex-end"
+                }}
+              >
+                <RatingMini
+                  star={this.props.currentParking.data.star}
+                  compStyle={{
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowColor: "#000000",
+                    shadowOpacity: 0.1
+                  }}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={{ flex: 0 }}>
+            <Text
+              numberOfLines={2}
+              style={{
+                backgroundColor: "transparent",
+                color: "#FFFFFF",
+                fontSize: 12,
+                fontWeight: "bold",
+                textShadowOffset: { width: 0, height: 2 },
+                textShadowColor: "rgba(0, 0, 0, 0.1)",
+                textShadowRadius: 4
+              }}
+            >
+              <Ionicons name="md-pin" size={12} color="#FFFFFF" /> {this.props.currentParking.data.address.description}
+            </Text>
+          </View>
+        </View>
+        <LinearGradient
+          colors={["#3023AE", "#53A0FD", "#B4EC51"]}
+          start={[0, 0]}
+          end={[1, 1]}
+          style={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 98,
+            opacity: 0.7
+          }}
+        />
+        <Image
+          style={{
+            position: "absolute",
+            top: 0,
+            zIndex: 96,
+            width: "100%",
+            height: "100%"
+          }}
+          source={
+            { uri: "https://www.aeroportolisboa.pt/sites/default/files/media/06_parking_total_autonomia.jpg" } 
+          }
+          resizeMode="cover"
+        />
+      </View>
+    );
+  }
+
   render() {
     floorChosen='red',
-    floorAuto='orange',
+    floorAuto='#F6CF3F',
     chosenOne=''
     if(this.state.floorChosen==true){
       chosenOne=floorChosen
     }else{
       chosenOne=floorAuto
     }
+
     return (
-      <View style={{flex:1}}>  
-              
-      <View style={{ flex: 11}}>
-
-        <View style={{ flex: 4}}>
-          <Image style={{width: '100%', height: '100%', opacity: 0.8}} source={{uri: 'https://img.wongnai.com/p/1920x0/2016/07/04/4ac5e0892b514026adf2d4615fbfd087.jpg'}}/>
-          <View style={{marginTop:'35%',paddingLeft:10,marginLeft:'5%', width:300,maxHeight:65, position:'absolute', fontSize:19,color:'#ffff',backgroundColor:'#ff9a00',opacity:0.85,borderRadius:5}}> 
-            <Image style={{marginTop:14,width:30, height:30}}source={require('../../assets/a/locationIcon2.png')}/>
-            <Text style={{marginTop:10, marginLeft:40, width:350, position:'absolute', fontSize:19,color:'#ffff'}}>{this.state.location}</Text>
-          </View>
-          <View style={{flexDirection:"row",marginTop:20,paddingLeft:10,marginLeft:'80%', maxWidth:70,minHeight:40, position:'absolute', fontSize:10,color:'#ffff',backgroundColor:'#ff9a00',opacity:0.85,borderRadius:5}}>
-            <Image style={{flex:1,width:20, height:20,marginTop:10}}source={require('../../assets/a/star.png')}/>                                  
-            <Text style={{flex:2,marginLeft:5,fontSize:19,color:'#ffff',marginTop:10}}>{this.state.score}</Text>
-          </View>
-       </View>
-
-       <View style={{ flex: 7}}>
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          </View>
-          <View style={{flex: 4}}>
-          <ScrollView>
+      <SafeAreaView
+        forceInset={{ top: "always", bottom: "never" }}
+        style={styles.global.whiteScreen}
+      >
+        <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "light-content"} />
+        {this._renderHeaderAndroid()}
+        <ScrollView>
+          <View style={{justifyContent: 'center', alignItems: 'center', paddingVertical: 20}}>
+            <Text
+                  style={{
+                    color: "#000000",
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    backgroundColor: "transparent",
+                    textAlign: "center"
+                  }}
+                >
+                  Please select a floor
+                </Text>
+            </View>
             <View>
-              {this.loadButton(this.state.floorsWFacilities)}
+              {this.loadButton(this.state.floors)}
             </View>
           </ScrollView>
-          </View>            
-        </View>
-
-      </View>
-
-      <View style={{ flex: 0}}>
-        {this.loadReserveButton()}
-      </View>
-
-    </View>
+          {this.loadReserveButton()}
+      </SafeAreaView>
     )
   }
 }
 
-export default FloorDetail;
+const mapStateToProps = state => {
+  return {
+    userAccount: state.userAccount,
+    currentParking: state.currentParking
+  };
+};
+
+export default connect(mapStateToProps)(FloorDetail);
