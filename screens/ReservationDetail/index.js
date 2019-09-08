@@ -1,33 +1,44 @@
 import React, { Component } from 'react';                                                                 
-import {AppRegistry,StyleSheet,Text,View,Image,ScrollView, Button, TouchableOpacity} from 'react-native';
+import {AppRegistry,StyleSheet,Text,View,Image,ScrollView, Button, TouchableOpacity, SafeAreaView, StatusBar} from 'react-native';
 import { CancelButton, ReserveButton,CancelPopup, ConfirmPopup} from "../../components/Button";
 import Dialog, { SlideAnimation,ScaleAnimation, DialogContent, DialogFooter, DialogButton} from 'react-native-popup-dialog';
+import { NavBackButton_Pure} from "../../components/Button";
 import styles  from '../../styles';
+
+import { connect } from "react-redux";
+import { fetchReserveInfo } from "../../actions/reservationAction";
 
  class ReservationDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Reservation"
+    title: "Reservation",
+    headerStyle: styles.navbar.white,
+    headerTitleStyle: styles.navbar.white__title,
+    headerLeft: <NavBackButton_Pure title="BACK" onPress={() => navigation.goBack()} />
   });
+
   constructor(props) {
     super(props);
     this.state = {
-      bookingID: "55551234",//a random id not same as the previous in database
-      userName: "Jeremy PARK",
+      userName: this.props.userAccount.data.personalInfo.name,
+
       content: "Parkernel x Secure Parking System",
-      parkingLot:"Central World Shopping Mall",
-      price: "50฿",//database
-      floor:"2",//------pass floor num
-      spaceNo:"30N",//database get random space
-      bookingTime:'',
-      arrivalTime:'',
-      location:'999/9 Rama I Road, Pathum Wan, Bangkok, Thailand',//--------pass address
+      parkingLot: this.props.currentParking.data.name,
+      price: this.props.currentParking.data.price.paid.rate + "฿",//database
+      location: this.props.currentParking.data.address.description,//--------pass address
+
+      bookingID: this.props.reservation.data._id,//a random id not same as the previous in database
+      floor: this.props.reservation.data.floor,//------pass floor num
+      spaceNo: this.props.reservation.data.slotNumber,//database get random space
+      bookingTime: this.props.reservation.data.reservationInfo.time,
+      arrivalTime: this.props.reservation.data.arrivalTime,
+
       visible:false,
       isCanceled:false
     };
-    
   }
+
   componentDidMount() {
-    var that = this;
+    /*var that = this;
     var hours = new Date().getHours(); //Current Hours
     var min = new Date().getMinutes(); //Current Minutes
     if(min==0 || min<10){
@@ -45,12 +56,17 @@ import styles  from '../../styles';
         arrivalTime:
           (hours+1) + ':'+min
       });
-    }
+    }*/
   }
 
   render() {
     return (
-    <View style={styles.container.containerthis}>
+    <SafeAreaView
+      forceInset={{ top: "always", bottom: "never" }}
+      style={styles.global.whiteScreen}
+    >
+      <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "light-content"} />
+    
      <ScrollView>  
        <View> 
 
@@ -192,11 +208,18 @@ import styles  from '../../styles';
 
         </Dialog>
 
-
-    </View>
-   
+    </SafeAreaView>
     );
   }
 }
 AppRegistry.registerComponent('TextInANest', () => TextInANest);
-export default ReservationDetail;
+
+const mapStateToProps = state => {
+  return {
+    userAccount: state.userAccount,
+    currentParking: state.currentParking,
+    reservation: state.reservation
+  };
+};
+
+export default connect(mapStateToProps)(ReservationDetail);

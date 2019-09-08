@@ -183,7 +183,7 @@ export class ReserveButton extends Component {
         return (
             <Button containerStyle={[styles.button.modalSubmit, this.props.style]} onPress={this.props.onPress}>
                 <LinearGradient
-                colors={["#04d406", '#6FD53B',"#04d406"]}
+                colors={['#339900', '#6FD53B', '#339900']}
                    start={[0, 0.5]}
                     end={[1, 0.5]}
                     style={{

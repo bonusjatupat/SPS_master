@@ -1,5 +1,5 @@
 import React, {Component } from 'react';
-import { Text, View, Image, ScrollView , TouchableOpacity, SafeAreaView, StatusBar} from 'react-native';
+import { Text, View, Image, ScrollView , TouchableOpacity, SafeAreaView, StatusBar, ActivityIndicator} from 'react-native';
 import { NavBackButton_Pure, ModalSubmitButton1, ModalSubmitButton2, FloorButton} from "../../components/Button";
 import { RatingMini } from "../../components/General";
 import { Ionicons } from "@expo/vector-icons";
@@ -7,6 +7,7 @@ import { LinearGradient} from "expo";
 import styles  from '../../styles';
 
 import { connect } from "react-redux";
+import { fetchReserveInfo } from "../../actions/reservationAction";
 
 class FloorDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -37,6 +38,7 @@ class FloorDetail extends Component {
 
       this.countFloorChosen = this.countFloorChosen.bind(this);
       this.setFloors = this.setFloors.bind(this);
+      this.fetchReserveInfo = this.fetchReserveInfo.bind(this);
 
       this.setFloors();
   }
@@ -68,6 +70,14 @@ class FloorDetail extends Component {
     })
   }
 
+  fetchReserveInfo(){
+    this.props.dispatch(fetchReserveInfo(this.props.userAccount.data._id, this.props.currentParking.data._id, 1));
+    
+    setTimeout(() => {
+      this.props.navigation.navigate('ReservationDetail');
+    }, 3000)
+  }
+
   loadReserveButton(){
     let result=[];
     if(this.state.buttonCount==0){
@@ -79,7 +89,7 @@ class FloorDetail extends Component {
     }
     else if(this.state.buttonCount==1){
       result.push(
-        <ModalSubmitButton1 onPress={()=>this.props.navigation.navigate('ReservationDetail')}> 
+        <ModalSubmitButton1 onPress={()=>this.fetchReserveInfo()}> 
           <Text  style={styles.button.modalSubmit__text}>RESERVE</Text>
         </ModalSubmitButton1>
       )
@@ -94,7 +104,7 @@ class FloorDetail extends Component {
         result.push(
           <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity  
-              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#AAAAAA'}} 
+              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
               onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}>
             <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
                 <FloorButton 
@@ -116,7 +126,7 @@ class FloorDetail extends Component {
           result.push(
           <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity  
-              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#AAAAAA'}} 
+              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
               onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}>
               <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
                 <FloorButton 
@@ -135,7 +145,7 @@ class FloorDetail extends Component {
           result.push(
           <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity  
-              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#AAAAAA'}} 
+              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
               onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
             >
               <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
@@ -309,7 +319,8 @@ class FloorDetail extends Component {
 const mapStateToProps = state => {
   return {
     userAccount: state.userAccount,
-    currentParking: state.currentParking
+    currentParking: state.currentParking,
+    reservation: state.reservation
   };
 };
 

@@ -124,7 +124,7 @@ class ParkingDetail extends Component {
                     if (response.data.parking) {
                         var parking = {};
                         parking = response.data.parking;
-                        parking.opedned = this.state.parkingData.opedned;
+                        parking.opened = this.state.parkingData.opened;
                         parking.star = this.state.parkingData.star;
                         this.props.dispatch({ type: 'FETCH_CURRENTPARKING_FULFILLED', payload: parking });
                     } else {
