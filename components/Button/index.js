@@ -145,7 +145,7 @@ export class ModalSubmitButton1 extends Component {
 export class ModalSubmitButton2 extends Component {
     render(){
         return (
-            <Button containerStyle={[styles.button.modalSubmit, this.props.style]} onPress={this.props.onPress}>
+            <TouchableOpacity disabled={true} containerStyle={[styles.button.modalSubmit, this.props.style]} onPress={this.props.onPress}>
                 <LinearGradient
                     colors={['#4c4c4c', '#727272']}
                     start={[0, 0.5]}
@@ -161,7 +161,7 @@ export class ModalSubmitButton2 extends Component {
                 <View style={styles.button.modalSubmit__placeholder}>
                     {this.props.children}
                 </View>
-            </Button>
+            </TouchableOpacity>
         )
     }
 }

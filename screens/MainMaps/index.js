@@ -107,6 +107,7 @@ class MainMapsScreen extends Component {
         this._getLocationAsync();
       }, 3000);
     }
+    
   }
 
   constructor(props) {
@@ -115,6 +116,7 @@ class MainMapsScreen extends Component {
     this.initState = this.initState.bind(this);
     this.initSocket = this.initSocket.bind(this);
 
+    this.showTimer= this.showTimer.bind(this);
     this._renderSearchBox = this._renderSearchBox.bind(this);
     this._renderLocationResult = this._renderLocationResult.bind(this);
     this._renderParkingItem = this._renderParkingItem.bind(this);
@@ -152,6 +154,7 @@ class MainMapsScreen extends Component {
 
   initState() {
     this.state = {
+      reserved:true,
       authenModalVisible: false,
       isFirstTimeFetchGPS: false,
       regionDelta: {
@@ -946,6 +949,9 @@ class MainMapsScreen extends Component {
       </Animatable.View>
     );
   }
+  _showTimer(){
+    return <Timer></Timer>
+  }
 
   onPressOpenParkingFilter() {
     this.setState({ isOpenParkingFilter: true });
@@ -970,9 +976,10 @@ class MainMapsScreen extends Component {
   }
 
   showTimer(){
-    if(this.state.timerActive=='true'){
-      //return
+    if(this.state.reserved==true){
+      return <Timer/>
     }
+    else return null
   }
   render() {
     const { navigate } = this.props.navigation;
@@ -984,7 +991,8 @@ class MainMapsScreen extends Component {
         ) : (
           <StatusBar barStyle="light-content" backgroundColor="transparent" />
         )}
-
+        <Timer/>
+        {this.showTimer()}
         {this._renderHeader()}
         {this._renderMapControls()}
         {this.state.searchFocus ? this._renderLocationResult() : null}
