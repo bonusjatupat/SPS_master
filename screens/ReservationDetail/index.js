@@ -6,7 +6,7 @@ import { NavBackButton_Pure} from "../../components/Button";
 import styles  from '../../styles';
 
 import { connect } from "react-redux";
-import { fetchReserveInfo } from "../../actions/reservationAction";
+import { insertReservation } from "../../actions/reservationAction";
 
  class ReservationDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -35,6 +35,9 @@ import { fetchReserveInfo } from "../../actions/reservationAction";
       visible:false,
       isCanceled:false
     };
+
+    this.confirmReservation = this.confirmReservation.bind(this);
+    this.cancelReservation = this.cancelReservation.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +60,20 @@ import { fetchReserveInfo } from "../../actions/reservationAction";
           (hours+1) + ':'+min
       });
     }*/
+  }
+
+  confirmReservation(){
+    insertReservation(this.props.reservation.data);
+
+    this.setState({ visible: false });
+    this.props.navigation.navigate('MainMaps');
+  }
+
+  cancelReservation(){
+    this.props.dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: {} });
+
+    this.setState({ isCanceled: false }); 
+    this.props.navigation.navigate('ParkingDetail');
   }
 
   render() {
@@ -155,7 +172,7 @@ import { fetchReserveInfo } from "../../actions/reservationAction";
 
                           <View style={styles.container.buttomSubButtons2}>
                             <ConfirmPopup style={{borderRadius:10}}> 
-                              <Text onPress={()=>{{this.setState({visible:false})};{this.props.navigation.navigate('MainMaps')}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
+                              <Text onPress={()=>{{this.confirmReservation()}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
                             </ConfirmPopup>
                           </View>
 
@@ -189,7 +206,7 @@ import { fetchReserveInfo } from "../../actions/reservationAction";
 
                           <View style={{ width:'60%'}}>
                             <ConfirmPopup style={{borderRadius:10}}> 
-                              <Text onPress={()=>{{this.setState({isCanceled:false})};{this.props.navigation.navigate('ParkingDetail')}}} style={styles.button.modalSubmit__text}>OK</Text>
+                              <Text onPress={()=>{{this.cancelReservation()}}} style={styles.button.modalSubmit__text}>OK</Text>
                             </ConfirmPopup>
                           </View>
 

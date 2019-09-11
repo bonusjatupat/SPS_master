@@ -17,3 +17,15 @@ export function fetchReserveInfo(userId, parkingId, floor){
             });
     }
 }
+
+export function insertReservation(data){
+    axios.post(`${config.API_ENDPOINT_URL}/reservation/`, data, null)
+        .then((response) => {
+            console.log("reservation success " + response);
+        })
+        .catch((error) => {
+            console.log("reservation failed" + error);
+        })
+
+    //update slot available through hardware
+}
