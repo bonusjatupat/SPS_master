@@ -24,6 +24,9 @@ import { NavBackButton_Pure, ModalSubmitButton, ModalExitButton } from "../../co
 import { Rating, RatingMini } from "../../components/General";
 import { ItemFacilities } from "../../components/ListItem";
 
+import axios from 'axios';
+import _CONFIG from '../../misc/config';
+
 const HEADER_MAX_HEIGHT = 195,
   HEADER_MIN_HEIGHT = 90,
   HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
@@ -48,7 +51,9 @@ class ParkingDetail extends Component {
       parkingData: this.props.parking.data.filter(x => {
         return x._id == this.props.navigation.state.params;
       })[0],
-      parkingPreview: []
+      parkingPreview: [],
+      errorVisible: false,
+      errorMessage: ""
     };
 
     this.openPreviewModal = this.openPreviewModal.bind(this);
@@ -106,6 +111,38 @@ class ParkingDetail extends Component {
           }
         ]
       });
+    }
+
+    this.setCurrentParking();
+  }
+
+  setCurrentParking(){
+    if(this.state.parkingData){
+      axios.get(`${_CONFIG.API_ENDPOINT_URL}/parking/${this.state.parkingData._id}`, null, null)
+            .then((response) => {
+                if (response.status == 200) {
+                    if (response.data.parking) {
+                        var parking = {};
+                        parking = response.data.parking;
+                        parking.opened = this.state.parkingData.opened;
+                        parking.star = this.state.parkingData.star;
+                        this.props.dispatch({ type: 'FETCH_CURRENTPARKING_FULFILLED', payload: parking });
+                    } else {
+                        if (response.data.error) {
+                            this.setState({ errorVisible: true, errorMessage: response.data.error.message });
+                        } else {
+                            this.setState({ errorVisible: true, errorMessage: 'Error while fething parking.' });
+                        }
+                    }
+                } else {
+                    this.setState({ errorVisible: true, errorMessage: response.data.error });
+                }
+            })
+            .catch((error) => {
+                this.setState({ errorVisible: true, errorMessage: response.data.error });
+            });
+    }else{
+      console.log("Not fetching the current parking.")
     }
   }
 
@@ -362,7 +399,6 @@ class ParkingDetail extends Component {
             </View>
           </View>
           <Animated.View style={{ flex: 0, opacity: headerTextOpacity }}>
-            <Ionicons name="md-pin" size={12} color="#FFFFFF" />
             <Text
               numberOfLines={2}
               style={{
@@ -375,7 +411,7 @@ class ParkingDetail extends Component {
                 textShadowRadius: 4
               }}
             >
-              Thailand {this.state.parkingData.address.description}
+               <Ionicons name="md-pin" size={12} color="#FFFFFF" />{this.state.parkingData.address.description}
             </Text>
           </Animated.View>
         </View>
@@ -484,8 +520,7 @@ class ParkingDetail extends Component {
                 textShadowRadius: 4
               }}
             >
-              <Ionicons name="md-pin" size={12} color="#FFFFFF" /> Rama I Road, Pathum Wan, Bangkok,
-              Thailand
+              <Ionicons name="md-pin" size={12} color="#FFFFFF" /> {this.state.parkingData.address.description}
             </Text>
           </View>
         </View>
@@ -554,7 +589,8 @@ class ParkingDetail extends Component {
 const mapStateToProps = state => {
   return {
     parking: state.parking,
-    userAccount: state.userAccount
+    userAccount: state.userAccount,
+    currentParking: state.currentParking
   };
 };
 

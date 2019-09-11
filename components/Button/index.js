@@ -147,7 +147,7 @@ export class ModalSubmitButton2 extends Component {
         return (
             <Button containerStyle={[styles.button.modalSubmit, this.props.style]} onPress={this.props.onPress}>
                 <LinearGradient
-                    colors={['#4c4c4c', '#727272']}
+                    colors={['#777777', '#AAAAAA']}
                     start={[0, 0.5]}
                     end={[1, 0.5]}
                     style={{
@@ -183,7 +183,7 @@ export class ReserveButton extends Component {
         return (
             <Button containerStyle={[styles.button.modalSubmit, this.props.style]} onPress={this.props.onPress}>
                 <LinearGradient
-                colors={["#04d406", '#6FD53B',"#04d406"]}
+                colors={['#339900', '#6FD53B', '#339900']}
                    start={[0, 0.5]}
                     end={[1, 0.5]}
                     style={{
