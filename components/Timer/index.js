@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Text, View,TouchableOpacity} from 'react-native';
 import CountDown from 'react-native-countdown-component';
 import styles from '../../styles';
+import { connect } from "react-redux";
 
 export class Timer extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -9,7 +10,19 @@ export class Timer extends Component {
     });
     constructor(props){
         super(props);
+        this.state = {
+            reservation: this.props.reservation,
+            currentParking: this.props.currentParking
+        }
     };
+
+    componentWillRecieveProps(nextProps,nextState){
+        this.setState({
+            reservation: nextProps["reservation"],
+            currentParking: nextProps["currentParking"]
+        });
+    }
+
     render(){
         return (
         <View style={styles.container.containerTimer}>
@@ -46,11 +59,11 @@ export class Timer extends Component {
                 <View style={styles.container.timerInfoBooking}>
                     <View style={styles.container.timerInfoBookingSub1}>
                         <Text style={styles.text.infoTimerHeader}>Floor</Text>
-                        <Text style={styles.text.infoTimer}>2</Text>
+                        <Text style={styles.text.infoTimer}>{this.state.reservation.floor}</Text>
                     </View>
                     <View style={styles.container.timerInfoBookingSub2}>
                         <Text style={styles.text.infoTimerHeader}>Slot</Text>
-                        <Text style={styles.text.infoTimer}>30N</Text>
+                        <Text style={styles.text.infoTimer}>{this.state.reservation.slotNumber}</Text>
                     </View>
                 </View>
             </View>
@@ -62,7 +75,7 @@ export class Timer extends Component {
                 <View style={styles.container.blankColTimer}/>
 
                 <View style={styles.container.timerInfoBooking}>
-                    <Text style={styles.text.timerPlace}>Central World</Text>
+                    <Text style={styles.text.timerPlace}>{this.state.currentParking.name}</Text>
                 </View>
             </View>
         </View>

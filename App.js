@@ -119,7 +119,12 @@ class App extends React.Component {
       require("./assets/faci_restaurant/faci_restaurant.png"),
       require("./assets/faci_wifi/faci_wifi.png"),
       require("./assets/preview_parking.png"),
-      require("./assets/visa_logo/visa_logo.png")
+      require("./assets/visa_logo/visa_logo.png"),
+      require("./assets/a/car.png"),
+      require("./assets/a/dot-and-circle.png"),
+      require("./assets/a/locationIcon.png"),
+      require("./assets/a/dot.png"),
+      require("./assets/a/arrow.png")
     ]);
 
     const fontAssets = cacheFonts([]);

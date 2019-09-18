@@ -270,7 +270,7 @@ class AuthenticationScreen extends Component {
                                     <DefaultButton onPress={this.onPressLocalLogin}>
                                         <Text style={styles.button.defaultButton__text}>Sign In</Text>
                                     </DefaultButton>
-                                    <Seperator style={{ marginVertical: 20 }} text="OR" />
+                                    {/*<Seperator style={{ marginVertical: 20 }} text="OR" />
                                     <DefaultButton style={{ backgroundColor: '#3B5998', marginBottom: 15 }} onPress={this.onPressFacebookLogin}>
                                         <Ionicons style={{ position: 'absolute', left: 25 }} name="logo-facebook" size={20} color="#FFFFFF" />
                                         <Text style={styles.button.defaultButton__text}>Connect with Facebook</Text>
@@ -278,7 +278,7 @@ class AuthenticationScreen extends Component {
                                     <DefaultButton style={{ backgroundColor: '#D34836' }} onPress={this.onPressGoogleLogin}>
                                         <Ionicons style={{ position: 'absolute', left: 25 }} name="logo-google" size={20} color="#FFFFFF" />
                                         <Text style={styles.button.defaultButton__text}>Connect with Google</Text>
-                                    </DefaultButton>
+                                    </DefaultButton>*/}
                                 </ScrollView>
                                 <View style={{ width: '100%', height: 50, flex: 0, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderTopColor: '#E4E4E4', borderTopWidth: 1 }}>
                                     <Text style={{ color: '#9B9B9B' }}>Don't have an account? </Text>

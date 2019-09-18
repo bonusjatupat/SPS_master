@@ -23,13 +23,14 @@ import {
 } from "react-native";
 import { BoxShadow } from "react-native-shadow";
 import Button from "react-native-button";
-import getDirections from "react-native-google-maps-directions";
 import Drawer from "react-native-drawer";
 import { connect } from "react-redux";
 import { Header, createStackNavigator, createAppContainer } from "react-navigation";
 import Carousel from "react-native-snap-carousel";
 import * as Animatable from "react-native-animatable";
 import {Timer} from "../../components/Timer";
+import MapViewDirections from "react-native-maps-directions";
+import MapView from "react-native-maps";
 
 import {
   joinRealTimeParking,
@@ -49,7 +50,7 @@ import { fetchNearBy } from "../../actions/parkingAction";
 import { fetchCurrentUser } from "../../actions/userAccountAction";
 
 import * as axios from "axios";
-import { MapView, BlurView, Constants, Location, Permissions, LinearGradient } from "expo";
+import { BlurView, Constants, Location, Permissions, LinearGradient } from "expo";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import AuthenticationScreen from "../Authentication";
@@ -116,7 +117,7 @@ class MainMapsScreen extends Component {
     this.initState = this.initState.bind(this);
     this.initSocket = this.initSocket.bind(this);
 
-    this.showTimer= this.showTimer.bind(this);
+    this._renderTimer= this._renderTimer.bind(this);
     this._renderSearchBox = this._renderSearchBox.bind(this);
     this._renderLocationResult = this._renderLocationResult.bind(this);
     this._renderParkingItem = this._renderParkingItem.bind(this);
@@ -577,6 +578,7 @@ class MainMapsScreen extends Component {
     );
   }
 
+  
   _renderHeader() {
     return (
       <View
@@ -782,7 +784,7 @@ class MainMapsScreen extends Component {
         ref={c => {
           this._map = c;
         }}
-        style={{ width: "100%", height: "100%", top: 0, position: "absolute" }}
+        style={{ width: "100%", height: "100%", top: 0, position: "absolute",zIndex:0 }}
         initialRegion={this.state.initialRegion}
         region={this.state.mapRegion}
         onRegionChangeComplete={this.onRegionChangeComplete}
@@ -804,7 +806,7 @@ class MainMapsScreen extends Component {
           />
         ) : null}
 
-        {this.props.parking.data
+        {Object.keys(this.props.reservation.data).length == 0 && this.props.parking.data
           ? this.props.parking.data.map((marker, key) => (
               <Marker
                 key={key}
@@ -817,6 +819,28 @@ class MainMapsScreen extends Component {
               />
             ))
           : null}
+
+        {Object.keys(this.props.reservation.data).length > 0 && Object.keys(this.props.currentParking.data).length > 0 
+          ? /*<Marker
+              coordinate={{ 
+                latitude: this.props.currentParking.data.address.location.coordinates[1],
+                longitude: this.props.currentParking.data.address.location.coordinates[0]
+              }}
+              image={require("../../assets/searchbox_pin/searchbox_pin.png")}
+            />*/
+            <MapViewDirections
+              origin={{
+                latitude: this.state.currentRegion.latitude,
+                longitude: this.state.currentRegion.longitude
+              }}
+              destination={{ 
+                latitude: parseInt(this.props.currentParking.data.address.location.coordinates[1]),
+                longitude: parseInt(this.props.currentParking.data.address.location.coordinates[0])
+              }}
+              apikey={config.GOOGLE_PLACE_API_KEY}
+              strokeWidth={3}
+              strokeColor="blue"
+            /> : null}
       </MapView>
     );
   }
@@ -949,8 +973,10 @@ class MainMapsScreen extends Component {
       </Animatable.View>
     );
   }
-  _showTimer(){
-    return <Timer></Timer>
+
+  _renderTimer(){
+    //console.log(Object.keys(this.props.userAccount.data).length)
+    return ( <Timer reservation={this.props.reservation.data} currentParking={this.props.currentParking.data}/> )
   }
 
   onPressOpenParkingFilter() {
@@ -975,12 +1001,6 @@ class MainMapsScreen extends Component {
     this.props.dispatch({ type: "CLOSE_AUTHEN_MODAL" });
   }
 
-  showTimer(){
-    if(this.state.reserved==true){
-      return <Timer/>
-    }
-    else return null
-  }
   render() {
     const { navigate } = this.props.navigation;
 
@@ -991,14 +1011,13 @@ class MainMapsScreen extends Component {
         ) : (
           <StatusBar barStyle="light-content" backgroundColor="transparent" />
         )}
-        <Timer/>
-        {this.showTimer()}
         {this._renderHeader()}
         {this._renderMapControls()}
-        {this.state.searchFocus ? this._renderLocationResult() : null}
+        {Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null}
         {this._renderMap()}
-        {this.props.parking.data.length > 0 ? this._renderParkingCarousel() : null}
-
+        {this.state.searchFocus ? this._renderLocationResult() : null}
+        {Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null}
+        {Object.keys(this.props.reservation.data).length == 0 && this.props.parking.data.length > 0 ? this._renderParkingCarousel() : null}
         {this._renderOverlay(this.onPressCloseParkingFilter)}
         {this._renderParkingFilter()}
 
@@ -1019,7 +1038,9 @@ const mapStateToProps = state => {
     parking: state.parking,
     location: state.location,
     userAccount: state.userAccount,
-    authenModal: state.authenModal
+    authenModal: state.authenModal,
+    reservation: state.reservation,
+    currentParking: state.currentParking
   };
 };
 

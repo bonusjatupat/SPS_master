@@ -12,6 +12,7 @@ export function fetchReserveInfo(userId, parkingId, floor){
             })
             .catch((error) => {
                 dispatch({ type: 'FETCH_RESERVATION_REJECTED', payload: error});
+                console.log(`${config.API_ENDPOINT_URL}/reservationProcess/${userId}/${parkingId}/${floor}/reserveInformation`)
                 console.log("reservationAction fetching error");
                 console.log(error);
             });

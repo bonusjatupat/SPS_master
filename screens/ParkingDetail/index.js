@@ -20,7 +20,7 @@ import { joinRealTimeParking, subscribeRealTimeParking } from "../../misc/socket
 import config from "../../misc/config";
 
 import styles from "../../styles";
-import { NavBackButton_Pure, ModalSubmitButton, ModalExitButton } from "../../components/Button";
+import { NavBackButton_Pure, ModalSubmitButton, ModalExitButton, ModalSubmitButton2 } from "../../components/Button";
 import { Rating, RatingMini } from "../../components/General";
 import { ItemFacilities } from "../../components/ListItem";
 
