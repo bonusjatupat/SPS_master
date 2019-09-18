@@ -5,7 +5,6 @@ import { RatingMini } from "../../components/General";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient} from "expo";
 import styles  from '../../styles';
-
 import { connect } from "react-redux";
 import { fetchReserveInfo } from "../../actions/reservationAction";
 
@@ -21,12 +20,6 @@ class FloorDetail extends Component {
     super(props);
     this.state = {
         floors: [],
-        /*floorsWFacilities:[{floor:1,facilities:"Accessorize , Marks & Spensors "},
-                           {floor:2,facilities:"H&M , Adidas , Nike , Pink Wissy"},
-                           {floor:3,facilities:"Topshop , Miss Selfridge"},
-                           {floor:4,facilities:"Shabu Shabu , Playground , Burger King , Dessert World"},
-                           {floor:5,facilities:"Topshop , Miss Selfridge"},
-                           {floor:6,facilities:"Shabu Shabu , Playground , Burger King , Dessert World"}],//database the floors and their facilities*/
         floorChosen: false,
         floorChosenNumber: 0,
         location: this.props.currentParking.data.address.description, // database get address of location
@@ -96,6 +89,18 @@ class FloorDetail extends Component {
       )
     }
     return result;
+  }
+
+  loadFacilities(temp){
+    var facilityArray=[];
+    for(let i=0;i<temp.length;i++){
+      var facility;
+      facility=temp[i]+', ';
+      facilityArray.push(facility);
+    }
+    this.setState({ facilities: facilityArray });
+
+    return this.state.facilities;
   }
 
   loadButton(temp){

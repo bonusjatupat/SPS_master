@@ -152,13 +152,17 @@ import { insertReservation } from "../../actions/reservationAction";
         <View style={{flexDirection:'row'}}>
         <TouchableOpacity style={styles.container.buttomSubButtons}>
           <ReserveButton style={{width:'100%'}}> 
-            <Text onPress={() => {this.setState({ visible: true });}} style={styles.button.modalSubmit__text}>RESERVE</Text>
+            <Text onPress={()=>{{this.confirmReservation()}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
+            {//onPress={()=>{this.setState({visible:true})}}
+            }
           </ReserveButton>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.container.buttomSubButtons}>
           <CancelButton style={{ width:'100%'}}> 
-            <Text onPress={()=>{this.setState({isCanceled:true})}} style={styles.button.modalSubmit__text}>CANCEL</Text>
+            <Text onPress={()=>{{this.cancelReservation()}}} style={styles.button.modalSubmit__text}>CANCEL</Text>
+            {//onPress={()=>{this.setState({isCanceled:true})}}
+            }
           </CancelButton>
         </TouchableOpacity>
         </View>
