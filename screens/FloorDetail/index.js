@@ -1,5 +1,5 @@
 import React, {Component } from 'react';
-import { Text, View, Image, ScrollView , TouchableOpacity, SafeAreaView, StatusBar, ActivityIndicator} from 'react-native';
+import { Text, View, Image, ScrollView , TouchableOpacity, SafeAreaView, StatusBar, ActivityIndicator,Platform} from 'react-native';
 import { NavBackButton_Pure, ModalSubmitButton1, ModalSubmitButton2, FloorButton} from "../../components/Button";
 import { RatingMini } from "../../components/General";
 import { Ionicons } from "@expo/vector-icons";
@@ -109,21 +109,43 @@ class FloorDetail extends Component {
       if(this.state.activeCount==0){
         result.push(
           <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity  
-              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
-              onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}>
-            <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
-                <FloorButton 
-                  style={{backgroundColor:'#F6CF3F'}} 
-                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}
-                >
-                  <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
-                </FloorButton>
-              </View>
-              <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
-                <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
-              </View>
-            </TouchableOpacity>
+            {temp[i].slotAvailable==0 ? 
+
+                <TouchableOpacity  disabled={true}
+                  style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
+                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}>
+                <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
+                    <FloorButton 
+                      style={{backgroundColor:'#777777'}} 
+                      onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}
+                    >
+                      <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
+                    </FloorButton>
+                  </View>
+                  <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
+                    <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
+                  </View>
+                </TouchableOpacity>
+
+                :
+
+               <TouchableOpacity  
+                  style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
+                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}>
+                <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
+                    <FloorButton 
+                      style={{backgroundColor:'#F6CF3F'}} 
+                      onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}
+                    >
+                      <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
+                    </FloorButton>
+                  </View>
+                  <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
+                    <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
+                  </View>
+                </TouchableOpacity>
+              
+            }
           </View>
         )
       }
@@ -148,25 +170,48 @@ class FloorDetail extends Component {
             </TouchableOpacity>
           </View>)
         }else{
-          result.push(
-          <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity  
-              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
-              onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
-            >
-              <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
-                <FloorButton 
-                  style={{backgroundColor:'#F6CF3F'}} 
+          if(temp[i].slotAvailable==0){
+            result.push(
+              <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                <TouchableOpacity  disabled={true}
+                  style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
                   onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
                 >
-                  <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
-                </FloorButton>
-              </View>
-              <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
-                <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
-              </View>
-            </TouchableOpacity>
-          </View>)
+                  <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
+                    <FloorButton 
+                      style={{backgroundColor:'777777'}} 
+                      onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                    >
+                      <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
+                    </FloorButton>
+                  </View>
+                  <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
+                    <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>)
+          }
+          else{
+            result.push(
+              <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                <TouchableOpacity  
+                  style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
+                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                >
+                  <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
+                    <FloorButton 
+                      style={{backgroundColor:'#F6CF3F'}} 
+                      onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                    >
+                      <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
+                    </FloorButton>
+                  </View>
+                  <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
+                    <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>)
+          }
       }
     }
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';                                                                 
-import {AppRegistry,StyleSheet,Text,View,Image,ScrollView, Button, TouchableOpacity, SafeAreaView, StatusBar} from 'react-native';
+import {AppRegistry,StyleSheet,Text,View,Image,ScrollView, Button, TouchableOpacity, SafeAreaView, StatusBar,Platform} from 'react-native';
 import { CancelButton, ReserveButton,CancelPopup, ConfirmPopup} from "../../components/Button";
 import Dialog, { SlideAnimation,ScaleAnimation, DialogContent, DialogFooter, DialogButton} from 'react-native-popup-dialog';
 import { NavBackButton_Pure} from "../../components/Button";
@@ -73,7 +73,7 @@ import { insertReservation } from "../../actions/reservationAction";
     this.props.dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: {} });
 
     this.setState({ isCanceled: false }); 
-    this.props.navigation.navigate('ParkingDetail');
+    this.props.navigation.navigate('FloorDetail');
   }
 
   render() {

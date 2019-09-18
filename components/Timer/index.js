@@ -68,7 +68,7 @@ export class Timer extends Component {
                 </View>
             </View>
             <View style={styles.container.timerSubCont2}>
-                <TouchableOpacity style={styles.container.timerInfoButton}>
+                <TouchableOpacity style={styles.container.timerInfoButton} onPress={()=>{{this.props.navigation.navigate('ReservationDetail')}}}>
                     <Text style={styles.text.timerInfoButton}>MORE INFORMATION</Text>
                 </TouchableOpacity>
 
