@@ -28,12 +28,13 @@ class FloorDetail extends Component {
                            {floor:5,facilities:"Topshop , Miss Selfridge"},
                            {floor:6,facilities:"Shabu Shabu , Playground , Burger King , Dessert World"}],//database the floors and their facilities*/
         floorChosen: false,
+        floorChosenNumber: 0,
         location: this.props.currentParking.data.address.description, // database get address of location
         score: this.props.currentParking.data.star, // database get score of the location
-        color:'',
-        active:0,
-        activeCount:0,
-        buttonCount:0, 
+        color: '',
+        active: 0,
+        activeCount: 0,
+        buttonCount: 0, 
       };
 
       this.countFloorChosen = this.countFloorChosen.bind(this);
@@ -71,7 +72,7 @@ class FloorDetail extends Component {
   }
 
   fetchReserveInfo(){
-    this.props.dispatch(fetchReserveInfo(this.props.userAccount.data._id, this.props.currentParking.data._id, 1));
+    this.props.dispatch(fetchReserveInfo(this.props.userAccount.data._id, this.props.currentParking.data._id, this.state.floorChosenNumber));
     
     setTimeout(() => {
       this.props.navigation.navigate('ReservationDetail');
@@ -105,11 +106,11 @@ class FloorDetail extends Component {
           <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity  
               style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
-              onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}>
+              onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}>
             <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
                 <FloorButton 
                   style={{backgroundColor:'#F6CF3F'}} 
-                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}
                 >
                   <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
                 </FloorButton>

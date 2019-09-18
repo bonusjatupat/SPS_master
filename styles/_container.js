@@ -155,7 +155,7 @@ export default StyleSheet.create({
       width:'65%',
       backgroundColor:'white',
       borderWidth:1,
-      borderColor:'orange',
+      borderColor:'#F6CF3E',
       borderRadius:3,
       flexDirection:'column',
       alignItems:'center'
@@ -196,7 +196,7 @@ export default StyleSheet.create({
       width:'32%',
       backgroundColor:'white',
       borderWidth:1,
-      borderColor:'orange',
+      borderColor:'#F6CF3E',
       borderRadius:3,
       flexDirection:'column',
       justifyContent:'center'
@@ -223,9 +223,9 @@ export default StyleSheet.create({
       height:'95%',
       width:'65%',
       borderWidth:1,
-      borderColor:'orange',
+      borderColor:'#F6CF3E',
       borderRadius:5,
-      backgroundColor:'orange'
+      backgroundColor:'#F6CF3E'
     },
 
 })
