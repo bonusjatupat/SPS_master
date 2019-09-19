@@ -89,5 +89,13 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         borderBottomWidth: 0
+    },
+    yellow: {
+        backgroundColor: '#F6CF3E'
+    },
+    yellow__title: {
+        fontSize: 18,
+        fontWeight: '900',
+        color: '#FFFFFF'
     }
 });
