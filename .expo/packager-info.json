@@ -1,10 +1,10 @@
 {
-  "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 15016,
-  "expoServerNgrokUrl": "https://gc-xsr.rainbowalker.sps-master.exp.direct",
-  "packagerNgrokUrl": "https://packager.gc-xsr.rainbowalker.sps-master.exp.direct",
-  "ngrokPid": 14384,
+  "packagerPid": 15052,
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://v7-xjm.anonymous.sps-master.exp.direct",
+  "packagerNgrokUrl": "https://packager.v7-xjm.anonymous.sps-master.exp.direct",
+  "ngrokPid": 8372,
   "devToolsPort": 19002,
   "webpackServerPort": null
 }

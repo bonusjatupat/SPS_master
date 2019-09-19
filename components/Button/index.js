@@ -42,6 +42,16 @@ export class NavEditButton extends Component {
     }
 }
 
+export class NavEditProfile extends Component {
+    render() {
+        return (
+            <Button containerStyle={[styles.navbar.black__button_right, this.props.style]} onPress={this.props.onPress}>
+                <Image source={require('../../assets/a/dot.png'), size=35} />
+            </Button>
+        );
+    }
+}
+
 export class NavBurgerButton extends Component {
     render() {
         return (

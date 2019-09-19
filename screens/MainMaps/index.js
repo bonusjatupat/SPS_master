@@ -388,7 +388,7 @@ class MainMapsScreen extends Component {
     if (Object.keys(this.props.userAccount.data).length == 0) {
       this.onPressOpenAuthenModal();
     } else {
-      this.props.navigation.navigate("DrawerOpen");
+      this.props.navigation.navigate('UserProfile');
     }
   }
 
@@ -529,7 +529,8 @@ class MainMapsScreen extends Component {
               />
             ) : this.props.userAccount.data.personalInfo.photo ? (
               <Image
-                source={{ uri: this.props.userAccount.data.personalInfo.photo }}
+                //source={{ uri: this.props.userAccount.data.personalInfo.phot }}
+                source={require("../../assets/person.jpg")}
                 style={styles.global.profileImageButton__image}
                 resizeMode="cover"
               />
