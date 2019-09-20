@@ -53,11 +53,20 @@ class ParkingDetail extends Component {
       })[0],
       parkingPreview: [],
       errorVisible: false,
-      errorMessage: ""
+      errorMessage: "",
+      loginText: ""
     };
 
     this.openPreviewModal = this.openPreviewModal.bind(this);
     this.openNavigator = this.openNavigator.bind(this);
+    this._loadLoginText = this._loadLoginText.bind(this);
+  }
+
+  _loadLoginText() {
+    {Object.keys(this.props.userAccount.data).length == 0 ?
+      this.setState({ loginText: "Please login before booking a space." }) 
+    : 
+      this.setState({ loginText: "" })}
   }
 
   _getLocationAsync = async () => {
@@ -81,6 +90,8 @@ class ParkingDetail extends Component {
     } else {
       this._getLocationAsync();
     }
+
+    this._loadLoginText();
   }
 
   componentDidMount() {
@@ -203,9 +214,14 @@ class ParkingDetail extends Component {
               >
                 Available
               </Text>
-              <Text style={{ color: availableColor, fontWeight: "bold", fontSize: 24 }}>
-                {Math.floor(this.state.parkingData.available)}%
-              </Text>
+              <View style={{ flex: 0, flexDirection: "row" }}>
+                <Text style={{ color: availableColor, fontWeight: "bold", fontSize: 24 }}>
+                  {(this.state.parkingData.numberSlot.total - this.state.parkingData.numberSlot.used)}
+                </Text>
+                <Text style={{ color: "#AAAAAA", fontWeight: "bold", fontSize: 24}}>
+                  /{this.state.parkingData.numberSlot.total}
+                </Text>
+              </View>
             </View>
           ) : null}
           <View style={{ flex: 1 }}>
@@ -554,6 +570,23 @@ class ParkingDetail extends Component {
     );
   }
 
+  _renderBookButton() {
+    let result=[];
+    {Object.keys(this.props.userAccount.data).length == 0 ? 
+      result.push(
+        <ModalSubmitButton2> 
+          <Text style={styles.button.modalSubmit__text}>BOOK NOW</Text>
+        </ModalSubmitButton2>
+      ) : 
+      result.push(
+        <ModalSubmitButton onPress={()=>this.props.navigation.navigate('FloorDetail')}>
+          <Text style={styles.button.modalSubmit__text}>BOOK NOW</Text>
+        </ModalSubmitButton>
+      )
+    }
+    return result;
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -578,9 +611,8 @@ class ParkingDetail extends Component {
                 )} */}
         {this._renderHeaderAndroid()}
         <ScrollView>{this._renderScrollViewContent()}</ScrollView>
-        <ModalSubmitButton onPress={()=>this.props.navigation.navigate('FloorDetail')}>
-          <Text style={styles.button.modalSubmit__text}>BOOK NOW</Text>
-        </ModalSubmitButton>
+        <Text style={{ color: '#F6CF3F', fontWeight: "normal", textAlign: "center", marginBottom: 5 }}>{this.state.loginText}</Text>
+        {this._renderBookButton()}
       </SafeAreaView>
     );
   }

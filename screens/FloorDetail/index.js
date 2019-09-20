@@ -21,7 +21,7 @@ class FloorDetail extends Component {
     this.state = {
         floors: [],
         floorChosen: false,
-        floorChosenNumber: 0,
+        floorChosenNumber: '',
         location: this.props.currentParking.data.address.description, // database get address of location
         score: this.props.currentParking.data.star, // database get score of the location
         color: '',
@@ -66,7 +66,8 @@ class FloorDetail extends Component {
 
   fetchReserveInfo(){
     this.props.dispatch(fetchReserveInfo(this.props.userAccount.data._id, this.props.currentParking.data._id, this.state.floorChosenNumber));
-    
+
+    console.log(this.state.floorChosenNumber);
     setTimeout(() => {
       this.props.navigation.navigate('ReservationDetail');
     }, 3000)
@@ -116,7 +117,7 @@ class FloorDetail extends Component {
                   onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}>
                 <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
                     <FloorButton 
-                      style={{backgroundColor:'#777777'}} 
+                      style={{backgroundColor:'#AAAAAA'}} 
                       onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}
                     >
                       <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
@@ -155,11 +156,11 @@ class FloorDetail extends Component {
           <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity  
               style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
-              onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}>
+              onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1, floorChosenNumber:temp[i].floorNumber});}}>
               <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
                 <FloorButton 
                   style={{backgroundColor:'red'}} 
-                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1, floorChosenNumber:temp[i].floorNumber});}}
                 >
                     <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
                 </FloorButton>
@@ -175,12 +176,12 @@ class FloorDetail extends Component {
               <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 <TouchableOpacity  disabled={true}
                   style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
-                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1, floorChosenNumber:temp[i].floorNumber});}}
                 >
                   <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
                     <FloorButton 
-                      style={{backgroundColor:'777777'}} 
-                      onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                      style={{backgroundColor:'#AAAAAA'}} 
+                      onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1, floorChosenNumber:temp[i].floorNumber});}}
                     >
                       <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
                     </FloorButton>
@@ -196,12 +197,12 @@ class FloorDetail extends Component {
               <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 <TouchableOpacity  
                   style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
-                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                  onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}
                 >
                   <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
                     <FloorButton 
                       style={{backgroundColor:'#F6CF3F'}} 
-                      onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1});}}
+                      onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}
                     >
                       <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
                     </FloorButton>
