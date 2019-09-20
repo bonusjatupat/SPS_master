@@ -1,4 +1,9 @@
 {
-  "packagerPort": null,
-  "packagerPid": null
+  "packagerPort": 19001,
+  "packagerPid": 1452,
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://gc-xsr.anonymous.sps-master.exp.direct",
+  "packagerNgrokUrl": "https://packager.gc-xsr.anonymous.sps-master.exp.direct",
+  "ngrokPid": 6700
 }
