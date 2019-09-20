@@ -144,7 +144,7 @@ export default StyleSheet.create({
     },
 
     timerCountText:{
-        fontSize:15,
+        fontSize:10,
         fontWeight:'900',
         alignSelf:'center'
     }

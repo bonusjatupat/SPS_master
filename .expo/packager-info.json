@@ -1,4 +1,10 @@
 {
-  "packagerPort": null,
-  "packagerPid": null
+  "packagerPort": 19001,
+  "packagerPid": 13644,
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://s6-b92.rainbowalker.sps-master.exp.direct",
+  "packagerNgrokUrl": "https://packager.s6-b92.rainbowalker.sps-master.exp.direct",
+  "ngrokPid": 5156,
+  "devToolsPort": 19002,
+  "webpackServerPort": null
 }

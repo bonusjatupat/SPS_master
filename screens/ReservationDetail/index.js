@@ -33,12 +33,14 @@ import { insertReservation } from "../../actions/reservationAction";
       arrivalTime: this.props.reservation.data.arrivalTime,
 
       visible:false,
-      isCanceled:false
+      isCanceled:false,
+      timerActive:false,
     };
 
     this.confirmReservation = this.confirmReservation.bind(this);
     this.cancelReservation = this.cancelReservation.bind(this);
     this.checkFloor = this.checkFloor.bind(this);
+    this.renderButtons=this.renderButtons.bind(this);
   }
 
   componentDidMount() {
@@ -61,6 +63,7 @@ import { insertReservation } from "../../actions/reservationAction";
           (hours+1) + ':'+min
       });
     }*/
+    {Object.keys(this.props.reservation.data).length > 0 ? this.setState({timerActive:true}) : this.setState({timerActive:false})}
   }
 
   confirmReservation(){
@@ -105,6 +108,55 @@ import { insertReservation } from "../../actions/reservationAction";
           <Text style={styles.text.floorNumber}>{this.state.floor}</Text>
           <Text style={styles.text.floorNumberSuffix}>th</Text>
         </View>
+      );
+    }
+  }
+
+  renderButtons(){
+    if(this.state.timerActive==true){
+      return (
+        <View style={styles.container.bottomButtons}>
+        <View style={{flexDirection:'row'}}>
+        <TouchableOpacity style={styles.container.buttomSubButtons}>
+          <ReserveButton style={{width:'100%'}}> 
+            <Text onPress={()=>{{this.confirmReservation()}}} style={styles.button.modalSubmit__text}>ARRIVE</Text>
+            {//onPress={()=>{this.setState({visible:true})}}
+            }
+          </ReserveButton>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.container.buttomSubButtons}>
+          <CancelButton style={{ width:'100%'}}> 
+            <Text onPress={()=>{{this.cancelReservation()}}} style={styles.button.modalSubmit__text}>UNBOOKING</Text>
+            {//onPress={()=>{this.setState({isCanceled:true})}}
+            }
+          </CancelButton>
+        </TouchableOpacity>
+        </View>
+      </View>
+      );
+    }
+    else{
+      return(
+        <View style={styles.container.bottomButtons}>
+        <View style={{flexDirection:'row'}}>
+        <TouchableOpacity style={styles.container.buttomSubButtons}>
+          <ReserveButton style={{width:'100%'}}> 
+            <Text onPress={()=>{{this.confirmReservation()}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
+            {//onPress={()=>{this.setState({visible:true})}}
+            }
+          </ReserveButton>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.container.buttomSubButtons}>
+          <CancelButton style={{ width:'100%'}}> 
+            <Text onPress={()=>{{this.cancelReservation()}}} style={styles.button.modalSubmit__text}>CANCEL</Text>
+            {//onPress={()=>{this.setState({isCanceled:true})}}
+            }
+          </CancelButton>
+        </TouchableOpacity>
+        </View>
+      </View>
       );
     }
   }
@@ -181,25 +233,8 @@ import { insertReservation } from "../../actions/reservationAction";
       </View> 
     </ScrollView>
 
-    <View style={styles.container.bottomButtons}>
-        <View style={{flexDirection:'row'}}>
-        <TouchableOpacity style={styles.container.buttomSubButtons}>
-          <ReserveButton style={{width:'100%'}}> 
-            <Text onPress={()=>{{this.confirmReservation()}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
-            {//onPress={()=>{this.setState({visible:true})}}
-            }
-          </ReserveButton>
-        </TouchableOpacity>
+      {this.renderButtons()}
 
-        <TouchableOpacity style={styles.container.buttomSubButtons}>
-          <CancelButton style={{ width:'100%'}}> 
-            <Text onPress={()=>{{this.cancelReservation()}}} style={styles.button.modalSubmit__text}>CANCEL</Text>
-            {//onPress={()=>{this.setState({isCanceled:true})}}
-            }
-          </CancelButton>
-        </TouchableOpacity>
-        </View>
-      </View>
       <Dialog visible={this.state.visible}
               dialogAnimation={new ScaleAnimation()}
               width='70%'

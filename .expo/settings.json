@@ -1,6 +1,6 @@
 {
-  "urlRandomness": "gc-xsr",
-  "hostType": "lan",
+  "urlRandomness": "s6-b92",
+  "hostType": "tunnel",
   "lanType": "ip",
   "dev": true,
   "minify": false

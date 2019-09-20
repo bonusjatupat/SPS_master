@@ -127,9 +127,10 @@ export default StyleSheet.create({
     },
 
     containerTimer:{
-      height:'25%',
-      width:'80%',
-      marginLeft:'-5%',
+      height:'40%',
+      width:'75%',
+      marginTop:'35%',
+      marginLeft:'-10%',
       alignSelf:'center',
       justifyContent:'center',
       flexDirection:'column'
@@ -163,7 +164,7 @@ export default StyleSheet.create({
     },
 
     timeCounterCont:{
-      width:'60%',
+      width:'90%',
       alignItems:'center'
     },
 

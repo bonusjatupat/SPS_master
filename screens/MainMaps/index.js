@@ -417,8 +417,7 @@ class MainMapsScreen extends Component {
   
 
   _renderSearchBox() {
-    return (
-     <View style={{flexDirection:'column'}}> 
+    return ( 
       <View style={[styles.form.searchBox, this.state.searchStyle.box,{zIndex:2}]}>
         <BoxShadow
           setting={{
@@ -456,12 +455,6 @@ class MainMapsScreen extends Component {
           </View>
         </BoxShadow>
       </View>
-      {
-      /*<View style={{zIndex:1, height:'65%',width:'80%'}}>
-        {Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null}
-      </View>*/
-      }
-    </View>
     );
   }
 
