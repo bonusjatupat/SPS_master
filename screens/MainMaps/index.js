@@ -418,7 +418,8 @@ class MainMapsScreen extends Component {
 
   _renderSearchBox() {
     return (
-      <View style={[styles.form.searchBox, this.state.searchStyle.box]}>
+     <View style={{flexDirection:'column'}}> 
+      <View style={[styles.form.searchBox, this.state.searchStyle.box,{zIndex:2}]}>
         <BoxShadow
           setting={{
             width: screen.width - 50,
@@ -455,6 +456,12 @@ class MainMapsScreen extends Component {
           </View>
         </BoxShadow>
       </View>
+      {
+      /*<View style={{zIndex:1, height:'65%',width:'80%'}}>
+        {Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null}
+      </View>*/
+      }
+    </View>
     );
   }
 
@@ -976,7 +983,7 @@ class MainMapsScreen extends Component {
 
   _renderTimer(){
     //console.log(Object.keys(this.props.userAccount.data).length)
-    return ( <Timer reservation={this.props.reservation.data} currentParking={this.props.currentParking.data}/> )
+    return ( <Timer reservation={this.props.reservation.data} currentParking={this.props.currentParking.data} {...this.props}/> )
   }
 
   onPressOpenParkingFilter() {
@@ -1013,10 +1020,12 @@ class MainMapsScreen extends Component {
         )}
         {this._renderHeader()}
         {this._renderMapControls()}
-        {Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null}
+        {//Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null
+        }
         {this._renderMap()}
         {this.state.searchFocus ? this._renderLocationResult() : null}
-        {Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null}
+        {Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null
+        }
         {Object.keys(this.props.reservation.data).length == 0 && this.props.parking.data.length > 0 ? this._renderParkingCarousel() : null}
         {this._renderOverlay(this.onPressCloseParkingFilter)}
         {this._renderParkingFilter()}

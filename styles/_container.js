@@ -128,7 +128,8 @@ export default StyleSheet.create({
 
     containerTimer:{
       height:'25%',
-      width:'90%',
+      width:'80%',
+      marginLeft:'-5%',
       alignSelf:'center',
       justifyContent:'center',
       flexDirection:'column'

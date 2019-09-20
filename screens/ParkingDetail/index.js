@@ -203,9 +203,14 @@ class ParkingDetail extends Component {
               >
                 Available
               </Text>
-              <Text style={{ color: availableColor, fontWeight: "bold", fontSize: 24 }}>
-                {Math.floor(this.state.parkingData.available)}%
-              </Text>
+              <View style={{flexDirection:'row'}}>
+                <Text style={{ color: availableColor, fontWeight: "bold", fontSize: 24 }}>
+                  {this.state.parkingData.numberSlot.used}
+                </Text>
+                <Text style={{ color: availableColor, fontWeight: "bold", fontSize: 24 }}>
+                  /{this.state.parkingData.numberSlot.total}
+                </Text>
+              </View>
             </View>
           ) : null}
           <View style={{ flex: 1 }}>

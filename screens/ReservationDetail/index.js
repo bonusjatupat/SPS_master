@@ -38,6 +38,7 @@ import { insertReservation } from "../../actions/reservationAction";
 
     this.confirmReservation = this.confirmReservation.bind(this);
     this.cancelReservation = this.cancelReservation.bind(this);
+    this.checkFloor = this.checkFloor.bind(this);
   }
 
   componentDidMount() {
@@ -74,6 +75,38 @@ import { insertReservation } from "../../actions/reservationAction";
 
     this.setState({ isCanceled: false }); 
     this.props.navigation.navigate('FloorDetail');
+  }
+
+  checkFloor(temp){
+    if(temp==1){
+      return(
+        <View style={{flexDirection:"row"}}>
+          <Text style={styles.text.floorNumber}>{this.state.floor}</Text>
+          <Text style={styles.text.floorNumberSuffix}>st</Text>
+        </View>
+      );
+    }else if(temp==2){
+      return(
+        <View style={{flexDirection:"row"}}>
+          <Text style={styles.text.floorNumber}>{this.state.floor}</Text>
+          <Text style={styles.text.floorNumberSuffix}>nd</Text>
+        </View>
+      );
+    }else if(temp==3){
+      return(
+        <View style={{flexDirection:"row"}}>
+          <Text style={styles.text.floorNumber}>{this.state.floor}</Text>
+          <Text style={styles.text.floorNumberSuffix}>rd</Text>
+        </View>
+      );
+    }else{
+      return(
+        <View style={{flexDirection:"row"}}>
+          <Text style={styles.text.floorNumber}>{this.state.floor}</Text>
+          <Text style={styles.text.floorNumberSuffix}>th</Text>
+        </View>
+      );
+    }
   }
 
   render() {
@@ -123,7 +156,7 @@ import { insertReservation } from "../../actions/reservationAction";
                   <Text style={styles.text.preLocation}>Your space is located at</Text>
                   <View style={{flexDirection:'row'}}>
                     <View style={styles.container.infoBox2}> 
-                      <Text style={styles.text.floorNumber}>{this.state.floor}</Text>
+                      {this.checkFloor(this.state.floor)}
                       <Text style={styles.text.floorLabel}>Floor</Text>
                     </View>
                     <View style={styles.container.infoBox3}>

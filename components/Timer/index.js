@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {Text, View,TouchableOpacity} from 'react-native';
 import CountDown from 'react-native-countdown-component';
 import styles from '../../styles';
+import { withNavigation } from 'react-navigation';
+import Dialog, { SlideAnimation,ScaleAnimation, DialogContent, DialogFooter, DialogButton} from 'react-native-popup-dialog';
+
 import { connect } from "react-redux";
 
 export class Timer extends Component {
@@ -14,6 +17,7 @@ export class Timer extends Component {
             reservation: this.props.reservation,
             currentParking: this.props.currentParking
         }
+        this._renderTimeOut = this._renderTimeOut.bind(this);
     };
 
     componentWillRecieveProps(nextProps,nextState){
@@ -21,6 +25,46 @@ export class Timer extends Component {
             reservation: nextProps["reservation"],
             currentParking: nextProps["currentParking"]
         });
+    }
+
+    _renderTimeOut(){
+        return(
+            <Dialog visible={this.state.visible}
+            dialogAnimation={new ScaleAnimation()}
+            width='70%'
+            footer={<View style={{alignSelf:'center', border:'hidden'}}>
+
+                      <View  style={{alignContent:'center',flexDirection:"row",flex:0, justifyContent:'center'}}>
+
+                        <View style={styles.container.buttomSubButtons2}>
+                          <TouchableOpacity style={{borderRadius:10}}> 
+                            <Text style={styles.button.modalSubmit__text}>CONFIRM</Text>
+                          </TouchableOpacity>
+                        </View>
+
+                        <View  style={styles.container.buttomSubButtons3}></View>
+
+                        <View style={styles.container.buttomSubButtons2}>
+                          <TouchableOpacity style={{borderRadius:10}}> 
+                            <Text onPress={()=>{this.setState({visible:false})}} style={styles.button.modalSubmit__text}>CANCEL</Text>
+                          </TouchableOpacity>
+                        </View>
+
+                      </View>             
+                    </View>}>
+         
+                <DialogContent style={{backgroundColor:'#f6ab05',height:'5%'}}></DialogContent> 
+                <DialogContent> 
+                    <View style={{flex:0}}>     
+                    {
+                        //<Image style={{marginTop:'-8%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>
+                    }                          
+                    <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Do you want to confirm booking the parking space?</Text>
+                    </View>                            
+                </DialogContent>
+
+            </Dialog>
+        );
     }
 
     render(){
@@ -33,7 +77,8 @@ export class Timer extends Component {
                     <CountDown
                         size={25}
                         until={60*59+59}
-                        onFinish={() => alert('Finished')}
+                       // until={60*0+20}
+                        onFinish={() => this._renderTimeOut()}
                         digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: 'black'}}
                         digitTxtStyle={{color: 'black'}}
                         timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
@@ -82,3 +127,4 @@ export class Timer extends Component {
         )
     }
 }
+export default withNavigation(Timer);

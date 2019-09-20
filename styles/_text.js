@@ -85,6 +85,14 @@ export default StyleSheet.create({
         color:'#000000'
     },
 
+    floorNumberSuffix:{
+        fontSize:20,
+        fontWeight:'900',
+        marginLeft:3,
+        marginTop:8,
+        color:'#000000'
+    },
+
     floorLabel:{
         fontSize:20,
         marginRight:10,
