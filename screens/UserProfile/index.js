@@ -5,7 +5,6 @@ import Icon from '../../components/Icons';
 import styles  from '../../styles';
 import { connect } from "react-redux";
 import axios from 'axios';
-import { NavBackButton_Pure, NavEditProfile } from "../../components/Button";
 
 
 class UserProfile extends Component {
@@ -18,49 +17,27 @@ class UserProfile extends Component {
     this.state={
       visible:false,
       balance: 5000.00,
-      username:'jackie237',
-      name: 'Jack Enderson',
-      phone:'+6683092048',
-      email:'jackiere@gmail.com',
-      address:'Ratcadaphisek Road, Wat Thapra'
+      username: "username",
+      name: "bonus",
+      phone: "0959351549",
+      email: "jatupat.tm",
+      address: "bangkok"
     };
 
-    this.fetchCurrentUser = this.fetchCurrentUser.bind(this);
     this.onPressLogOut = this.onPressLogOut.bind(this);
-  }
-
-  fetchCurrentUser(){
-    axios.get(`${_CONFIG.API_ENDPOINT_URL}/user/${this.props.userAccount.data._id}/`, null, null)
-            .then((response) => {
-                //console.log("response before if : "+ response.data.user.local.email);
-                if (response.status == 200) {
-                    if (response.data.user) {
-                        this.props.dispatch({ type: 'FETCH_USER_ACCOUNT_FULFILLED', payload: response.data.user });
-                        this.props.dispatch({ type: 'CLOSE_AUTHEN_MODAL' });
-                    } else {
-                        if (response.data.error) {
-                            this.setState({ errorVisible: true, errorMessage: response.data.error.message });
-                        } else {
-                            this.setState({ errorVisible: true, errorMessage: 'Error while signing in.' });
-                        }
-                    }
-                } else {
-                    this.setState({ errorVisible: true, errorMessage: response.data.error });
-                }
-            })
-            .catch((error) => {
-                this.setState({ errorVisible: true, errorMessage: response.data.error });
-            });
+    //this.state.userId = this.props.navigation.state.params.userId;
+    //this.fetchCurrentUser();
   }
 
   onPressLogOut(){
     this.props.navigation.navigate('MainMaps')
-    //this.props.dispatch({ type: 'FETCH_USER_ACCOUNT_FULFILLED', payload: {} });
+
+    setTimeout(() => {
+      this.props.dispatch({ type: 'FETCH_USER_ACCOUNT_FULFILLED', payload: {} });
+    }, 1000);
   }
 
   render() {
-      this.fetchCurrentUser()
-      
       return (
       <View style={{height:'100%',width:'100%',flexDirection:'column'}}>
         <View style={{height:'35%', backgroundColor:'#F6CF3E', zIndex:1}}>
@@ -112,7 +89,7 @@ class UserProfile extends Component {
             </View>
             <View style={{flexGrow:1.5, flexDirection:'row'}}>
                 <View style={{width:'50%',alignSelf:'center'}}><Text style={{alignSelf:'flex-start',marginLeft:30, fontSize:17,color:'#909090',fontWeight:'900'}}>Address</Text></View>
-                <View style={{width:'50%',alignSelf:'center'}}><Text style={{alignSelf:'flex-end', marginRight:30, fontSize:17, textAlign:'right', color:'#252525'}}>{this.props.userAccount.data.personalInfo.address.detail} {this.props.userAccount.data.personalInfo.address.province}</Text></View>
+                <View style={{width:'50%',alignSelf:'center'}}><Text style={{alignSelf:'flex-end', marginRight:30, fontSize:17, textAlign:'right', color:'#252525'}}>{this.props.userAccount.data.personalInfo.address.detail}</Text></View>
             </View>
             <View style={{flexGrow:1}}></View>
           </View>

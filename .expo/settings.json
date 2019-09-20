@@ -1,7 +1,7 @@
 {
-  "urlRandomness": "s6-b92",
-  "hostType": "tunnel",
+  "hostType": "lan",
   "lanType": "ip",
   "dev": true,
-  "minify": false
+  "minify": false,
+  "urlRandomness": null
 }

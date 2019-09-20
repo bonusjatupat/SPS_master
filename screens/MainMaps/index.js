@@ -146,6 +146,7 @@ class MainMapsScreen extends Component {
     this.onPressOpenAuthenModal = this.onPressOpenAuthenModal.bind(this);
     this.onPressCloseAuthenModal = this.onPressCloseAuthenModal.bind(this);
     this.onLongPressMap = this.onLongPressMap.bind(this);
+    this.fetchCurrentUser = this.fetchCurrentUser.bind(this);
 
     this.debouncedSearchChange = this.debouncedSearchChange.bind(this);
 
@@ -388,8 +389,34 @@ class MainMapsScreen extends Component {
     if (Object.keys(this.props.userAccount.data).length == 0) {
       this.onPressOpenAuthenModal();
     } else {
-      this.props.navigation.navigate('UserProfile');
+      this.fetchCurrentUser();
+      setTimeout(() => {
+        this.props.navigation.navigate('UserProfile', {userId: this.props.userAccount.data._id});
+      }, 2000);
     }
+  }
+
+  fetchCurrentUser(){
+    axios.get(`${config.API_ENDPOINT_URL}/user/${this.props.userAccount.data._id}/`, null, null)
+            .then((response) => {
+                if (response.status == 200) {
+                    if (response.data.user) {
+                        this.props.dispatch({ type: 'FETCH_USER_ACCOUNT_FULFILLED', payload: response.data.user });
+                        this.props.dispatch({ type: 'CLOSE_AUTHEN_MODAL' });
+                    } else {
+                        if (response.data.error) {
+                            this.setState({ errorVisible: true, errorMessage: response.data.error.message });
+                        } else {
+                            this.setState({ errorVisible: true, errorMessage: 'Error while signing in.' });
+                        }
+                    }
+                } else {
+                    this.setState({ errorVisible: true, errorMessage: response.data.error });
+                }
+            })
+            .catch((error) => {
+                this.setState({ errorVisible: true, errorMessage: response.data.error });
+            });
   }
 
   onLongPressMap(coordinate) {
