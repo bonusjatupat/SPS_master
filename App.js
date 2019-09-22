@@ -140,7 +140,7 @@ class App extends React.Component {
         <AppLoading
           startAsync={this._loadAssetsAsync}
           onFinish={() => this.setState({ isReady: true })}
-          orError={console.warn}
+          onError={console.error}
         />
       );
     }

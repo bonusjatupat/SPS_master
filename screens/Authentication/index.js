@@ -15,7 +15,8 @@ import {
     TouchableWithoutFeedback,
     TouchableOpacity,
     Keyboard,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Dimensions
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
@@ -31,6 +32,8 @@ import { Seperator } from '../../components/General';
 import { AlertBox } from '../../components/AlertBox';
 
 import styles from '../../styles';
+
+const screen = Dimensions.get("window");
 
 class AuthenticationScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -229,7 +232,7 @@ class AuthenticationScreen extends Component {
                     <KeyboardAvoidingView behavior="padding">
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={{ width: '100%', height: '100%' }}>
-                                <ScrollView style={{ width: '100%', height: '100%' - 50, padding: 20 }} keyboardShouldPersistTaps="always">
+                                <ScrollView style={{ width: '100%', height: screen.height - 50, padding: 20 }} keyboardShouldPersistTaps="always">
                                     <View style={{ width: '100%', marginBottom: 40, alignItems: 'center', justifyContent: 'center' }}>
                                         <Image source={require('../../assets/logo_typo/logo_typo.png')} />
                                     </View>

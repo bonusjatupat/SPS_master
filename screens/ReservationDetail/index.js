@@ -68,7 +68,6 @@ import { insertReservation } from "../../actions/reservationAction";
 
   confirmReservation(){
     insertReservation(this.props.reservation.data);
-    {console.log(this.props.currentParking.data.address.location.coordinates[0])}
     this.setState({ visible: false });
     this.props.navigation.navigate('MainMaps');
   }

@@ -50,7 +50,9 @@ import { fetchNearBy } from "../../actions/parkingAction";
 import { fetchCurrentUser } from "../../actions/userAccountAction";
 
 import * as axios from "axios";
-import { BlurView, Constants, Location, Permissions, LinearGradient } from "expo";
+import { BlurView, Constants, LinearGradient } from "expo";
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import AuthenticationScreen from "../Authentication";
@@ -236,7 +238,7 @@ class MainMapsScreen extends Component {
   }
 
   _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    let { status } = await Permissions.getAsync(Permissions.LOCATION);
     if (status !== "granted") {
       this.setState({
         errorMessage: "Permission to access location was denied"
@@ -445,7 +447,7 @@ class MainMapsScreen extends Component {
 
   _renderSearchBox() {
     return ( 
-      <View style={[styles.form.searchBox, this.state.searchStyle.box,{zIndex:2}]}>
+      <View style={[styles.form.searchBox, this.state.searchStyle.box,{zIndex:1}]}>
         <BoxShadow
           setting={{
             width: screen.width - 50,
@@ -489,7 +491,7 @@ class MainMapsScreen extends Component {
     return (
       <View
         style={{
-          width: "100%" - 50,
+          width: screen.width - 30,
           height: 50,
           marginLeft: 25,
           marginRight: 10,
@@ -532,12 +534,11 @@ class MainMapsScreen extends Component {
   _renderUserProfileImage() {
     return (
       <View
-        style={{
-          width: "100%" - 50,
+        style={{      
+          width: "100%" ,
           flex: 0,
-          paddingHorizontal: 25,
-          paddingVertical: 20
-        }}
+          marginHorizontal: 25,
+          marginVertical: 20}}
       >
         <BoxShadow
           setting={{
@@ -1041,12 +1042,9 @@ class MainMapsScreen extends Component {
         )}
         {this._renderHeader()}
         {this._renderMapControls()}
-        {//Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null
-        }
+        {this.state.searchFocus ? this._renderLocationResult() : null}  
         {this._renderMap()}
-        {this.state.searchFocus ? this._renderLocationResult() : null}
-        {Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null
-        }
+        {Object.keys(this.props.reservation.data).length > 0 ? this._renderTimer() : null}
         {Object.keys(this.props.reservation.data).length == 0 && this.props.parking.data.length > 0 ? this._renderParkingCarousel() : null}
         {this._renderOverlay(this.onPressCloseParkingFilter)}
         {this._renderParkingFilter()}
