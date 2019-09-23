@@ -229,7 +229,7 @@ class AuthenticationScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{ width: '100%', flex: 1 }}>
-                    <KeyboardAvoidingView behavior="padding">
+                    <KeyboardAvoidingView behavior="height">
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={{ width: '100%', height: '100%' }}>
                                 <ScrollView style={{ width: '100%', height: screen.height - 50, padding: 20 }} keyboardShouldPersistTaps="always">

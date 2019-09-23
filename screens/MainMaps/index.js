@@ -491,7 +491,7 @@ class MainMapsScreen extends Component {
     return (
       <View
         style={{
-          width: screen.width - 30,
+          width: screen.width - 50,
           height: 50,
           marginLeft: 25,
           marginRight: 10,
@@ -507,10 +507,11 @@ class MainMapsScreen extends Component {
               color: "#FFFFFF",
               fontWeight: "bold",
               fontSize: 16,
-              backgroundColor: "transparent"
+              backgroundColor: "transparent",
+              alignSelf:'center',
+              textAlign:'center'
             }}
-          >
-            Find Destination
+          >Find Destination
           </Text>
         </View>
         <TouchableOpacity
@@ -525,7 +526,7 @@ class MainMapsScreen extends Component {
           }}
           onPress={this.onSearchDismiss}
         >
-          <Ionicons name="ios-close" size={30} color="#FFFFFF" />
+          <Ionicons name="ios-close" size={30} color="#FFFFFF" style={{marginLeft:30}} />
         </TouchableOpacity>
       </View>
     );
@@ -636,7 +637,7 @@ class MainMapsScreen extends Component {
           <Animated.View
             style={{
               width: "100%",
-              height: this.state.safeAreaHeight + (Platform.OS == "ios" ? 100 : 75),
+              height: this.state.safeAreaHeight + (Platform.OS == "ios" ? 40 : 40),
               backgroundColor: "#F6CF3E",
               position: "absolute",
               top: 0,
@@ -895,7 +896,7 @@ class MainMapsScreen extends Component {
           renderItem={this._renderParkingItem}
           sliderWidth={screen.width}
           itemWidth={screen.width - 50}
-          containerCustomStyle={{ overflow: Platform.OS == "ios" ? "default" : null }}
+          //containerCustomStyle={{ overflow: Platform.OS == "ios" ? "default" : null }}
           onSnapToItem={this.onParkingItemScroll}
         />
       </View>

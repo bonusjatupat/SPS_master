@@ -168,17 +168,22 @@ import { insertReservation } from "../../actions/reservationAction";
     >
       <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "light-content"} />
     
-     <ScrollView>  
-       <View> 
+     <ScrollView style={{height:'100%', width:'100%'}}>  
+       <View style={{height:'100%', width:'100%'}}>  
 
          <View style={styles.container.container2}>
-                <Text style={styles.text.bookingID}>Booking ID: {this.state.bookingID}</Text>
-                <Text style={styles.text.userName}>{this.state.userName}</Text>
-                <Text style={styles.text.content}>{this.state.content}</Text>
-                <Image style={styles.image.carIcon} source={require('../../assets/a/car.png')}/>
+            <View style={{flexDirection:'column', width:'75%'}}>
+                  <Text style={styles.text.bookingID}>Booking ID: {this.state.bookingID}</Text>
+                  <Text style={styles.text.userName}>{this.state.userName}</Text>
+                  <Text style={styles.text.content}>{this.state.content}</Text>
+            </View>
+            <View style={{width:'25%',height:'100%'}}>
+              <Image style={styles.image.carIcon} source={require('../../assets/a/car.png')}/>
+            </View>
          </View>
 
-        <View style={styles.container.container3}>
+          <View style={styles.container.container3}>
+            
             <View style={styles.container.containerSub2}>
 
               <View style={styles.container.infoBox}>
@@ -193,7 +198,9 @@ import { insertReservation } from "../../actions/reservationAction";
                     <Text style={styles.text.bookingTitle}>Booking Time</Text>
                     <Text style={styles.text.bookingTime}>{this.state.bookingTime}</Text>
                   </View>
-                  <Image style={{marginTop:15,width: 20, height: 20, position:'relative',alignSelf:'center',marginStart:25,marginEnd:25}}source={require('../../assets/a/dot-and-circle.png')}/>
+                  <View style={{justifyContent:'center',alignSelf:'center',width:'10%', height:'10%'}}>
+                    <Image style={{width: 20, height: 20, alignSelf:'center'}}source={require('../../assets/a/dot-and-circle.png')}/>
+                  </View>
                   <View style={styles.container.infoBox2}>
                     <Text style={styles.text.arrivalTitle}>Arrival Time</Text>
                     <Text style={styles.text.arrivalTime}>{this.state.arrivalTime}</Text>
@@ -201,9 +208,11 @@ import { insertReservation } from "../../actions/reservationAction";
               </View>
 
               <View style={styles.container.containerSub2_2}>
-                <Image style={{width: 40, height: 35, position:'absolute', marginTop:50, marginLeft:250, rotation:90}}source={require('../../assets/a/arrow.png')}/>
-                <Image style={{width: 5, height: 5, position:'absolute', marginTop:100, marginLeft:250}}source={require('../../assets/a/dot.png')}/>
-                <Image style={{width: 40, height: 35, position:'absolute', marginTop:120, marginLeft:250, rotation:90}}source={require('../../assets/a/arrow.png')}/>
+              <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center'}}>
+                <Image style={{width:"10%", height: '10%', position:'absolute', alignSelf:'center', rotation:90}}source={require('../../assets/a/arrow.png')}/>
+                <Image style={{width: "3%", height: '5%', position:'absolute', alignSelf:'center'}}source={require('../../assets/a/dot.png')}/>
+                <Image style={{width: "10%", height: '10%', position:'absolute', alignSelf:'center', rotation:90}}source={require('../../assets/a/arrow.png')}/>
+              </View>
                   <Text style={styles.text.preLocation}>Your space is located at</Text>
                   <View style={{flexDirection:'row'}}>
                     <View style={styles.container.infoBox2}> 
@@ -211,21 +220,26 @@ import { insertReservation } from "../../actions/reservationAction";
                       <Text style={styles.text.floorLabel}>Floor</Text>
                     </View>
                     <View style={styles.container.infoBox3}>
-                      <Text style={{fontSize:50,marginLeft:10, marginTop:15, color:'#000000'}}>{this.state.spaceNo}</Text>
-                      <Text style={{fontSize:20,marginLeft:10, marginTop:10, color:'#000000'}}>Space No.</Text>
+                      <Text style={{fontSize:50, marginTop:15, alignSelf:'center', color:'#000000'}}>{this.state.spaceNo}</Text>
+                      <Text style={{fontSize:20, marginTop:10, alignSelf:'center',color:'#000000'}}>Space No</Text>
                     </View>
                   </View>
               </View>
 
             </View>
 
-            <View style={styles.container.containerSub3}>              
-              <Image style={{marginTop:15,width: 70, height: 70, marginLeft:0}}source={require('../../assets/a/locationIcon.png')}/>
+            <View style={styles.container.containerSub3}>  
+            <View style={{flexDirection:'row'}}>  
+              <View style={{width:'15%'}}>        
+                <Image style={{marginTop:15,width: 70, height: 70, marginLeft:0}}source={require('../../assets/a/locationIcon.png')}/>
+              </View>
+              <View style={{width:'5%'}}/>
               <View style={styles.container.infoBox4}>
-                <Text style={{flexDirection:'column',fontSize:15, marginTop:15, color:'#c2c2c2'}}>Location</Text>
+                <Text style={{fontSize:15, marginTop:15, color:'#c2c2c2'}}>Location</Text>
                 <Text style={{fontSize:17, marginTop:5, color:'#555555',maxWidth:275}}>{this.state.location}</Text>
               </View>
-              <Image style={{width: '75%', height: '50%', position:'absolute',marginTop:'27%', marginLeft:'15%'}}source={require('../../assets/a/centralworld.png')}/>
+            </View>
+              <Image style={{width: '85%', height: '60%', alignSelf:'center'}}source={require('../../assets/a/centralworld.png')}/>
             </View>
 
         </View>

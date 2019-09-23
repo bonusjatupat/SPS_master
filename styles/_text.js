@@ -10,26 +10,22 @@ export default StyleSheet.create({
 
     bookingID:{
         fontSize:15,
-        marginLeft:10,
         color:'#c2c2c2'
     },
 
     userName:{
         fontSize:25,
-        marginLeft:10,
         color:'#353535'
     },
 
     content:{
         fontSize:15,
         fontWeight:'bold',
-        marginLeft:10,
         color:'#c2c2c2'
     },
 
     parkingLot:{
         fontSize:20,
-        marginLeft:10,
         marginTop:15,
         color:'#c2c2c2'
     },
@@ -73,7 +69,7 @@ export default StyleSheet.create({
     preLocation:{
         fontSize:13,
         position:'relative',
-        marginLeft:10,
+        alignSelf:'center',
         marginTop:15,
         color:'#2f3231'
     },

@@ -3,12 +3,10 @@ import { StyleSheet, Platform } from 'react-native';
 export default StyleSheet.create({
     
     carIcon:{
-        marginTop:15,
-        width: 60,
-        height: 60,
-        position:'absolute',
-        alignSelf:'flex-end',
-        marginTop:30
+        width: '80%',
+        height: '100%',
+        marginTop:'20%',
+        alignSelf:'center',
     },
 
 })

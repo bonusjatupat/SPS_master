@@ -12,21 +12,23 @@ export default StyleSheet.create({
     },
 
     container2:{
-      marginTop:20,
-      marginLeft:16,
-      marginRight:30
+      marginTop:"3%",
+      width:'95%',
+      height:'10%',
+      paddingLeft:'8%',
+      flexDirection:'row'
     },
 
     container3:{
       alignItems:'center',
-      marginBottom:75,
-  
+      marginBottom:"5%",  
     },
 
     containerSub2:{
       marginTop:20,
       height:300,
-      width:360,
+      width: Platform.OS == 'ios' ? '90%' : '85%',
+      alignItems:'center',
       backgroundColor:'white',
       borderRadius:10,
       borderWidth:2,
@@ -40,9 +42,9 @@ export default StyleSheet.create({
     
     containerSub2_1:{
       flexDirection:'row',
-      alignItems:'center',
-      paddingLeft:60,
-  
+      alignItems:'center', 
+      alignSelf:'center',
+      justifyContent:'center'
     },
 
     containerSub2_2:{
@@ -50,7 +52,7 @@ export default StyleSheet.create({
       backgroundColor:'#F6CF3F',
       borderRadius:10,
       height:"55%",
-      width:"95%",  
+      width:"90%",  
       alignItems:'center',
       position:'relative',
       marginLeft:'2.5%',
@@ -58,10 +60,10 @@ export default StyleSheet.create({
     },
     
     containerSub3:{
-      flexDirection:'row',
+      flexDirection:'column',
       marginTop:30,
-      height:275,
-      width:360,
+      height:300,
+      width:Platform.OS == 'ios' ? '90%' : '85%',
       backgroundColor:'white',
       borderRadius:10,
       borderWidth:2,
@@ -75,22 +77,26 @@ export default StyleSheet.create({
 
     infoBox:{
       flexDirection:'column',
-      marginRight:20
     },
 
     infoBox2:{
       flexDirection:'column',
-      alignItems:'center'
+      alignItems:'center',
+      width:'45%',
+      textAlign:'center',
+      alignSelf:'center'
     },
 
     infoBox3:{
       flexDirection:'column',
       alignContent:'center',
-      marginStart:100
+      width:'50%',
+      textAlign:'center'
     },
 
     infoBox4:{
-      flexDirection:'column'
+      flexDirection:'column',
+      width:'80%'
     },
 
     buttomButtons:{
