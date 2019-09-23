@@ -391,9 +391,15 @@ class MainMapsScreen extends Component {
     if (Object.keys(this.props.userAccount.data).length == 0) {
       this.onPressOpenAuthenModal();
     } else {
+      
+      var reserving = false;
+      if(Object.keys(this.props.reservation.data).length > 0) {
+        reserving = true;
+      }
+
       this.fetchCurrentUser();
       setTimeout(() => {
-        this.props.navigation.navigate('UserProfile', {userId: this.props.userAccount.data._id});
+        this.props.navigation.navigate('UserProfile', {reservingSpace: reserving});
       }, 2000);
     }
   }
@@ -497,7 +503,7 @@ class MainMapsScreen extends Component {
           marginRight: 10,
           alignItems: "center",
           justifyContent: "center",
-          zIndex: 4
+          zIndex: 2
         }}
         onLayout={e => {}}
       >
@@ -536,43 +542,52 @@ class MainMapsScreen extends Component {
     return (
       <View
         style={{      
-          width: "100%" ,
+          width: screen.width ,
           flex: 0,
           marginHorizontal: 25,
-          marginVertical: 20}}
+          marginVertical: 20,
+          flexDirection: "row",
+          
+        }}
       >
-        <BoxShadow
-          setting={{
-            width: 45,
-            height: 45,
-            radius: 22,
-            ...GLOBAL_SHADOW_SETTING
-          }}
-        >
-          <TouchableOpacity style={styles.global.profileImageButton} onPress={this.onPressProfile}>
-            {Object.keys(this.props.userAccount.data).length == 0 ? (
-              <Image
-                source={require("../../assets/person.jpg")}
-                style={styles.global.profileImageButton__image}
-                resizeMode="cover"
-              />
-            ) : this.props.userAccount.data.personalInfo.photo ? (
-              <Image
-                //source={{ uri: this.props.userAccount.data.personalInfo.phot }}
-                source={require("../../assets/person.jpg")}
-                style={styles.global.profileImageButton__image}
-                resizeMode="cover"
-              />
-            ) : (
-              <Image
-                source={require("../../assets/person.jpg")}
-                style={styles.global.profileImageButton__image}
-                resizeMode="cover"
-              />
-            )}
-            {/* <View style={styles.global.profileImageButton__dot}></View> */}
-          </TouchableOpacity>
-        </BoxShadow>
+          <BoxShadow
+            style={{left:0}}
+            setting={{
+              width: 45,
+              height: 45,
+              radius: 22,
+              ...GLOBAL_SHADOW_SETTING
+            }}
+          >
+            <TouchableOpacity style={styles.global.profileImageButton} onPress={this.onPressProfile}>
+              {Object.keys(this.props.userAccount.data).length == 0 ? (
+                <Image
+                  source={require("../../assets/person.jpg")}
+                  style={styles.global.profileImageButton__image}
+                  resizeMode="cover"
+                />
+              ) : this.props.userAccount.data.personalInfo.photo ? (
+                <Image
+                  //source={{ uri: this.props.userAccount.data.personalInfo.phot }}
+                  source={require("../../assets/person.jpg")}
+                  style={styles.global.profileImageButton__image}
+                  resizeMode="cover"
+                />
+              ) : (
+                <Image
+                  source={require("../../assets/person.jpg")}
+                  style={styles.global.profileImageButton__image}
+                  resizeMode="cover"
+                />
+              )}
+              {/* <View style={styles.global.profileImageButton__dot}></View> */}
+            </TouchableOpacity>
+          </BoxShadow>
+          <Image
+            style={{right: 0, width: 44, height: 44, borderRadius: 22}}
+            source={require("../../assets/a/logo.png")}
+            resizeMode="cover"
+          />
       </View>
     );
   }
