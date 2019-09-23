@@ -4,16 +4,16 @@ import { Text, View, Image, ScrollView , TouchableOpacity} from 'react-native';
 import Icon from '../../components/Icons';
 import styles  from '../../styles';
 import { connect } from "react-redux";
-import axios from 'axios';
-
+import Dialog, {ScaleAnimation, DialogContent} from 'react-native-popup-dialog';
+import {ConfirmPopup} from "../../components/Button";
 
 class UserProfile extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null
   });
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state={
       visible:false,
       balance: 5000.00,
@@ -21,23 +21,34 @@ class UserProfile extends Component {
       name: "bonus",
       phone: "0959351549",
       email: "jatupat.tm",
-      address: "bangkok"
+      address: "bangkok",
+
+      onPressLogOut: false,
+      reservingSpace: this.props.navigation.state.params.reservingSpace
     };
 
     this.onPressLogOut = this.onPressLogOut.bind(this);
-    //this.state.userId = this.props.navigation.state.params.userId;
-    //this.fetchCurrentUser();
   }
 
-  onPressLogOut(){
-    this.props.navigation.navigate('MainMaps')
 
-    setTimeout(() => {
-      this.props.dispatch({ type: 'FETCH_USER_ACCOUNT_FULFILLED', payload: {} });
-    }, 1000);
+
+  onPressLogOut(){
+    this.setState({
+      onPressLogOut: true
+    })
+
+    if(this.state.onPressLogOut && !this.state.reservingSpace){
+      this.props.navigation.navigate('MainMaps')
+
+      setTimeout(() => {
+        this.props.dispatch({ type: 'FETCH_USER_ACCOUNT_FULFILLED', payload: {} });
+      }, 1000);
+    }
   }
 
   render() {
+      const { navigate } = this.props.navigation;
+
       return (
       <View style={{height:'100%',width:'100%',flexDirection:'column'}}>
         <View style={{height:'35%', backgroundColor:'#F6CF3E', zIndex:1}}>
@@ -93,6 +104,33 @@ class UserProfile extends Component {
             </View>
             <View style={{flexGrow:1}}></View>
           </View>
+
+          <Dialog visible={this.state.onPressLogOut && this.state.reservingSpace}
+              width='70%'
+              dialogAnimation={new ScaleAnimation()}
+              footer={<View style={{alignSelf:'center', border:'hidden'}}>
+                        <View  style={{alignContent:'center',flexDirection:"row",flex:0, justifyContent:'center'}}>
+
+                          <View style={{ width:'60%'}}>
+                            <ConfirmPopup style={{borderRadius:10}}> 
+                              <Text onPress={()=>{this.setState({onPressLogOut:false})}} style={styles.button.modalSubmit__text}>OK</Text>
+                            </ConfirmPopup>
+                          </View>
+
+                        </View>             
+                      </View>}>
+            <DialogContent style={{backgroundColor:'#f6ab05',height:'5%'}}></DialogContent> 
+
+            <DialogContent style={{width:"100%"}}>
+                <View style={{flex:0,width:'100%'}}>     
+                  {
+                    //<Image style={{marginTop:'-9%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>                           
+                  }
+                  <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Cannot log out because you are reserving a space.</Text>
+                </View>                            
+            </DialogContent> 
+          </Dialog>
+
           <TouchableOpacity style={{width:'50%', height:'8%', alignSelf:'center',backgroundColor:'#e64f5d',justifyContent:'center', borderRadius:40, marginTop:10}} onPress={()=>{{this.onPressLogOut()}}}>
               <Text style={{alignSelf:'center',color:'#fff',fontSize:20}}>Log Out</Text>
           </TouchableOpacity>

@@ -391,9 +391,15 @@ class MainMapsScreen extends Component {
     if (Object.keys(this.props.userAccount.data).length == 0) {
       this.onPressOpenAuthenModal();
     } else {
+      
+      var reserving = false;
+      if(Object.keys(this.props.reservation.data).length > 0) {
+        reserving = true;
+      }
+
       this.fetchCurrentUser();
       setTimeout(() => {
-        this.props.navigation.navigate('UserProfile', {userId: this.props.userAccount.data._id});
+        this.props.navigation.navigate('UserProfile', {reservingSpace: reserving});
       }, 2000);
     }
   }
@@ -904,7 +910,7 @@ class MainMapsScreen extends Component {
           renderItem={this._renderParkingItem}
           sliderWidth={screen.width}
           itemWidth={screen.width - 50}
-          containerCustomStyle={{ overflow: Platform.OS == "ios" ? "default" : null }}
+          //containerCustomStyle={{ overflow: Platform.OS == "ios" ? "default" : null }}
           onSnapToItem={this.onParkingItemScroll}
         />
       </View>
