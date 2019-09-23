@@ -9,7 +9,8 @@ import {
     TouchableWithoutFeedback,
     TouchableOpacity,
     Keyboard,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,6 +21,7 @@ import { Seperator } from '../../components/General';
 
 import styles from '../../styles';
 
+const screen = Dimensions.get("window");
 class ForgotPasswordScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         header: null
@@ -43,7 +45,7 @@ class ForgotPasswordScreen extends Component {
                     <KeyboardAvoidingView behavior="padding">
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={{ height: '100%' }}>
-                                <ScrollView style={{ width: '100%', height: '100%' - 50, padding: 20 }}>
+                                <ScrollView style={{ width: '100%', height: screen.height - 50, padding: 20 }}>
                                     <View style={{ width: '100%', paddingBottom: 40, paddingHorizontal: 20, alignItems: 'center', justifyContent: 'center' }}>
                                         <View style={{ width: 80, height: 80, marginBottom: 20, borderColor: '#000000', borderWidth: 2, borderRadius: 40, alignItems: 'center', justifyContent: 'center' }}>
                                             <Ionicons name="ios-lock" size={40} color="#000000" />

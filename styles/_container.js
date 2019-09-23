@@ -228,14 +228,6 @@ export default StyleSheet.create({
       borderColor:'#F6CF3E',
       borderRadius:5,
       backgroundColor:'#F6CF3E'
-    },
-
-    viewProfileImage:{
-      width: "100%" - 50,
-      flex: 0,
-      marginLeft: 25,
-      marginTop: 20,
-      marginBottom: 20
     }
 
 })

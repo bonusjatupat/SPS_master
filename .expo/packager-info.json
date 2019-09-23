@@ -1,10 +1,10 @@
 {
-  "packagerPort": 19001,
-  "packagerPid": 28996,
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://mc-mup.anonymous.sps-master.exp.direct",
-  "packagerNgrokUrl": "https://packager.mc-mup.anonymous.sps-master.exp.direct",
-  "ngrokPid": 28812,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002,
   "webpackServerPort": null
 }
