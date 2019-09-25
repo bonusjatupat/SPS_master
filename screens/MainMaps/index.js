@@ -400,7 +400,7 @@ class MainMapsScreen extends Component {
       this.fetchCurrentUser();
       setTimeout(() => {
         this.props.navigation.navigate('UserProfile', {reservingSpace: reserving});
-      }, 2000);
+      }, 1000);
     }
   }
 
@@ -569,7 +569,7 @@ class MainMapsScreen extends Component {
               ) : this.props.userAccount.data.personalInfo.photo ? (
                 <Image
                   //source={{ uri: this.props.userAccount.data.personalInfo.phot }}
-                  source={require("../../assets/person.jpg")}
+                  source={require("../../assets/a/user.png")}
                   style={styles.global.profileImageButton__image}
                   resizeMode="cover"
                 />
@@ -851,7 +851,7 @@ class MainMapsScreen extends Component {
           />
         ) : null}
 
-        {Object.keys(this.props.reservation.data).length == 0 && this.props.parking.data
+        {Object.keys(this.props.reservation.data).length == 0 && this.props.parking.data.length > 0
           ? this.props.parking.data.map((marker, key) => (
               <Marker
                 key={key}

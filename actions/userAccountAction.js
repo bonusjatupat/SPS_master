@@ -106,3 +106,13 @@ export function googleLogIn(data) {
             });
     }
 }
+
+export function updateUserBalance(userId, amount) {
+    axios.patch(`${config.API_ENDPOINT_URL}/user/${userId}/${amount}/updateBalance`, null, null)
+        .then((response) => {
+            console.log("user's balance is updated");
+        })
+        .catch((error) => {
+            console.log("update user'sbalance failed " + error);
+        })
+}

@@ -69,7 +69,7 @@ class FloorDetail extends Component {
 
     console.log(this.state.floorChosenNumber);
     setTimeout(() => {
-      this.props.navigation.navigate('ReservationDetail');
+      this.props.navigation.navigate('ReservationDetail', {timerActive: false});
     }, 3000)
   }
 

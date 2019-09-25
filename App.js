@@ -1,5 +1,6 @@
 import React from "react";
-import { AppLoading, Asset, Font } from "expo";
+import { AppLoading, Font } from "expo";
+import { Asset } from 'expo-asset';
 import { Platform, StatusBar, YellowBox, SafeAreaView } from "react-native";
 import { createStackNavigator, createDrawerNavigator, createAppContainer } from "react-navigation";
 import { Provider } from "react-redux";

@@ -30,3 +30,14 @@ export function insertReservation(data){
 
     //update slot available through hardware
 }
+
+export function updateReserveStatus(bookingId, userId, status) {
+    axios.patch(`${config.API_ENDPOINT_URL}/reservation/${bookingId}/${userId}/${status}/updateStatus`, null, null)
+        .then((response) => {
+            console.log("update status success" + response.status);
+        })
+        .catch((error) => {
+            console.log("update status failed" + error);
+            console.log(`${config.API_ENDPOINT_URL}/reservation/${bookingId}/${userId}/${status}/updateStatus`);
+        })
+}

@@ -16,7 +16,7 @@ export class Timer extends Component {
         this.state = {
             reservation: this.props.reservation,
             currentParking: this.props.currentParking,
-            timerActive:true,
+            timerActive: true,
         }
         this._renderTimeOut = this._renderTimeOut.bind(this);
     };
@@ -114,7 +114,7 @@ export class Timer extends Component {
                 </View>
             </View>
             <View style={styles.container.timerSubCont2}>
-                <TouchableOpacity style={styles.container.timerInfoButton} onPress={()=>{{this.props.navigation.navigate('ReservationDetail',{NameOBJ:this.state.timerActive})}}}>
+                <TouchableOpacity style={styles.container.timerInfoButton} onPress={()=>{{this.props.navigation.navigate('ReservationDetail',{ timerActive: this.state.timerActive })}}}>
                     <Text style={styles.text.timerInfoButton}>MORE INFORMATION</Text>
                 </TouchableOpacity>
 
