@@ -584,7 +584,7 @@ class MainMapsScreen extends Component {
             </TouchableOpacity>
           </BoxShadow>
           <Image
-            style={{right: 0, width: 44, height: 44, borderRadius: 22}}
+            style={{right: 0, width: 44, height: 44, borderRadius: 22, position:'absolute', top:0, right:50}}
             source={require("../../assets/a/logo.png")}
             resizeMode="cover"
           />
