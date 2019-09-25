@@ -27,6 +27,10 @@ import { ItemFacilities } from "../../components/ListItem";
 import axios from 'axios';
 import _CONFIG from '../../misc/config';
 
+import {ConfirmPopup} from "../../components/Button";
+import Dialog, {ScaleAnimation, DialogContent} from 'react-native-popup-dialog';
+
+
 const HEADER_MAX_HEIGHT = 195,
   HEADER_MIN_HEIGHT = 90,
   HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
@@ -54,12 +58,16 @@ class ParkingDetail extends Component {
       parkingPreview: [],
       errorVisible: false,
       errorMessage: "",
-      loginText: ""
+      loginText: "",
+      isEnoughBalance: true,
+      isClickBookNow: false,
+      showBalanceDialog: false
     };
 
     this.openPreviewModal = this.openPreviewModal.bind(this);
     this.openNavigator = this.openNavigator.bind(this);
     this._loadLoginText = this._loadLoginText.bind(this);
+    this.onPressBookNow = this.onPressBookNow.bind(this);
   }
 
   _loadLoginText() {
@@ -67,6 +75,11 @@ class ParkingDetail extends Component {
       this.setState({ loginText: "Please login before booking a space." }) 
     : 
       this.setState({ loginText: "" })}
+
+    {this.props.userAccount.data.balance >= this.state.parkingData.price.paid.rate ?
+      this.setState({ isEnoughBalance: true })
+    :
+      this.setState({ isEnoughBalance: false })}
   }
 
   _getLocationAsync = async () => {
@@ -579,12 +592,23 @@ class ParkingDetail extends Component {
         </ModalSubmitButton2>
       ) : 
       result.push(
-        <ModalSubmitButton onPress={()=>this.props.navigation.navigate('FloorDetail')}>
+        <ModalSubmitButton onPress={()=>this.onPressBookNow()}>
           <Text style={styles.button.modalSubmit__text}>BOOK NOW</Text>
         </ModalSubmitButton>
       )
     }
     return result;
+  }
+
+  onPressBookNow() {
+    console.log(this.state.isEnoughBalance);
+    this.setState({
+      isClickBookNow: true
+    })
+
+    if(this.state.isEnoughBalance && this.state.isClickBookNow) {
+      this.props.navigation.navigate('FloorDetail')
+    } 
   }
 
   render() {
@@ -613,6 +637,33 @@ class ParkingDetail extends Component {
         <ScrollView>{this._renderScrollViewContent()}</ScrollView>
         <Text style={{ color: '#F6CF3F', fontWeight: "normal", textAlign: "center", marginBottom: 5 }}>{this.state.loginText}</Text>
         {this._renderBookButton()}
+
+        <Dialog visible={this.state.isClickBookNow && !this.state.isEnoughBalance}
+                width='70%'
+                dialogAnimation={new ScaleAnimation()}
+                footer={<View style={{alignSelf:'center', border:'hidden'}}>
+                          <View  style={{alignContent:'center',flexDirection:"row",flex:0, justifyContent:'center'}}>
+    
+                            <View style={{ width:'60%'}}>
+                              <ConfirmPopup style={{borderRadius:10}}> 
+                                <Text onPress={()=>{this.setState({ isClickBookNow: false })}} style={styles.button.modalSubmit__text}>OK</Text>
+                              </ConfirmPopup>
+                            </View>
+    
+                          </View>             
+                        </View>}>
+          <DialogContent style={{backgroundColor:'#f6ab05',height:'5%'}}></DialogContent> 
+    
+          <DialogContent style={{width:"100%"}}>
+              <View style={{flex:0,width:'100%'}}>     
+                {
+                  //<Image style={{marginTop:'-9%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>                           
+                }
+                <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Your balance is not enough.</Text>
+              </View>                            
+          </DialogContent> 
+        </Dialog>
+
       </SafeAreaView>
     );
   }

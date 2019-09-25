@@ -6,7 +6,8 @@ import { NavBackButton_Pure} from "../../components/Button";
 import styles  from '../../styles';
 
 import { connect } from "react-redux";
-import { insertReservation } from "../../actions/reservationAction";
+import { insertReservation, updateReserveStatus } from "../../actions/reservationAction";
+import { updateUserBalance } from '../../actions/userAccountAction';
 
  class ReservationDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -32,9 +33,13 @@ import { insertReservation } from "../../actions/reservationAction";
       bookingTime: this.props.reservation.data.reservationInfo.time,
       arrivalTime: this.props.reservation.data.arrivalTime,
 
-      visible:false,
-      isCanceled:false,
-      timerActive:false,
+      visible: false,
+      isCanceled: false,
+      timerActive: this.props.navigation.state.params.timerActive,
+      isUnbooking: false,
+      isArrive: false,
+      isTractionSuccess: false,
+      isConfirmUnbooking: false
     };
 
     this.confirmReservation = this.confirmReservation.bind(this);
@@ -44,26 +49,7 @@ import { insertReservation } from "../../actions/reservationAction";
   }
 
   componentDidMount() {
-    /*var that = this;
-    var hours = new Date().getHours(); //Current Hours
-    var min = new Date().getMinutes(); //Current Minutes
-    if(min==0 || min<10){
-      that.setState({
-        bookingTime:
-          hours + ':0' + min ,
-        arrivalTime:
-          (hours+1) + ':0'+min
-      });
-    }
-    else{
-      that.setState({
-        bookingTime:
-          hours + ':' + min ,
-        arrivalTime:
-          (hours+1) + ':'+min
-      });
-    }*/
-    {Object.keys(this.props.reservation.data).length > 0 ? this.setState({timerActive:true}) : this.setState({timerActive:false})}
+    //{Object.keys(this.props.reservation.data).length > 0 ? this.setState({timerActive:true}) : this.setState({timerActive:false})}
   }
 
   confirmReservation(){
@@ -77,6 +63,33 @@ import { insertReservation } from "../../actions/reservationAction";
 
     this.setState({ isCanceled: false }); 
     this.props.navigation.navigate('FloorDetail');
+  }
+
+  onPressArrive(){
+    var status = "success"
+    updateReserveStatus(this.props.reservation.data._id, this.props.userAccount.data._id, status);
+    updateUserBalance(this.props.userAccount.data._id, this.props.reservation.data.price);
+    
+    this.props.dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: {} });
+    this.props.dispatch({ type: 'FETCH_PARKING_FULFILLED', payload: {} });
+
+    this.setState({
+      isArrive: false,
+      isTractionSuccess: true
+    });
+  }
+
+  onPressUnbooking(){
+    var status = "cancel"
+    updateReserveStatus(this.props.reservation.data._id, this.props.userAccount.data._id, status);
+
+    this.props.dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: {} });
+    this.props.dispatch({ type: 'FETCH_PARKING_FULFILLED', payload: {} });
+
+    this.setState({
+      isUnbooking: false,
+      isConfirmUnbooking: true
+    });
   }
 
   checkFloor(temp){
@@ -112,13 +125,13 @@ import { insertReservation } from "../../actions/reservationAction";
   }
 
   renderButtons(){
-    if(this.state.timerActive==true){
+    if(this.state.timerActive){
       return (
         <View style={styles.container.bottomButtons}>
         <View style={{flexDirection:'row'}}>
         <TouchableOpacity style={styles.container.buttomSubButtons}>
           <ReserveButton style={{width:'100%'}}> 
-            <Text onPress={()=>{{this.confirmReservation()}}} style={styles.button.modalSubmit__text}>ARRIVE</Text>
+            <Text onPress={()=>{{this.setState({ isArrive: true })}}} style={styles.button.modalSubmit__text}>ARRIVE</Text>
             {//onPress={()=>{this.setState({visible:true})}}
             }
           </ReserveButton>
@@ -126,7 +139,7 @@ import { insertReservation } from "../../actions/reservationAction";
 
         <TouchableOpacity style={styles.container.buttomSubButtons}>
           <CancelButton style={{ width:'100%'}}> 
-            <Text onPress={()=>{{this.cancelReservation()}}} style={styles.button.modalSubmit__text}>UNBOOKING</Text>
+            <Text onPress={()=>{{this.setState({ isUnbooking: true })}}} style={styles.button.modalSubmit__text}>UNBOOKING</Text>
             {//onPress={()=>{this.setState({isCanceled:true})}}
             }
           </CancelButton>
@@ -248,7 +261,7 @@ import { insertReservation } from "../../actions/reservationAction";
 
       {this.renderButtons()}
 
-      <Dialog visible={this.state.visible}
+      <Dialog visible={this.state.isArrive}
               dialogAnimation={new ScaleAnimation()}
               width='70%'
               footer={<View style={{alignSelf:'center', border:'hidden'}}>
@@ -257,7 +270,7 @@ import { insertReservation } from "../../actions/reservationAction";
 
                           <View style={styles.container.buttomSubButtons2}>
                             <ConfirmPopup style={{borderRadius:10}}> 
-                              <Text onPress={()=>{{this.confirmReservation()}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
+                              <Text onPress={()=>{{this.onPressArrive()}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
                             </ConfirmPopup>
                           </View>
 
@@ -265,7 +278,7 @@ import { insertReservation } from "../../actions/reservationAction";
 
                           <View style={styles.container.buttomSubButtons2}>
                             <CancelPopup style={{borderRadius:10}}> 
-                              <Text onPress={()=>{this.setState({visible:false})}} style={styles.button.modalSubmit__text}>CANCEL</Text>
+                              <Text onPress={()=>{this.setState({isArrive:false})}} style={styles.button.modalSubmit__text}>CANCEL</Text>
                             </CancelPopup>
                           </View>
 
@@ -278,20 +291,55 @@ import { insertReservation } from "../../actions/reservationAction";
                 {
                   //<Image style={{marginTop:'-8%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>
                 }                          
-                <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Do you want to confirm booking the parking space?</Text>
+                <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Do you want to open the gate?</Text>
               </View>                            
             </DialogContent>
 
       </Dialog>
-      <Dialog visible={this.state.isCanceled}
+      <Dialog visible={this.state.isUnbooking}
               width='70%'
               dialogAnimation={new ScaleAnimation()}
               footer={<View style={{alignSelf:'center', border:'hidden'}}>
                         <View  style={{alignContent:'center',flexDirection:"row",flex:0, justifyContent:'center'}}>
 
-                          <View style={{ width:'60%'}}>
+                        <View style={styles.container.buttomSubButtons2}>
                             <ConfirmPopup style={{borderRadius:10}}> 
-                              <Text onPress={()=>{{this.cancelReservation()}}} style={styles.button.modalSubmit__text}>OK</Text>
+                              <Text onPress={()=>{{this.onPressUnbooking()}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
+                            </ConfirmPopup>
+                          </View>
+
+                          <View  style={styles.container.buttomSubButtons3}></View>
+
+                          <View style={styles.container.buttomSubButtons2}>
+                            <CancelPopup style={{borderRadius:10}}> 
+                              <Text onPress={()=>{this.setState({isUnbooking:false})}} style={styles.button.modalSubmit__text}>CANCEL</Text>
+                            </CancelPopup>
+                          </View>
+
+                        </View>             
+                      </View>}>
+        <DialogContent style={{backgroundColor:'#f6ab05',height:'5%'}}></DialogContent> 
+
+        <DialogContent style={{width:"100%"}}>
+            <View style={{flex:0,width:'100%'}}>     
+              {
+                //<Image style={{marginTop:'-9%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>                           
+              }
+              <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Do you want to unbook the space?</Text>
+            </View>                            
+        </DialogContent> 
+
+        </Dialog>
+
+        <Dialog visible={this.state.isTractionSuccess}
+              width='70%'
+              dialogAnimation={new ScaleAnimation()}
+              footer={<View style={{alignSelf:'center', border:'hidden'}}>
+                        <View  style={{alignContent:'center',flexDirection:"row",flex:0, justifyContent:'center'}}>
+
+                        <View style={styles.container.buttomSubButtons2}>
+                            <ConfirmPopup style={{borderRadius:10}}> 
+                              <Text onPress={()=>{{this.setState({ isTractionSuccess: false }); this.props.navigation.navigate('MainMaps');}}} style={styles.button.modalSubmit__text}>OK</Text>
                             </ConfirmPopup>
                           </View>
 
@@ -304,7 +352,34 @@ import { insertReservation } from "../../actions/reservationAction";
               {
                 //<Image style={{marginTop:'-9%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>                           
               }
-              <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Your booking has been canceled.</Text>
+              <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Thank you! Your transaction is successful.</Text>
+            </View>                            
+        </DialogContent> 
+
+        </Dialog>
+
+        <Dialog visible={this.state.isConfirmUnbooking}
+              width='70%'
+              dialogAnimation={new ScaleAnimation()}
+              footer={<View style={{alignSelf:'center', border:'hidden'}}>
+                        <View  style={{alignContent:'center',flexDirection:"row",flex:0, justifyContent:'center'}}>
+
+                        <View style={styles.container.buttomSubButtons2}>
+                            <ConfirmPopup style={{borderRadius:10}}> 
+                              <Text onPress={()=>{{this.setState({ isConfirmUnbooking: false }); this.props.navigation.navigate('MainMaps');}}} style={styles.button.modalSubmit__text}>OK</Text>
+                            </ConfirmPopup>
+                          </View>
+
+                        </View>             
+                      </View>}>
+        <DialogContent style={{backgroundColor:'#f6ab05',height:'5%'}}></DialogContent> 
+
+        <DialogContent style={{width:"100%"}}>
+            <View style={{flex:0,width:'100%'}}>     
+              {
+                //<Image style={{marginTop:'-9%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>                           
+              }
+              <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Your booking is canceled.</Text>
             </View>                            
         </DialogContent> 
 
@@ -320,7 +395,8 @@ const mapStateToProps = state => {
   return {
     userAccount: state.userAccount,
     currentParking: state.currentParking,
-    reservation: state.reservation
+    reservation: state.reservation,
+    parking: state.parking
   };
 };
 

@@ -69,7 +69,7 @@ class UserProfile extends Component {
         <View style={{alignSelf:'center',flexDirection:'column',height:'65%',width:'100%',zIndex:2,marginTop:'-45%'}}>
           <View style={{height:'35%',width:'110%',justifyContent:'center',zIndex:3,alignSelf:'center'}}>
             <View style={{height:'75%',width:'35%',backgroundColor:'blue',alignSelf:'center',justifyContent:'center',borderRadius:150,borderColor:'#afafaf',borderWidth:4, zIndex:3}}>
-              <Image/>
+              <Image style={{height: '100%', width: '100%'}} source={require("../../assets/a/user.png")} resizeMode="cover"/>
             </View> 
            {/* <TouchableOpacity style={{width:'10%', alignSelf:'center',justifyContent:'center',zIndex:2}} onPress={()=>{{navigation.navigate('HomeScreen')}}}>
                  <View style={{height:'50%',width:'80%',backgroundColor:'white',alignSelf:'center',justifyContent:'center',borderRadius:100}}>
