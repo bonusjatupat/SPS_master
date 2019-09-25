@@ -26,51 +26,49 @@ export default StyleSheet.create({
 
     parkingLot:{
         fontSize:20,
-        marginTop:15,
-        color:'#c2c2c2'
+        flexGrow:7,
+        height:"80%",
+        alignSelf:'flex-end',
+        color:'#c2c2c2',
+        borderRightColor:'black',
+        borderRightWidth:1
     },
 
     spacePrice:{
-        fontSize:35,
-        color:'#f6ab05',
-        marginTop:4,
-        position:'absolute',
-        alignSelf:'flex-end'
+        fontSize:30,
+        color:'white',
+        flexGrow:2,
+        alignSelf:'center',
+        textAlign:'center'
     },
 
     bookingTitle:{
         fontSize:15,
-        marginLeft:10,
-        marginTop:15,
         color:'#000000'
     },
 
     bookingTime:{
         fontSize:20,
-        marginLeft:10,
         marginTop:5,
         color:'#000000'
     },
 
     arrivalTitle:{
         fontSize:15,
-        marginLeft:10,
-        marginTop:15,
         color:'#000000'
     },
 
     arrivalTime:{
         fontSize:20,
-        marginLeft:10,
         marginTop:5,
         color:'#000000'
     },
 
     preLocation:{
         fontSize:13,
-        position:'relative',
         alignSelf:'center',
-        marginTop:15,
+        marginTop:10,
+        marginBottom:5,
         color:'#2f3231'
     },
 

@@ -3,6 +3,7 @@ import {AppRegistry,StyleSheet,Text,View,Image,ScrollView, Button, TouchableOpac
 import { CancelButton, ReserveButton,CancelPopup, ConfirmPopup} from "../../components/Button";
 import Dialog, { SlideAnimation,ScaleAnimation, DialogContent, DialogFooter, DialogButton} from 'react-native-popup-dialog';
 import { NavBackButton_Pure} from "../../components/Button";
+import Icon from '../../components/Icons';
 import styles  from '../../styles';
 
 import { connect } from "react-redux";
@@ -162,14 +163,14 @@ import { insertReservation } from "../../actions/reservationAction";
 
   render() {
     return (
-    <SafeAreaView
-      forceInset={{ top: "always", bottom: "never" }}
+    <SafeAreaView 
+      forceInset={{ top: "never", bottom: "never" }}
       style={styles.global.whiteScreen}
     >
       <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "light-content"} />
     
      <ScrollView style={{height:'100%', width:'100%'}}>  
-       <View style={{height:'100%', width:'100%'}}>  
+       <View style={{height:'100%', width:'100%', marginTop:Platform.OS == "ios" ? "15%" : "0%"}}>  
 
          <View style={styles.container.container2}>
             <View style={{flexDirection:'column', width:'75%'}}>
@@ -188,9 +189,9 @@ import { insertReservation } from "../../actions/reservationAction";
 
               <View style={styles.container.infoBox}>
                 <Text style={styles.text.parkingLot}>{this.state.parkingLot}</Text>
-                <Image style={{width: 38, height: 35, position:'absolute', marginTop:12, marginLeft:250, rotation:90}}source={require('../../assets/a/arrow.png')}/>
-                <Image style={{marginTop:35,width: 330, height: 30, position:'absolute', alignSelf:'flex-end'}}source={require('../../assets/a/arrow.png')}/>
-                <Text style={styles.text.spacePrice}>{this.state.price}</Text>
+                <TouchableOpacity style={{backgroundColor:'#f6ab05', borderRadius:10, marginLeft:"1%", height:'95%',width:'20%', alignItems:'center'}}>
+                  <Text style={styles.text.spacePrice}>{this.state.price}</Text>
+                </TouchableOpacity>
               </View>
                 
               <View style={styles.container.containerSub2_1}>
@@ -198,7 +199,7 @@ import { insertReservation } from "../../actions/reservationAction";
                     <Text style={styles.text.bookingTitle}>Booking Time</Text>
                     <Text style={styles.text.bookingTime}>{this.state.bookingTime}</Text>
                   </View>
-                  <View style={{justifyContent:'center',alignSelf:'center',width:'10%', height:'10%'}}>
+                  <View style={{justifyContent:'center',alignSelf:'center',width:'10%', height:'100%'}}>
                     <Image style={{width: 20, height: 20, alignSelf:'center'}}source={require('../../assets/a/dot-and-circle.png')}/>
                   </View>
                   <View style={styles.container.infoBox2}>
@@ -214,11 +215,20 @@ import { insertReservation } from "../../actions/reservationAction";
                 <Image style={{width: "10%", height: '10%', position:'absolute', alignSelf:'center', rotation:90}}source={require('../../assets/a/arrow.png')}/>
               </View>
                   <Text style={styles.text.preLocation}>Your space is located at</Text>
-                  <View style={{flexDirection:'row'}}>
-                    <View style={styles.container.infoBox2}> 
+                  <View style={{flexDirection:'row', height:'70%', width:'90%'}}>
+                    <View style={styles.container.infoBox3}> 
                       {this.checkFloor(this.state.floor)}
                       <Text style={styles.text.floorLabel}>Floor</Text>
                     </View>
+
+                    <View style={{width:'4%', height:'100%', flexDirection:'column'}}>
+                      <View style={{width:'50%', flexGrow:3, height:'30%' , borderRightColor:'black', borderRightWidth:1}}/>
+                      <View style={{justifyContent:'center', flexGrow:2, alignItems:'center'}}>
+                        <Icon.FontAwesome name="circle" size={10} color="black" style={{height:'30%',width:'100%'}}/>
+                      </View>
+                      <View style={{width:'50%', height:'30%',flexGrow:3, borderRightColor:'black', borderRightWidth:1}}></View>
+                    </View>
+
                     <View style={styles.container.infoBox3}>
                       <Text style={{fontSize:50, marginTop:15, alignSelf:'center', color:'#000000'}}>{this.state.spaceNo}</Text>
                       <Text style={{fontSize:20, marginTop:10, alignSelf:'center',color:'#000000'}}>Space No</Text>

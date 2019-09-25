@@ -20,6 +20,7 @@ export default StyleSheet.create({
     },
 
     container3:{
+      marginTop:'-5%',
       alignItems:'center',
       marginBottom:"5%",  
     },
@@ -42,9 +43,9 @@ export default StyleSheet.create({
     
     containerSub2_1:{
       flexDirection:'row',
-      alignItems:'center', 
+      height:"25%",
       alignSelf:'center',
-      justifyContent:'center'
+      justifyContent:'center',
     },
 
     containerSub2_2:{
@@ -76,13 +77,19 @@ export default StyleSheet.create({
     },
 
     infoBox:{
-      flexDirection:'column',
+      marginTop:'2%',
+      flexDirection:'row',
+      width:'85%',
+      justifyContent:'center',
+      borderBottomColor:'black',
+      borderBottomWidth:1,
     },
 
     infoBox2:{
       flexDirection:'column',
       alignItems:'center',
-      width:'45%',
+      justifyContent:'center',
+      width:'35%',
       textAlign:'center',
       alignSelf:'center'
     },
@@ -90,7 +97,8 @@ export default StyleSheet.create({
     infoBox3:{
       flexDirection:'column',
       alignContent:'center',
-      width:'50%',
+      width:'48%',
+      alignItems:'center',
       textAlign:'center'
     },
 
@@ -127,16 +135,16 @@ export default StyleSheet.create({
       alignSelf:'center',
       width:'100%',
       height:'8%',
-      backgroundColor: 'pink',
       alignItems: 'center',
       justifyContent: 'center',
     },
 
     containerTimer:{
-      height:'40%',
+      height:'25%',
       width:'75%',
-      marginTop:'35%',
-      marginLeft:'-10%',
+      position:'absolute',
+      top:Platform.OS == "ios" ? '25%' : '20%',
+      left:'7%',
       alignSelf:'center',
       justifyContent:'center',
       flexDirection:'column'
