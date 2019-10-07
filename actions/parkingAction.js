@@ -61,11 +61,13 @@ export function refreshRealTimeParking(parkingData) {
 }
 
 export function updateSlotStatus(parkingID, slotID ,slotInfo){
-    axios.patch(`${config.API_ENDPOINT_URL}/parking/${parkingID}/${slotID}/updateSlotAvailable`, slotInfo, null)
-        .then((response) => {
-            console.log("update slot status success" + response.data)
-        })
-        .catch((error) => {
-            console.log("update slot status failed" + Error)
-        })
+        axios.patch(`${config.API_ENDPOINT_URL}/parking/${parkingID}/${slotID}/updateSlotAvailable`, slotInfo, null)
+            .then((response) => {
+                console.log("update slot status success" + response.data)
+            })
+            .catch((error) => {
+                console.log("update slot status failed" + error)
+                console.log(`${config.API_ENDPOINT_URL}/parking/${parkingID}/${slotID}/updateSlotAvailable`);
+            })
+        
 }

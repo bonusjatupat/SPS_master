@@ -32,27 +32,31 @@ export function insertReservation(data){
 }
 
 export function updateReserveStatus(bookingId, userId, status) {
-    axios.patch(`${config.API_ENDPOINT_URL}/reservation/${bookingId}/${userId}/${status}/updateStatus`, null, null)
-        .then((response) => {
-            console.log("update status success" + response.status);
-            var reservation = response.data;
-            dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: reservation });
-        })
-        .catch((error) => {
-            console.log("update status failed" + error);
-            console.log(`${config.API_ENDPOINT_URL}/reservation/${bookingId}/${userId}/${status}/updateStatus`);
-        })
+    return (dispatch) => {
+        axios.patch(`${config.API_ENDPOINT_URL}/reservation/${bookingId}/${userId}/${status}/updateStatus`, null, null)
+            .then((response) => {
+                console.log("update reservation status success" + response.status);
+                var reservation = response.data;
+                dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: reservation });
+            })
+            .catch((error) => {
+                console.log("update reservation status failed" + error);
+                console.log(`${config.API_ENDPOINT_URL}/reservation/${bookingId}/${userId}/${status}/updateStatus`);
+            })
+    }
 }
 
 export function addOneMoreHour(bookingId){
-    axios.patch(`${config.API_ENDPOINT_URL}/reservationProcess/${bookingId}/addTime`, null, null)
-        .then((response) =>{
-            console.log("update arrivalTime success" + response);
-            var reservation = response.data
-            dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: reservation });
-        })
-        .catch((error) => {
-            console.log("update arrivalTime failed" + error);
-            console.log(`${config.API_ENDPOINT_URL}/reservationProcess/${bookingId}/addTime`);
-        })
+    return (dispatch) => {
+        axios.patch(`${config.API_ENDPOINT_URL}/reservationProcess/${bookingId}/addTime`, null, null)
+            .then((response) =>{
+                console.log("update arrivalTime success" + response);
+                var reservation = response.data
+                dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: reservation });
+            })
+            .catch((error) => {
+                console.log("update arrivalTime failed" + error);
+                console.log(`${config.API_ENDPOINT_URL}/reservationProcess/${bookingId}/addTime`);
+            })
+    }
 }
