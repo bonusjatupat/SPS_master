@@ -61,7 +61,7 @@ export function refreshRealTimeParking(parkingData) {
 }
 
 export function updateSlotStatus(parkingID, slotID ,slotInfo){
-    axios.patch(`${config.API_ENDPOINT_URL}/parking/find/${curLocation.lat}/${curLocation.long}`, slotData, null)
+    axios.patch(`${config.API_ENDPOINT_URL}/parking/${parkingID}/${slotID}/updateSlotAvailable`, slotInfo, null)
         .then((response) => {
             console.log("update slot status success" + response.data)
         })
