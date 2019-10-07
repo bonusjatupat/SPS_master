@@ -7,6 +7,7 @@ import Icon from '../../components/Icons';
 import styles  from '../../styles';
 
 import { connect } from "react-redux";
+import { updateSlotStatus } from "../../actions/parkingAction";
 import { insertReservation, updateReserveStatus } from "../../actions/reservationAction";
 import { updateUserBalance } from '../../actions/userAccountAction';
 
@@ -69,7 +70,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
         blue: false
       }
     }
-    updateSlotStatus(this.props.currentParking.data._id, thie.props.reservation.data.slotID, slotInfo);
+    updateSlotStatus(this.props.currentParking.data._id, this.props.reservation.data.slotID, slotInfo);
 
     this.setState({ visible: false });
     this.props.navigation.navigate('MainMaps');
@@ -95,7 +96,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
         blue: true
       }
     }
-    updateSlotStatus(this.props.currentParking.data._id, thie.props.reservation.data.slotID, slotInfo);
+    updateSlotStatus(this.props.currentParking.data._id, this.props.reservation.data.slotID, slotInfo);
     
     this.props.dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: {} });
     this.props.dispatch({ type: 'FETCH_PARKING_FULFILLED', payload: {} });
@@ -151,7 +152,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
         blue: false
       }
     }
-    updateSlotStatus(this.props.currentParking.data._id, thie.props.reservation.data.slotID, slotInfo);
+    updateSlotStatus(this.props.currentParking.data._id, this.props.reservation.data.slotID, slotInfo);
 
     this.props.dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: {} });
     this.props.dispatch({ type: 'FETCH_PARKING_FULFILLED', payload: {} });
