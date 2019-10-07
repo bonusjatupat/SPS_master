@@ -255,7 +255,7 @@ class AuthenticationScreen extends Component {
                                         style={[styles.form.defaultInput, this.state.passwordTxt__wrong]} 
                                         placeholder="Password"
                                         placeholderTextColor="#515151"
-                                        keyboardType="visible-password"
+                                        keyboardType="default"
                                         autoCapitalize="none"
                                         value={this.state.passwordTxt}
                                         secureTextEntry={true}

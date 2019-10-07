@@ -1,6 +1,6 @@
 import React, {Component } from 'react';
 import { Text, View, Image, ScrollView , TouchableOpacity, SafeAreaView, StatusBar, ActivityIndicator,Platform} from 'react-native';
-import { NavBackButton_Pure, ModalSubmitButton1, ModalSubmitButton2, FloorButton} from "../../components/Button";
+import { NavBackButton_Pure, ModalSubmitButton1, ModalSubmitButton2, FloorButton, FloorButton2} from "../../components/Button";
 import { RatingMini } from "../../components/General";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient} from "expo";
@@ -116,12 +116,9 @@ class FloorDetail extends Component {
                   style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
                   onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}>
                 <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
-                    <FloorButton 
-                      style={{backgroundColor:'#AAAAAA'}} 
-                      onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1,floorChosenNumber:temp[i].floorNumber});}}
-                    >
+                    <FloorButton2 style={{backgroundColor:'#AAAAAA'}} >
                       <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
-                    </FloorButton>
+                    </FloorButton2>
                   </View>
                   <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
                     <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
@@ -151,22 +148,22 @@ class FloorDetail extends Component {
         )
       }
       else{
-        if(i==this.state.active){
+        if(i==this.state.active){//#f69c3f orange  
           result.push(
           <View key={i} style={{flex: 1,minHeight:75,maxHeight:75,flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity  
-              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4'}} 
+              style={{width:'100%', height:'100%',flexDirection:'row',justifyContent:'center', borderBottomWidth:1, borderBottomColor:'#D5D4D4', backgroundColor:'#5a5fff', color:'white'}} 
               onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1, floorChosenNumber:temp[i].floorNumber});}}>
               <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
                 <FloorButton 
                   style={{backgroundColor:'red'}} 
                   onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1, floorChosenNumber:temp[i].floorNumber});}}
                 >
-                    <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
+                    <Text style={{color:'white', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
                 </FloorButton>
               </View>
               <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
-                <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
+                <Text style={{color:'white'}}>{temp[i].facilities}</Text>
               </View>
             </TouchableOpacity>
           </View>)
@@ -179,12 +176,9 @@ class FloorDetail extends Component {
                   onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1, floorChosenNumber:temp[i].floorNumber});}}
                 >
                   <View style={{flex: 1, justifyContent:'center',alignSelf:'center'}}>
-                    <FloorButton 
-                      style={{backgroundColor:'#AAAAAA'}} 
-                      onPress={()=>{this.setState({active:i,buttonCount:1,activeCount:1, floorChosenNumber:temp[i].floorNumber});}}
-                    >
+                    <FloorButton2 style={{backgroundColor:'#AAAAAA'}}>
                       <Text style={{color:'#FFFFFF', fontWeight: "bold", fontSize: 18}}>{temp[i].floorNumber}</Text>
-                    </FloorButton>
+                    </FloorButton2>
                   </View>
                   <View style={{flex: 2, justifyContent:'center',alignSelf:'center'}}>
                     <Text style={{color:'#777777'}}>{temp[i].facilities}</Text>
@@ -221,108 +215,41 @@ class FloorDetail extends Component {
 
   _renderHeaderAndroid() {
     return (
-      <View
-        style={[{
-            overflow: "hidden",
-            height: 180
-          }]}
-      >
-        <View
-          style={{
-            flex: 0,
-            flexDirection: "column",
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            padding: 20,
-            zIndex: 99
-          }}
-        >
-          <View style={{ flex: 1, width: "100%" }}>
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center"
-                }}
-              >
-                <Text
-                  numberOfLines={2}
-                  style={{
-                    backgroundColor: "transparent",
-                    color: "#FFFFFF",
-                    fontWeight: "800",
-                    fontSize: 20,
-                    textShadowOffset: { width: 0, height: 2 },
-                    textShadowColor: "rgba(0, 0, 0, 0.1)",
-                    textShadowRadius: 4
-                  }}
-                >
+      <View style={[{ overflow: "hidden",height: 180}]}>
+        <View style={{flex: 0, flexDirection: "column", width: "100%", height: "100%", position: "absolute", padding: 20, zIndex: 99,   
+                      justifyContent:'space-between'}}>
+          <View style={{ flex: 0, width: "100%" , flexGrow:9}}>
+
+            <View style={{ flex: 0, flexDirection: "row" }}>
+
+              <View style={{flex: 1,justifyContent: "flex-start"}}>
+                <Text numberOfLines={2} style={{ backgroundColor: "transparent",color: "#FFFFFF", fontWeight: "800",fontSize: 20,
+                      textShadowOffset: { width: 0, height: 2 }, textShadowColor: "rgba(0, 0, 0, 0.1)",textShadowRadius: 4}}>
                   {this.props.currentParking.data.name}
                 </Text>
               </View>
-              <View
-                style={{
-                  flex: 0,
-                  justifyContent: "center",
-                  marginLeft: 10,
-                  alignItems: "flex-end"
-                }}
-              >
-                <RatingMini
-                  star={this.props.currentParking.data.star}
-                  compStyle={{
-                    shadowOffset: { width: 0, height: 4 },
-                    shadowColor: "#000000",
-                    shadowOpacity: 0.1
-                  }}
-                />
+
+              <View style={{flex: 0,justifyContent: "flex-start",marginLeft: 10,alignItems: "flex-end"}}>
+                <RatingMini star={this.props.currentParking.data.star} compStyle={{ shadowOffset: { width: 0, height: 4 },shadowColor: "#000000",shadowOpacity: 0.1}}/>
               </View>
+
             </View>
+
           </View>
-          <View style={{ flex: 0 }}>
-            <Text
-              numberOfLines={2}
-              style={{
-                backgroundColor: "transparent",
-                color: "#FFFFFF",
-                fontSize: 12,
-                fontWeight: "bold",
-                textShadowOffset: { width: 0, height: 2 },
-                textShadowColor: "rgba(0, 0, 0, 0.1)",
-                textShadowRadius: 4
-              }}
-            >
+
+          <View style={{ flex: 2, flexGrow:1 }}>
+            <Text numberOfLines={2} style={{ backgroundColor: "transparent", color: "#FFFFFF", fontSize: 12, fontWeight: "bold", 
+                   textShadowOffset: { width: 0, height: 2 }, textShadowColor: "rgba(0, 0, 0, 0.1)",textShadowRadius: 4}}>
               <Ionicons name="md-pin" size={12} color="#FFFFFF" /> {this.props.currentParking.data.address.description}
             </Text>
           </View>
+
         </View>
-        <LinearGradient
-          colors={["#3023AE", "#53A0FD", "#B4EC51"]}
-          start={[0, 0]}
-          end={[1, 1]}
-          style={{
-            position: "absolute",
-            bottom: 0,
-            width: "100%",
-            height: "100%",
-            zIndex: 98,
-            opacity: 0.7
-          }}
-        />
-        <Image
-          style={{
-            position: "absolute",
-            top: 0,
-            zIndex: 96,
-            width: "100%",
-            height: "100%"
-          }}
-          source={
-            { uri: "https://www.aeroportolisboa.pt/sites/default/files/media/06_parking_total_autonomia.jpg" } 
-          }
-          resizeMode="cover"
-        />
+
+        <LinearGradient colors={["#3023AE", "#53A0FD", "#B4EC51"]} start={[0, 0]} end={[1, 1]} style={{ position: "absolute",
+            bottom: 0, width: "100%", height: "100%", zIndex: 98, opacity: 0.7}}/>
+        <Image style={{position: "absolute", top: 0,zIndex: 96, width: "100%", height: "100%"}}
+          source={{ uri: "https://www.aeroportolisboa.pt/sites/default/files/media/06_parking_total_autonomia.jpg" }} resizeMode="cover"/>
       </View>
     );
   }
@@ -345,22 +272,17 @@ class FloorDetail extends Component {
         <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "light-content"} />
         {this._renderHeaderAndroid()}
         <ScrollView>
+
           <View style={{justifyContent: 'center', alignItems: 'center', paddingVertical: 20}}>
-            <Text
-                  style={{
-                    color: "#000000",
-                    fontWeight: "bold",
-                    fontSize: 18,
-                    backgroundColor: "transparent",
-                    textAlign: "center"
-                  }}
-                >
+            <Text style={{ color: "#000000", fontWeight: "bold", fontSize: 18, backgroundColor: "transparent", textAlign: "center"}}>
                   Please select a floor
-                </Text>
-            </View>
-            <View>
+            </Text>
+          </View>
+
+          <View>
               {this.loadButton(this.state.floors)}
-            </View>
+          </View>
+
           </ScrollView>
           {this.loadReserveButton()}
       </SafeAreaView>
