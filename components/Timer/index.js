@@ -12,18 +12,65 @@ export class Timer extends Component {
     constructor(props){
         super(props);
         this.state = {
-            reservation: this.props.reservation,
-            currentParking: this.props.currentParking,
+            floor: this.props.floor,
+            slotNo: this.props.slotNo,
+            parkingName: this.props.parkingName,
             timerActive: true,
             visible:false
+            visible: false
         }
     };
 
     componentWillRecieveProps(nextProps,nextState){
         this.setState({
-            reservation: nextProps["reservation"],
-            currentParking: nextProps["currentParking"]
+            floor: nextProps["floor"],
+            slotNo: nextProps["slotNo"],
+            parkingName: nextProps["parkingName"]
         });
+    }
+
+    _renderTimeOut(){
+        this.setState({
+            visible: true
+        })
+
+        return(
+            <Dialog visible={this.state.visible}
+            dialogAnimation={new ScaleAnimation()}
+            width='70%'
+            footer={<View style={{alignSelf:'center', border:'hidden'}}>
+
+                      <View  style={{alignContent:'center',flexDirection:"row",flex:0, justifyContent:'center'}}>
+
+                        <View style={styles.container.buttomSubButtons2}>
+                          <TouchableOpacity style={{borderRadius:10}}> 
+                            <Text style={styles.button.modalSubmit__text}>YES</Text>
+                          </TouchableOpacity>
+                        </View>
+
+                        <View  style={styles.container.buttomSubButtons3}></View>
+
+                        <View style={styles.container.buttomSubButtons2}>
+                          <TouchableOpacity style={{borderRadius:10}}> 
+                            <Text onPress={()=>{this.setState({visible:false})}} style={styles.button.modalSubmit__text}>NO</Text>
+                          </TouchableOpacity>
+                        </View>
+
+                      </View>             
+                    </View>}>
+         
+                <DialogContent style={{backgroundColor:'#f6ab05',height:'5%'}}></DialogContent> 
+                <DialogContent> 
+                    <View style={{flex:0}}>     
+                    {
+                        //<Image style={{marginTop:'-8%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>
+                    }                          
+                    <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>You have exceeded time limit. Do you want to continue booking the space?</Text>
+                    </View>                            
+                </DialogContent>
+
+            </Dialog>
+        );
     }
 
     render(){
@@ -64,23 +111,24 @@ export class Timer extends Component {
                 <View style={styles.container.timerInfoBooking}>
                     <View style={styles.container.timerInfoBookingSub1}>
                         <Text style={styles.text.infoTimerHeader}>Floor</Text>
-                        <Text style={styles.text.infoTimer}>{this.state.reservation.floor}</Text>
+                        <Text style={styles.text.infoTimer}>{this.state.floor}</Text>
                     </View>
                     <View style={styles.container.timerInfoBookingSub2}>
                         <Text style={styles.text.infoTimerHeader}>Slot</Text>
-                        <Text style={styles.text.infoTimer}>{this.state.reservation.slotNumber}</Text>
+                        <Text style={styles.text.infoTimer}>{this.state.slotNo}</Text>
                     </View>
                 </View>
             </View>
             <View style={styles.container.timerSubCont2}>
                 <TouchableOpacity style={styles.container.timerInfoButton} onPress={()=>{{this.props.navigation.navigate('ReservationDetail',{ timerActive: this.state.timerActive })}}}>
                     <Text style={styles.text.timerInfoButton}>RESERVATION INFO</Text>
+                    <Text style={styles.text.timerInfoButton}>RESERVATION INFO.</Text>
                 </TouchableOpacity>
 
                 <View style={styles.container.blankColTimer}/>
 
                 <View style={styles.container.timerInfoBooking}>
-                    <Text style={styles.text.timerPlace}>{this.state.currentParking.name}</Text>
+                    <Text style={styles.text.timerPlace}>{this.state.parkingName}</Text>
                 </View>
             </View>
          </View>

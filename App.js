@@ -57,7 +57,8 @@ const MainAppStack = createStackNavigator(
     FloorDetail:{ screen:FloorDetail, path:"/floor-detail"},
     ReservationDetail:{screen: ReservationDetail, path:'/reservation-detail'},
    // Timer:{screen:Timer,path:""},
-    UserProfile:{screen: UserProfile, path:'/user-detail'}
+    UserProfile:{screen: UserProfile, path:'/user-detail'},
+    Authentication: { screen: AuthenticationLandingScreen , path: "/authentication"}
   },
   generalConfig
 );
@@ -128,7 +129,8 @@ class App extends React.Component {
       require("./assets/a/dot-and-circle.png"),
       require("./assets/a/locationIcon.png"),
       require("./assets/a/dot.png"),
-      require("./assets/a/arrow.png")
+      require("./assets/a/arrow.png"),
+      require("./assets/parking_pin_yellow/parking_pin_yellow.png")
     ]);
 
     const fontAssets = cacheFonts([]);

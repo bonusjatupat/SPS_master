@@ -853,39 +853,27 @@ class MainMapsScreen extends Component {
 
         {Object.keys(this.props.reservation.data).length == 0 && this.props.parking.data.length > 0
           ? this.props.parking.data.map((marker, key) => (
-              <Marker
-                key={key}
-                coordinate={{
-                  latitude: marker.address.location.coordinates[1],
-                  longitude: marker.address.location.coordinates[0]
-                }}
-                image={require("../../assets/parking_pin/parking_pin.png")}
-                onPress={() => this.onMarkerPress(key)}
-              />
+              marker.spsSupported ? 
+                <Marker
+                  key={key}
+                  coordinate={{
+                    latitude: marker.address.location.coordinates[1],
+                    longitude: marker.address.location.coordinates[0]
+                  }}
+                  image={require("../../assets/parking_pin/parking_pin.png")}
+                  onPress={() => this.onMarkerPress(key)}
+                />
+              : <Marker
+                  key={key}
+                  coordinate={{
+                    latitude: marker.address.location.coordinates[1],
+                    longitude: marker.address.location.coordinates[0]
+                  }}
+                  image={require("../../assets/parking_pin_yellow/parking_pin_yellow.png")}
+                  onPress={() => this.onMarkerPress(key)}
+                />
             ))
           : null}
-
-        {Object.keys(this.props.reservation.data).length > 0 && Object.keys(this.props.currentParking.data).length > 0 
-          ? /*<Marker
-              coordinate={{ 
-                latitude: this.props.currentParking.data.address.location.coordinates[1],
-                longitude: this.props.currentParking.data.address.location.coordinates[0]
-              }}
-              image={require("../../assets/searchbox_pin/searchbox_pin.png")}
-            />*/
-            <MapViewDirections
-              origin={{
-                latitude: this.state.currentRegion.latitude,
-                longitude: this.state.currentRegion.longitude
-              }}
-              destination={{ 
-                latitude: parseInt(this.props.currentParking.data.address.location.coordinates[1]),
-                longitude: parseInt(this.props.currentParking.data.address.location.coordinates[0])
-              }}
-              apikey={config.GOOGLE_PLACE_API_KEY}
-              strokeWidth={3}
-              strokeColor="blue"
-            /> : null}
       </MapView>
     );
   }
@@ -1021,7 +1009,8 @@ class MainMapsScreen extends Component {
 
   _renderTimer(){
     //console.log(Object.keys(this.props.userAccount.data).length)
-    return ( <Timer reservation={this.props.reservation.data} currentParking={this.props.currentParking.data} {...this.props}/> )
+    console.log("in MainMap " + this.props.reservation.data._id);
+    return ( <Timer floor={this.props.reservation.data.floor} slotNo={this.props.reservation.data.slotNumber} parkingName={this.props.currentParking.data.name} {...this.props}/> )
   }
 
   onPressOpenParkingFilter() {

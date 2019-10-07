@@ -58,7 +58,6 @@ class ParkingDetail extends Component {
       parkingPreview: [],
       errorVisible: false,
       errorMessage: "",
-      loginText: "",
       isEnoughBalance: true,
       isClickBookNow: false,
       showBalanceDialog: false
@@ -68,14 +67,10 @@ class ParkingDetail extends Component {
     this.openNavigator = this.openNavigator.bind(this);
     this._loadLoginText = this._loadLoginText.bind(this);
     this.onPressBookNow = this.onPressBookNow.bind(this);
+    this._renderLoginText = this._renderLoginText.bind(this);
   }
 
   _loadLoginText() {
-    {Object.keys(this.props.userAccount.data).length == 0 ?
-      this.setState({ loginText: "Please login before booking a space." }) 
-    : 
-      this.setState({ loginText: "" })}
-
     {this.props.userAccount.data.balance >= this.state.parkingData.price.paid.rate ?
       this.setState({ isEnoughBalance: true })
     :
@@ -413,6 +408,14 @@ class ParkingDetail extends Component {
     );
   }
 
+  _renderLoginText() {
+    return (
+      <View style={{ width: '100%', flex: 0, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 5 }}>
+        <Text style={{ color: '#649BE1', fontWeight: "normal" }}>Please sign in to book a space. </Text>
+      </View>
+    )
+  }
+
   _renderHeaderAndroid() {
     return (
       <View
@@ -575,8 +578,8 @@ class ParkingDetail extends Component {
                 )} */}
         {this._renderHeaderAndroid()}
         <ScrollView>{this._renderScrollViewContent()}</ScrollView>
-        <Text style={{ color: '#F6CF3F', fontWeight: "normal", textAlign: "center", marginBottom: 5 }}>{this.state.loginText}</Text>
-        {this._renderBookButton()}
+        {Object.keys(this.props.userAccount.data).length == 0 && this.state.parkingData.spsSupported == false ? this._renderLoginText() : null}
+        {this.state.parkingData.spsSupported ? this._renderBookButton() : null}
 
         <Dialog visible={this.state.isClickBookNow && !this.state.isEnoughBalance}
                 width='70%'
@@ -596,9 +599,6 @@ class ParkingDetail extends Component {
     
           <DialogContent style={{width:"100%"}}>
               <View style={{flex:0,width:'100%'}}>     
-                {
-                  //<Image style={{marginTop:'-9%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>                           
-                }
                 <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Your balance is not enough.</Text>
               </View>                            
           </DialogContent> 

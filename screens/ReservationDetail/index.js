@@ -43,7 +43,12 @@ import { updateUserBalance } from '../../actions/userAccountAction';
       isArrive: false,
       isTractionSuccess: false,
       isConfirmUnbooking: false,
+<<<<<<< HEAD
       showPrice:false
+=======
+      reserve15min: false,
+      unBookingText: ""
+>>>>>>> bonus_25-09
     };
 
     this.confirmReservation = this.confirmReservation.bind(this);
@@ -84,8 +89,41 @@ import { updateUserBalance } from '../../actions/userAccountAction';
   }
 
   onPressUnbooking(){
+    var reserveHour = parseInt(this.props.reservation.data.reservationInfo.time.substring(0,2));
+    var reserveMin = parseInt(this.props.reservation.data.reservationInfo.time.substring(3,5));
+    console.log("reserve hour " + reserveHour + " reservare min " + reserveMin);
+    var currentHour = parseInt(new Date().getHours());
+    var currentMin = parseInt(new Date().getMinutes());
+    console.log("current hour " + currentHour + " current min " + currentMin);
+    
+    var text = "";
+    if(reserveHour == currentHour && currentMin - reserveMin > 2){
+      text = "You have been booking more than 15 minutes. You will be charged follow by the parking price rate. Do you want to confirm unbooking the space?";
+      this.setState({
+        reserve15min: true
+      })
+    }else if(reserveHour != currentHour && (60 - reserveMin) + currentMin > 2){
+      text = "You have been booking more than 15 minutes. You will be charged follow by the parking price rate. Do you want to confirm unbooking the space?";
+      this.setState({
+        reserve15min: true
+      })
+    }else{
+      test = "You are cancelling the space within 15 minutes. You willnot be charged. Do you want to confirm unbooking the space?";
+    }
+
+    this.setState({
+      isUnbooking: true,
+      unBookingText: text
+    })
+  }
+
+  onPressConfirmUnbooking(){
     var status = "cancel"
     updateReserveStatus(this.props.reservation.data._id, this.props.userAccount.data._id, status);
+
+    if(this.state.reserve15min){
+      updateUserBalance(this.props.userAccount.data._id, this.props.reservation.data.price);
+    }
 
     this.props.dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: {} });
     this.props.dispatch({ type: 'FETCH_PARKING_FULFILLED', payload: {} });
@@ -142,8 +180,13 @@ import { updateUserBalance } from '../../actions/userAccountAction';
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.container.buttomSubButtons}>
+<<<<<<< HEAD
           <CancelButton style={{ width:'100%'}} onPress={()=>{{this.setState({ isUnbooking: true })}}}> 
             <Text  style={styles.button.modalSubmit__text}>UNBOOKING</Text>
+=======
+          <CancelButton style={{ width:'100%'}}> 
+            <Text onPress={()=>{{this.onPressUnbooking()}}} style={styles.button.modalSubmit__text}>UNBOOKING</Text>
+>>>>>>> bonus_25-09
             {//onPress={()=>{this.setState({isCanceled:true})}}
             }
           </CancelButton>
@@ -247,7 +290,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
 
                     <View style={styles.container.infoBox3}>
                       <Text style={{fontSize:50, marginTop:15, alignSelf:'center', color:'#000000'}}>{this.state.spaceNo}</Text>
-                      <Text style={{fontSize:20, marginTop:10, alignSelf:'center',color:'#000000'}}>Space No</Text>
+                      <Text style={{fontSize:20, marginTop:10, alignSelf:'center',color:'#000000'}}>Slot No</Text>
                     </View>
                   </View>
               </View>
@@ -317,7 +360,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
 
                         <View style={styles.container.buttomSubButtons2}>
                             <ConfirmPopup style={{borderRadius:10}}> 
-                              <Text onPress={()=>{{this.onPressUnbooking()}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
+                              <Text onPress={()=>{{this.onPressConfirmUnbooking()}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
                             </ConfirmPopup>
                           </View>
 
@@ -338,7 +381,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
               {
                 //<Image style={{marginTop:'-9%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>                           
               }
-              <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Do you want to unbook the space?</Text>
+              <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>{this.state.unBookingText}</Text>
             </View>                            
         </DialogContent> 
 
