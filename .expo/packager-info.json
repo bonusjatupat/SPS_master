@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://2j-mag.anonymous.sps-master.exp.direct",
-  "packagerNgrokUrl": "https://packager.2j-mag.anonymous.sps-master.exp.direct",
-  "ngrokPid": 23004,
-  "devToolsPort": 19002,
+  "expoServerNgrokUrl": "https://jk-6fv.anonymous.sps-master.exp.direct",
+  "packagerNgrokUrl": "https://packager.jk-6fv.anonymous.sps-master.exp.direct",
+  "ngrokPid": 12644,
   "packagerPort": 19001,
-  "packagerPid": 24380
+  "packagerPid": 14740,
+  "devToolsPort": 19002
 }
