@@ -217,14 +217,7 @@ class ParkingDetail extends Component {
         <View style={{ flex: 0, flexDirection: "row", width: "100%" }}>
           {this.state.parkingData.available != -1 ? (
             <View style={{ flex: 1 }}>
-              <Text
-                style={{
-                  color: "#000000",
-                  fontWeight: "bold",
-                  fontSize: 18,
-                  backgroundColor: "transparent"
-                }}
-              >
+              <Text style={{ color: "#000000", fontWeight: "bold", fontSize: 18, backgroundColor: "transparent"}}>
                 Available
               </Text>
               <View style={{ flex: 0, flexDirection: "row" }}>
@@ -238,14 +231,7 @@ class ParkingDetail extends Component {
             </View>
           ) : null}
           <View style={{ flex: 1 }}>
-            <Text
-              style={{
-                color: "#000000",
-                fontWeight: "bold",
-                fontSize: 18,
-                backgroundColor: "transparent"
-              }}
-            >
+            <Text style={{ color: "#000000",  fontWeight: "bold", fontSize: 18, backgroundColor: "transparent"}}>
               Rate
             </Text>
             <Text style={{ color: "#F5A623", fontWeight: "bold", fontSize: 24 }}>
@@ -360,89 +346,43 @@ class ParkingDetail extends Component {
 
     return (
       <Animated.View
-        style={[
-          {
-            overflow: "hidden",
-            height: headerHeight
-          }
-        ]}
-      >
-        <View
-          style={{
-            flex: 0,
-            flexDirection: "column",
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            padding: 20,
-            zIndex: 99
-          }}
-        >
+        style={[{overflow: "hidden", height: headerHeight}]}>
+        <View style={{flex: 0, flexDirection: "column", width: "100%",height: "100%", position: "absolute",
+                    justifyContent:'space-between', padding: 20,zIndex: 99}}>
+         
           <Animated.View style={{ flex: 0, alignItems: "flex-end", opacity: headerTextOpacity }}>
-            <Rating
-              star={this.state.parkingData.star}
-              size={9}
-              starColor="#FFFFFF"
-              iconStyle={{
-                textShadowOffset: { width: 0, height: 2 },
-                textShadowColor: "rgba(0, 0, 0, 0.1)",
-                textShadowRadius: 4
-              }}
-            />
+            <Rating star={this.state.parkingData.star}  size={9} starColor="#FFFFFF"iconStyle={{textShadowOffset: { width: 0, height: 2 },
+                textShadowColor: "rgba(0, 0, 0, 0.1)",textShadowRadius: 4}}/>
           </Animated.View>
-          <View style={{ flex: 1, width: "100%", justifyContent: "center" }}>
-            <View style={{ flex: 0, flexDirection: "row" }}>
-              <Text
-                numberOfLines={2}
-                style={{
-                  backgroundColor: "transparent",
-                  color: "#FFFFFF",
-                  fontWeight: "800",
-                  fontSize: 20,
-                  flex: 1,
-                  textShadowOffset: { width: 0, height: 2 },
-                  textShadowColor: "rgba(0, 0, 0, 0.1)",
-                  textShadowRadius: 4
-                }}
-              >
+
+          <View style={{ flex: 0, width: "100%", flexGrow:9 ,backgroundColor:'black'}}>
+            <View style={{ flex: 0, flexDirection: "row" , backgroundColor:'yellow'}}>
+
+              <View style={{backgroundColor:'green'}}>
+              <Text numberOfLines={2} style={{ backgroundColor: "green", color: "#FFFFFF", fontWeight: "800",
+                  fontSize: 20, flex: 1, textShadowOffset: { width: 0, height: 2 },textShadowColor: "rgba(0, 0, 0, 0.1)",
+                  textShadowRadius: 4 }}>
                 {this.state.parkingData.name}
               </Text>
-              <Animated.View
-                style={{
-                  opacity: headerTextOpacityReverse,
-                  flex: 0,
-                  justifyContent: "center",
-                  marginLeft: 10,
-                  alignItems: "flex-end"
-                }}
-              >
-                <RatingMini
-                  star={this.state.parkingData.star}
-                  compStyle={{
-                    shadowOffset: { width: 0, height: 4 },
-                    shadowColor: "#000000",
-                    shadowOpacity: 0.1
-                  }}
-                />
+              </View>
+
+              <Animated.View style={{backgroundColor:'pink',opacity: headerTextOpacityReverse, flex: 0, justifyContent: "flex-start", marginLeft: 10,
+                  alignItems: "flex-end"}}>
+                <RatingMini star={this.state.parkingData.star} compStyle={{shadowOffset: { width: 0, height: 4 }, shadowColor: "#000000",
+                    shadowOpacity: 0.1}}/>
               </Animated.View>
+
             </View>
           </View>
-          <Animated.View style={{ flex: 0, opacity: headerTextOpacity }}>
-            <Text
-              numberOfLines={2}
-              style={{
-                backgroundColor: "transparent",
-                color: "#FFFFFF",
-                fontSize: 12,
-                fontWeight: "bold",
-                textShadowOffset: { width: 0, height: 2 },
-                textShadowColor: "rgba(0, 0, 0, 0.1)",
-                textShadowRadius: 4
-              }}
-            >
+
+          <Animated.View style={{ flex: 0, opacity: headerTextOpacity, flexGrow:1 }}>
+            <Text numberOfLines={2} style={{ backgroundColor: "transparent",  color: "#FFFFFF", fontSize: 12, 
+                fontWeight: "bold", textShadowOffset: { width: 0, height: 2 }, textShadowColor: "rgba(0, 0, 0, 0.1)",
+                textShadowRadius: 4}}>
                <Ionicons name="md-pin" size={12} color="#FFFFFF" />{this.state.parkingData.address.description}
             </Text>
           </Animated.View>
+
         </View>
         <LinearGradient
           colors={["#3023AE", "#53A0FD", "#B4EC51"]}
@@ -491,15 +431,15 @@ class ParkingDetail extends Component {
             height: "100%",
             position: "absolute",
             padding: 20,
-            zIndex: 99
+            zIndex: 99,
+            justifyContent:'space-between'
           }}
         >
-          <View style={{ flex: 1, width: "100%" }}>
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <View
-                style={{
+          <View style={{ flex: 0, width: "100%", flexGrow:9 }}>
+            <View style={{ flex: 0, flexDirection: "row" }}>
+              <View style={{
                   flex: 1,
-                  justifyContent: "center"
+                  justifyContent: "flex-start"
                 }}
               >
                 <Text
@@ -520,7 +460,7 @@ class ParkingDetail extends Component {
               <View
                 style={{
                   flex: 0,
-                  justifyContent: "center",
+                  justifyContent: "flex-start",
                   marginLeft: 10,
                   alignItems: "flex-end"
                 }}
@@ -536,7 +476,7 @@ class ParkingDetail extends Component {
               </View>
             </View>
           </View>
-          <View style={{ flex: 0 }}>
+          <View style={{ flex: 2, flexGrow:1}}>
             <Text
               numberOfLines={2}
               style={{

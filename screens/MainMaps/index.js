@@ -503,16 +503,16 @@ class MainMapsScreen extends Component {
           marginRight: 10,
           alignItems: "center",
           justifyContent: "center",
-          zIndex: 2
+          zIndex: 4
         }}
         onLayout={e => {}}
       >
-        <View style={{ width: "100%", height: 50, alignItems: "center", justifyContent: "center" }}>
+        <View style={{ width: "100%", height: "50%", alignItems: "center", justifyContent: "center" }}>
           <Text
             style={{
               color: "#FFFFFF",
               fontWeight: "bold",
-              fontSize: 16,
+              fontSize: 14,
               backgroundColor: "transparent",
               alignSelf:'center',
               textAlign:'center'
@@ -532,7 +532,7 @@ class MainMapsScreen extends Component {
           }}
           onPress={this.onSearchDismiss}
         >
-          <Ionicons name="ios-close" size={30} color="#FFFFFF" style={{marginLeft:30}} />
+          <Ionicons name="ios-close" size={40} color="#FFFFFF" style={{marginLeft:30}} />
         </TouchableOpacity>
       </View>
     );
@@ -584,8 +584,8 @@ class MainMapsScreen extends Component {
             </TouchableOpacity>
           </BoxShadow>
           <Image
-            style={{right: 0, width: 44, height: 44, borderRadius: 22, position:'absolute', top:0, right:50}}
-            source={require("../../assets/a/logo.png")}
+            style={{right: 0, width: 74, height: 74, borderRadius: 22, position:'absolute', top:-15, right:50}}
+            source={require("../../assets/a/logo1.png")}
             resizeMode="cover"
           />
       </View>

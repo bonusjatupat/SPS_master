@@ -110,7 +110,7 @@ export class RatingMini extends Component {
         return (
             <View style={[styles.listItem.parkingListItem__details_meta_rating, ratingStyle, this.props.compStyle]}>
                 <Text style={styles.listItem.parkingListItem__details_meta_text}>
-                    <Entypo name="star" size={9} color="#FFFFFF" /> {this.props.star}
+                    <Entypo name="star" size={14} color="#FFFFFF" /> {this.props.star}
                 </Text>
             </View>
         );
