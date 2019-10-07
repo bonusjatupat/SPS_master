@@ -16,8 +16,16 @@ export class Timer extends Component {
             slotNo: this.props.slotNo,
             parkingName: this.props.parkingName,
             timerActive: true,
+<<<<<<< HEAD
             visible:false
             visible: false
+=======
+<<<<<<< HEAD
+            visible: false
+=======
+            visible:false
+>>>>>>> sb
+>>>>>>> bonus_25-09
         }
     };
 
@@ -29,6 +37,10 @@ export class Timer extends Component {
         });
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bonus_25-09
     _renderTimeOut(){
         this.setState({
             visible: true
@@ -73,6 +85,11 @@ export class Timer extends Component {
         );
     }
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> sb
+>>>>>>> bonus_25-09
     render(){
         return (
         <View style={{width:'100%',height:'100%'}}>
@@ -121,8 +138,16 @@ export class Timer extends Component {
             </View>
             <View style={styles.container.timerSubCont2}>
                 <TouchableOpacity style={styles.container.timerInfoButton} onPress={()=>{{this.props.navigation.navigate('ReservationDetail',{ timerActive: this.state.timerActive })}}}>
+<<<<<<< HEAD
                     <Text style={styles.text.timerInfoButton}>RESERVATION INFO</Text>
                     <Text style={styles.text.timerInfoButton}>RESERVATION INFO.</Text>
+=======
+<<<<<<< HEAD
+                    <Text style={styles.text.timerInfoButton}>RESERVATION INFO.</Text>
+=======
+                    <Text style={styles.text.timerInfoButton}>RESERVATION INFO</Text>
+>>>>>>> sb
+>>>>>>> bonus_25-09
                 </TouchableOpacity>
 
                 <View style={styles.container.blankColTimer}/>
