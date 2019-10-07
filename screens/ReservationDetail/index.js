@@ -43,20 +43,9 @@ import { updateUserBalance } from '../../actions/userAccountAction';
       isArrive: false,
       isTractionSuccess: false,
       isConfirmUnbooking: false,
-<<<<<<< HEAD
-<<<<<<< HEAD
-      showPrice:false
-=======
+      showPrice:false,
       reserve15min: false,
       unBookingText: ""
->>>>>>> bonus_25-09
-=======
-      reserve15min: false,
-      unBookingText: ""
-=======
-      showPrice:false
->>>>>>> sb
->>>>>>> bonus_25-09
     };
 
     this.confirmReservation = this.confirmReservation.bind(this);
@@ -71,6 +60,17 @@ import { updateUserBalance } from '../../actions/userAccountAction';
 
   confirmReservation(){
     insertReservation(this.props.reservation.data);
+
+    var slotInfo = {
+      slotSensor: false,
+      slotBarrier: {
+        green: false,
+        red: true,
+        blue: false
+      }
+    }
+    updateSlotStatus(this.props.currentParking.data._id, thie.props.reservation.data.slotID, slotInfo);
+
     this.setState({ visible: false });
     this.props.navigation.navigate('MainMaps');
   }
@@ -86,6 +86,16 @@ import { updateUserBalance } from '../../actions/userAccountAction';
     var status = "success"
     updateReserveStatus(this.props.reservation.data._id, this.props.userAccount.data._id, status);
     updateUserBalance(this.props.userAccount.data._id, this.props.reservation.data.price);
+
+    var slotInfo = {
+      slotSensor: false,
+      slotBarrier: {
+        green: false,
+        red: false,
+        blue: true
+      }
+    }
+    updateSlotStatus(this.props.currentParking.data._id, thie.props.reservation.data.slotID, slotInfo);
     
     this.props.dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: {} });
     this.props.dispatch({ type: 'FETCH_PARKING_FULFILLED', payload: {} });
@@ -120,8 +130,8 @@ import { updateUserBalance } from '../../actions/userAccountAction';
     }
 
     this.setState({
-      isUnbooking: true,
-      unBookingText: text
+      unBookingText: text,
+      isUnbooking: true
     })
   }
 
@@ -132,6 +142,16 @@ import { updateUserBalance } from '../../actions/userAccountAction';
     if(this.state.reserve15min){
       updateUserBalance(this.props.userAccount.data._id, this.props.reservation.data.price);
     }
+
+    var slotInfo = {
+      slotSensor: false,
+      slotBarrier: {
+        green: true,
+        red: false,
+        blue: false
+      }
+    }
+    updateSlotStatus(this.props.currentParking.data._id, thie.props.reservation.data.slotID, slotInfo);
 
     this.props.dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: {} });
     this.props.dispatch({ type: 'FETCH_PARKING_FULFILLED', payload: {} });
@@ -188,22 +208,8 @@ import { updateUserBalance } from '../../actions/userAccountAction';
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.container.buttomSubButtons}>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <CancelButton style={{ width:'100%'}} onPress={()=>{{this.setState({ isUnbooking: true })}}}> 
+          <CancelButton style={{ width:'100%'}} onPress={()=>{{this.onPressUnbooking()}}}> 
             <Text  style={styles.button.modalSubmit__text}>UNBOOKING</Text>
-=======
-          <CancelButton style={{ width:'100%'}}> 
-            <Text onPress={()=>{{this.onPressUnbooking()}}} style={styles.button.modalSubmit__text}>UNBOOKING</Text>
->>>>>>> bonus_25-09
-=======
-          <CancelButton style={{ width:'100%'}}> 
-            <Text onPress={()=>{{this.onPressUnbooking()}}} style={styles.button.modalSubmit__text}>UNBOOKING</Text>
-=======
-          <CancelButton style={{ width:'100%'}} onPress={()=>{{this.setState({ isUnbooking: true })}}}> 
-            <Text  style={styles.button.modalSubmit__text}>UNBOOKING</Text>
->>>>>>> sb
->>>>>>> bonus_25-09
             {//onPress={()=>{this.setState({isCanceled:true})}}
             }
           </CancelButton>

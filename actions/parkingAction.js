@@ -59,3 +59,13 @@ export function refreshRealTimeParking(parkingData) {
         dispatch({ type: 'FETCH_PARKING_REJECTED', payload: error });
     }
 }
+
+export function updateSlotStatus(parkingID, slotID ,slotInfo){
+    axios.patch(`${config.API_ENDPOINT_URL}/parking/find/${curLocation.lat}/${curLocation.long}`, slotData, null)
+        .then((response) => {
+            console.log("update slot status success" + response.data)
+        })
+        .catch((error) => {
+            console.log("update slot status failed" + Error)
+        })
+}

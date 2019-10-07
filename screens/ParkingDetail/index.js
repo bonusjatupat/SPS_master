@@ -578,7 +578,7 @@ class ParkingDetail extends Component {
                 )} */}
         {this._renderHeaderAndroid()}
         <ScrollView>{this._renderScrollViewContent()}</ScrollView>
-        {Object.keys(this.props.userAccount.data).length == 0 && this.state.parkingData.spsSupported == false ? this._renderLoginText() : null}
+        {Object.keys(this.props.userAccount.data).length == 0 && this.state.parkingData.spsSupported == true ? this._renderLoginText() : null}
         {this.state.parkingData.spsSupported ? this._renderBookButton() : null}
 
         <Dialog visible={this.state.isClickBookNow && !this.state.isEnoughBalance}

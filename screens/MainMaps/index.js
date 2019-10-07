@@ -1010,7 +1010,7 @@ class MainMapsScreen extends Component {
   _renderTimer(){
     //console.log(Object.keys(this.props.userAccount.data).length)
     console.log("in MainMap " + this.props.reservation.data._id);
-    return ( <Timer floor={this.props.reservation.data.floor} slotNo={this.props.reservation.data.slotNumber} parkingName={this.props.currentParking.data.name} {...this.props}/> )
+    return ( <Timer bookingID ={this.props.reservation.data._id} floor={this.props.reservation.data.floor} slotNo={this.props.reservation.data.slotNumber} price={this.props.reservation.data.price} parkingName={this.props.currentParking.data.name} userID={this.props.userAccount.data._id} {...this.props}/> )
   }
 
   onPressOpenParkingFilter() {
