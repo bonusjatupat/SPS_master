@@ -44,11 +44,19 @@ import { updateUserBalance } from '../../actions/userAccountAction';
       isTractionSuccess: false,
       isConfirmUnbooking: false,
 <<<<<<< HEAD
+<<<<<<< HEAD
+      showPrice:false
+=======
+      reserve15min: false,
+      unBookingText: ""
+>>>>>>> bonus_25-09
+=======
       reserve15min: false,
       unBookingText: ""
 =======
       showPrice:false
 >>>>>>> sb
+>>>>>>> bonus_25-09
     };
 
     this.confirmReservation = this.confirmReservation.bind(this);
@@ -181,12 +189,21 @@ import { updateUserBalance } from '../../actions/userAccountAction';
 
         <TouchableOpacity style={styles.container.buttomSubButtons}>
 <<<<<<< HEAD
+<<<<<<< HEAD
+          <CancelButton style={{ width:'100%'}} onPress={()=>{{this.setState({ isUnbooking: true })}}}> 
+            <Text  style={styles.button.modalSubmit__text}>UNBOOKING</Text>
+=======
+          <CancelButton style={{ width:'100%'}}> 
+            <Text onPress={()=>{{this.onPressUnbooking()}}} style={styles.button.modalSubmit__text}>UNBOOKING</Text>
+>>>>>>> bonus_25-09
+=======
           <CancelButton style={{ width:'100%'}}> 
             <Text onPress={()=>{{this.onPressUnbooking()}}} style={styles.button.modalSubmit__text}>UNBOOKING</Text>
 =======
           <CancelButton style={{ width:'100%'}} onPress={()=>{{this.setState({ isUnbooking: true })}}}> 
             <Text  style={styles.button.modalSubmit__text}>UNBOOKING</Text>
 >>>>>>> sb
+>>>>>>> bonus_25-09
             {//onPress={()=>{this.setState({isCanceled:true})}}
             }
           </CancelButton>

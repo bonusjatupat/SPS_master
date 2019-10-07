@@ -1,29 +1,50 @@
 const ENDPOINT_SERVER = {
   PROTOCOL: "http",
 <<<<<<< HEAD
+<<<<<<< HEAD
+  HOST: "10.26.246.25",
+=======
+  HOST: "10.26.253.116",
+>>>>>>> bonus_25-09
+=======
   HOST: "10.26.253.116",
 =======
   HOST: "10.26.246.25",
 >>>>>>> sb
+>>>>>>> bonus_25-09
   SUBDIR: "",
   PORT: 3030
 };
 const SOCKET_SERVER = {
   PROTOCOL: "http",
 <<<<<<< HEAD
+<<<<<<< HEAD
+  HOST: "10.26.246.25",
+=======
+  HOST: "10.26.253.116",
+>>>>>>> bonus_25-09
+=======
   HOST: "10.26.253.116",
 =======
   HOST: "10.26.246.25",
 >>>>>>> sb
+>>>>>>> bonus_25-09
   PORT: 3031
 };
 const IMAGE_SERVER = {
   PROTOCOL: "http",
 <<<<<<< HEAD
+<<<<<<< HEAD
+  HOST: "10.26.246.25",
+=======
+  HOST: "10.26.253.116",
+>>>>>>> bonus_25-09
+=======
   HOST: "10.26.253.116",
 =======
   HOST: "10.26.246.25",
 >>>>>>> sb
+>>>>>>> bonus_25-09
   SUBDIR: "",
   PORT: 3030
 };
