@@ -188,6 +188,18 @@ export class FloorButton extends Component {
     }
 }
 
+export class FloorButton2 extends Component {
+    render() {
+        return (
+            <Button disabled containerStyle={[styles.button.floorButton, this.props.style]} onPress={this.props.onPress}>              
+                <View style={styles.button.modalSubmit__placeholder}>
+                    {this.props.children}
+                </View>
+            </Button>
+        )
+    }
+}
+
 export class ReserveButton extends Component {
     render(){
         return (

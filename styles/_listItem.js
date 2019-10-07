@@ -238,7 +238,8 @@ export default StyleSheet.create({
     },
     parkingListItem__details_meta_rating: {
         backgroundColor: '#F5A623',
-        height: 15,
+        height: 25,
+        width:40,
         paddingLeft: 5,
         paddingRight: 5,
         borderRadius: 8,
@@ -280,7 +281,8 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     parkingListItem__details_meta_text: {
-        fontSize: 9,
+        fontSize: 14,
+        alignSelf:'center',
         fontWeight: 'bold',
         color: '#FFFFFF'
     },

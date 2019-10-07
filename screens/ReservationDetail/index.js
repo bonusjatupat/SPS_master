@@ -26,6 +26,8 @@ import { updateUserBalance } from '../../actions/userAccountAction';
       content: "Parkernel x Secure Parking System",
       parkingLot: this.props.currentParking.data.name,
       price: this.props.currentParking.data.price.paid.rate + "฿",//database
+      per:this.props.currentParking.data.price.paid.per,
+      free:this.props.currentParking.data.price.free.hour,
       location: this.props.currentParking.data.address.description,//--------pass address
 
       bookingID: this.props.reservation.data._id,//a random id not same as the previous in database
@@ -41,8 +43,12 @@ import { updateUserBalance } from '../../actions/userAccountAction';
       isArrive: false,
       isTractionSuccess: false,
       isConfirmUnbooking: false,
+<<<<<<< HEAD
       reserve15min: false,
       unBookingText: ""
+=======
+      showPrice:false
+>>>>>>> sb
     };
 
     this.confirmReservation = this.confirmReservation.bind(this);
@@ -166,16 +172,21 @@ import { updateUserBalance } from '../../actions/userAccountAction';
         <View style={styles.container.bottomButtons}>
         <View style={{flexDirection:'row'}}>
         <TouchableOpacity style={styles.container.buttomSubButtons}>
-          <ReserveButton style={{width:'100%'}}> 
-            <Text onPress={()=>{{this.setState({ isArrive: true })}}} style={styles.button.modalSubmit__text}>ARRIVE</Text>
+          <ReserveButton style={{width:'100%'}}  onPress={()=>{{this.setState({ isArrive: true })}}} > 
+            <Text style={styles.button.modalSubmit__text}>ARRIVE</Text>
             {//onPress={()=>{this.setState({visible:true})}}
             }
           </ReserveButton>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.container.buttomSubButtons}>
+<<<<<<< HEAD
           <CancelButton style={{ width:'100%'}}> 
             <Text onPress={()=>{{this.onPressUnbooking()}}} style={styles.button.modalSubmit__text}>UNBOOKING</Text>
+=======
+          <CancelButton style={{ width:'100%'}} onPress={()=>{{this.setState({ isUnbooking: true })}}}> 
+            <Text  style={styles.button.modalSubmit__text}>UNBOOKING</Text>
+>>>>>>> sb
             {//onPress={()=>{this.setState({isCanceled:true})}}
             }
           </CancelButton>
@@ -237,7 +248,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
 
               <View style={styles.container.infoBox}>
                 <Text style={styles.text.parkingLot}>{this.state.parkingLot}</Text>
-                <TouchableOpacity style={{backgroundColor:'#f6ab05', borderRadius:10, marginLeft:"1%", height:'95%',width:'20%', alignItems:'center'}}>
+                <TouchableOpacity onPress={()=>{{this.setState({ showPrice: true })}}} style={{backgroundColor:'#f6ab05', borderRadius:10, marginLeft:"1%", height:'95%',width:'20%', alignItems:'center'}}>
                   <Text style={styles.text.spacePrice}>{this.state.price}</Text>
                 </TouchableOpacity>
               </View>
@@ -314,16 +325,16 @@ import { updateUserBalance } from '../../actions/userAccountAction';
                         <View  style={{alignContent:'center',flexDirection:"row",flex:0, justifyContent:'center'}}>
 
                           <View style={styles.container.buttomSubButtons2}>
-                            <ConfirmPopup style={{borderRadius:10}}> 
-                              <Text onPress={()=>{{this.onPressArrive()}}} style={styles.button.modalSubmit__text}>CONFIRM</Text>
+                            <ConfirmPopup style={{borderRadius:10}} onPress={()=>{{this.onPressArrive()}}}> 
+                              <Text  style={styles.button.modalSubmit__text}>CONFIRM</Text>
                             </ConfirmPopup>
                           </View>
 
                           <View  style={styles.container.buttomSubButtons3}></View>
 
                           <View style={styles.container.buttomSubButtons2}>
-                            <CancelPopup style={{borderRadius:10}}> 
-                              <Text onPress={()=>{this.setState({isArrive:false})}} style={styles.button.modalSubmit__text}>CANCEL</Text>
+                            <CancelPopup style={{borderRadius:10}} onPress={()=>{this.setState({isArrive:false})}}> 
+                              <Text  style={styles.button.modalSubmit__text}>CANCEL</Text>
                             </CancelPopup>
                           </View>
 
@@ -403,6 +414,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
 
         </Dialog>
 
+
         <Dialog visible={this.state.isConfirmUnbooking}
               width='70%'
               dialogAnimation={new ScaleAnimation()}
@@ -425,6 +437,52 @@ import { updateUserBalance } from '../../actions/userAccountAction';
                 //<Image style={{marginTop:'-9%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>                           
               }
               <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Your booking is canceled.</Text>
+            </View>                            
+        </DialogContent> 
+
+        </Dialog>
+
+        <Dialog visible={this.state.showPrice}
+              width='70%'
+              dialogAnimation={new ScaleAnimation()}
+              footer={<View style={{alignSelf:'center', border:'hidden'}}>
+                        <View  style={{alignContent:'center',flexDirection:"row",flex:0, justifyContent:'center'}}>
+
+                        <View style={styles.container.buttomSubButtons2}>
+                            <ConfirmPopup style={{borderRadius:10}}> 
+                              <Text onPress={()=>{{this.setState({ showPrice: false });}}} style={styles.button.modalSubmit__text}>OK</Text>
+                            </ConfirmPopup>
+                          </View>
+
+                        </View>             
+                      </View>}>
+        <DialogContent style={{backgroundColor:'#f6ab05',justifyContent:'center', height:'5%'}}>
+              <Text style={{color: 'white', textAlign: 'center', alignSelf:'center',fontSize:16,fontWeight:'bold',width:'100%', marginTop:'10%'}}>Price Info</Text>
+        </DialogContent> 
+
+        <DialogContent style={{width:"100%"}}>
+            <View style={{flex:0,width:'100%'}}>     
+              {
+                //<Image style={{marginTop:'-9%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>                           
+              }
+              <View style={{width:'100%', flexDirection:'column', justifyContent:'space-around'}}>
+                <View style={{flexDirection:'row', height:10}}>
+                  
+                </View>
+                <View style={{flexDirection:'row'}}>
+                  <Text style={{color: '#f6ab05', alignSelf:'flex-start',fontSize:14,fontWeight:'bold',width:'30%'}}>Parking Lot : </Text>
+                  <Text style={{color: 'black', alignSelf:'flex-start',fontSize:14,fontWeight:'bold',width:'60%'}}>{this.state.parkingLot}</Text>
+                </View>
+                <View style={{flexDirection:'row'}}>
+                  <Text style={{color: '#f6ab05',  alignSelf:'flex-start',fontSize:14,fontWeight:'bold',width:'30%'}}>Free: </Text>
+                  <Text style={{color: 'black',  alignSelf:'flex-start',fontSize:14,fontWeight:'bold',width:'60%'}}>{this.state.free} {this.state.free==0 ? 'None' :null}{this.state.free==1 ? "hour":"hours"}</Text>
+                </View>
+
+                <View style={{flexDirection:'row'}}>
+                  <Text style={{color: '#f6ab05',  alignSelf:'flex-start',fontSize:14,fontWeight:'bold',width:'30%'}}>Price : </Text>
+                  <Text style={{color: 'black',  alignSelf:'flex-start',fontSize:14,fontWeight:'bold',width:'60%'}}>{this.state.price} per {this.state.per}</Text>
+                </View>
+              </View>
             </View>                            
         </DialogContent> 
 

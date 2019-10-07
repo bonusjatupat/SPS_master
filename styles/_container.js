@@ -20,7 +20,6 @@ export default StyleSheet.create({
     },
 
     container3:{
-      marginTop:'-5%',
       alignItems:'center',
       marginBottom:"5%",  
     },
