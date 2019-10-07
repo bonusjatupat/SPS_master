@@ -63,11 +63,13 @@ import { updateUserBalance } from '../../actions/userAccountAction';
     insertReservation(this.props.reservation.data);
 
     var slotInfo = {
-      slotSensor: false,
-      slotBarrier: {
-        green: false,
-        red: true,
-        blue: false
+      slot: {
+        slotSensor: false,
+        slotBarrier: {
+          green: false,
+          red: true,
+          blue: false
+        }
       }
     }
     updateSlotStatus(this.props.currentParking.data._id, this.props.reservation.data.slotID, slotInfo);
@@ -89,11 +91,13 @@ import { updateUserBalance } from '../../actions/userAccountAction';
     updateUserBalance(this.props.userAccount.data._id, this.props.reservation.data.price);
 
     var slotInfo = {
-      slotSensor: false,
-      slotBarrier: {
-        green: false,
-        red: false,
-        blue: true
+      slot: {
+        slotSensor: false,
+        slotBarrier: {
+          green: false,
+          red: false,
+          blue: true
+        }
       }
     }
     updateSlotStatus(this.props.currentParking.data._id, this.props.reservation.data.slotID, slotInfo);
@@ -145,12 +149,14 @@ import { updateUserBalance } from '../../actions/userAccountAction';
     }
 
     var slotInfo = {
-      slotSensor: false,
-      slotBarrier: {
-        green: true,
-        red: false,
-        blue: false
-      }
+      slot: {
+        slotSensor: false,
+          slotBarrier: {
+            green: true,
+            red: false,
+            blue: false
+          }
+        }
     }
     updateSlotStatus(this.props.currentParking.data._id, this.props.reservation.data.slotID, slotInfo);
 
@@ -405,7 +411,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
               {
                 //<Image style={{marginTop:'-9%',width: 60, height: 60, alignSelf:'center'}}source={require('../assets/car.png')}/>                           
               }
-              <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>{this.state.unBookingText}</Text>
+              <Text style={{color: '#f6ab05', textAlign: 'center', alignSelf:'center',fontSize:17,fontWeight:'bold',width:'80%'}}>Do you want to unbook the space?</Text>
             </View>                            
         </DialogContent> 
 
