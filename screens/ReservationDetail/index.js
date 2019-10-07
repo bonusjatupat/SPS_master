@@ -92,7 +92,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
 
     var slotInfo = {
       slot: {
-        slotSensor: false,
+        slotSensor: true,
         slotBarrier: {
           green: false,
           red: false,
