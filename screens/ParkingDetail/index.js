@@ -535,7 +535,7 @@ class ParkingDetail extends Component {
         </ModalSubmitButton2>
       ) : 
       result.push(
-        <ModalSubmitButton onPress={()=>this.onPressBookNow()}>
+        <ModalSubmitButton onPress={()=>{this.setState({isClickBookNow: true}); this.onPressBookNow();}}>
           <Text style={styles.button.modalSubmit__text}>BOOK NOW</Text>
         </ModalSubmitButton>
       )
@@ -545,13 +545,12 @@ class ParkingDetail extends Component {
 
   onPressBookNow() {
     console.log(this.state.isEnoughBalance);
-    this.setState({
-      isClickBookNow: true
-    })
 
-    if(this.state.isEnoughBalance && this.state.isClickBookNow) {
-      this.props.navigation.navigate('FloorDetail')
-    } 
+    setTimeout(() => {
+      if(this.state.isEnoughBalance && this.state.isClickBookNow) {
+        this.props.navigation.navigate('FloorDetail')
+      } 
+    }, 1000)
   }
 
   render() {

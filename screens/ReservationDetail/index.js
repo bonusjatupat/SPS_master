@@ -63,14 +63,13 @@ import { updateUserBalance } from '../../actions/userAccountAction';
     insertReservation(this.props.reservation.data);
 
     var slotInfo = {
-      slot: {
-        slotSensor: false,
+      floor: this.state.floor,
+      slotSensor: false,
         slotBarrier: {
           green: false,
           red: true,
           blue: false
         }
-      }
     }
     updateSlotStatus(this.props.currentParking.data._id, this.props.reservation.data.slotID, slotInfo);
 
@@ -90,17 +89,18 @@ import { updateUserBalance } from '../../actions/userAccountAction';
     updateReserveStatus(this.props.reservation.data._id, this.props.userAccount.data._id, status);
     updateUserBalance(this.props.userAccount.data._id, this.props.reservation.data.price);
 
-    var slotInfo = {
-      slot: {
+
+      var slotInfo = {
+        floor: this.state.floor,
         slotSensor: true,
-        slotBarrier: {
-          green: false,
-          red: false,
-          blue: true
-        }
+          slotBarrier: {
+            green: false,
+            red: false,
+            blue: true
+          }
       }
-    }
-    updateSlotStatus(this.props.currentParking.data._id, this.props.reservation.data.slotID, slotInfo);
+    
+      updateSlotStatus(this.props.currentParking.data._id, this.props.reservation.data.slotID, slotInfo);
     
     this.props.dispatch({ type: 'FETCH_RESERVATION_FULFILLED', payload: {} });
     this.props.dispatch({ type: 'FETCH_PARKING_FULFILLED', payload: {} });
@@ -109,6 +109,12 @@ import { updateUserBalance } from '../../actions/userAccountAction';
       isArrive: false,
       isTractionSuccess: true
     });
+  }
+
+  onPressTransactionSuccess(){
+    setTimeout(() => {
+      this.props.navigation.navigate('MainMaps');
+    }, 2000);
   }
 
   onPressUnbooking(){
@@ -149,13 +155,12 @@ import { updateUserBalance } from '../../actions/userAccountAction';
     }
 
     var slotInfo = {
-      slot: {
-        slotSensor: false,
-          slotBarrier: {
-            green: true,
-            red: false,
-            blue: false
-          }
+      floor: this.state.floor,
+      slotSensor: false,
+        slotBarrier: {
+          green: true,
+          red: false,
+          blue: false
         }
     }
     updateSlotStatus(this.props.currentParking.data._id, this.props.reservation.data.slotID, slotInfo);
