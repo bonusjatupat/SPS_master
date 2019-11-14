@@ -869,7 +869,7 @@ class MainMapsScreen extends Component {
                     latitude: marker.address.location.coordinates[1],
                     longitude: marker.address.location.coordinates[0]
                   }}
-                  image={require("../../assets/parking_pin_yellow/parking_pin_yellow.png")}
+                  image={require("../../assets/parking_pin_yellow/parking_pin.png")}
                   onPress={() => this.onMarkerPress(key)}
                 />
             ))

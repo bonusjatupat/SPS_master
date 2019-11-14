@@ -114,8 +114,8 @@ export class Timer extends Component {
                 <Text style={styles.container.timerCountHeader}>Time Remaining</Text>
                     <CountDown
                         size={25}
-                        until={60*59+59}
-                        //until={60*0+20}
+                        //until={60*59+59}
+                        until={60*0+50}
                         onFinish={() =>  this.setState({visible:true})}
                         digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: 'black'}}
                         digitTxtStyle={{color: 'black'}}
