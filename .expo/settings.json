@@ -2,6 +2,6 @@
   "urlRandomness": "jk-6fv",
   "hostType": "tunnel",
   "lanType": "ip",
-  "dev": true,
-  "minify": false
+  "dev": false,
+  "minify": true
 }

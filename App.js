@@ -130,7 +130,7 @@ class App extends React.Component {
       require("./assets/a/locationIcon.png"),
       require("./assets/a/dot.png"),
       require("./assets/a/arrow.png"),
-      require("./assets/parking_pin_yellow/parking_pin_yellow.png")
+      require("./assets/parking_pin_yellow/parking_pin.png")
     ]);
 
     const fontAssets = cacheFonts([]);
