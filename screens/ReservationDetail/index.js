@@ -24,7 +24,7 @@ import { updateUserBalance } from '../../actions/userAccountAction';
     this.state = {
       userName: this.props.userAccount.data.personalInfo.name,
 
-      content: "Parkernel x Secure Parking System",
+      content: "Secure Parking System",
       parkingLot: this.props.currentParking.data.name,
       price: this.props.currentParking.data.price.paid.rate + "฿",//database
       per:this.props.currentParking.data.price.paid.per,
