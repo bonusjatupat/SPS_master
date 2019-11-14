@@ -64,7 +64,7 @@ class AuthenticationSignUpScreen extends Component {
         }
 
         if (error < 1) {
-            axios.post(`${_CONFIG.API_ENDPOINT_URL}/authen/signup/email_exists`, { email: this.state.emailTxt }, null)
+            axios.post(`${_CONFIG.API_ENDPOINT_URL}/user/signup/email_exists`, { email: this.state.emailTxt }, null)
                 .then((response) => {
                     console.log(response.data.found);
                     if (response.data.found) {
