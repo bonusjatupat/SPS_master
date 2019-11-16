@@ -29,7 +29,6 @@ import { Header, createStackNavigator, createAppContainer } from "react-navigati
 import Carousel from "react-native-snap-carousel";
 import * as Animatable from "react-native-animatable";
 import {Timer} from "../../components/Timer";
-import MapViewDirections from "react-native-maps-directions";
 import MapView from "react-native-maps";
 
 import {
@@ -59,6 +58,8 @@ import AuthenticationScreen from "../Authentication";
 import AuthenticationSignUpScreen from "../AuthenticationSignUp";
 import AuthenticationSignUpFinalScreen from "../AuthenticationSignUpFinal";
 import ForgotPassword from "../ForgotPassword";
+
+import searchBox from "../../assets/searchbox_pin/searchbox_pin.png";
 
 const authenStack = createStackNavigator(
   {
@@ -829,13 +830,13 @@ class MainMapsScreen extends Component {
         ref={c => {
           this._map = c;
         }}
-        style={{ width: "100%", height: "100%", top: 0, position: "absolute",zIndex:0 }}
+        style={{ flex: 1, width: screen.width, height: screen.height, top: 0, position: "absolute",zIndex:0 }}
         initialRegion={this.state.initialRegion}
         region={this.state.mapRegion}
         onRegionChangeComplete={this.onRegionChangeComplete}
         // onRegionChange={this.onRegionChange}
         onLongPress={e => {
-          this.onLongPressMap(e.nativeEvent.coordinate);
+          //this.onLongPressMap(e.nativeEvent.coordinate);
         }}
         loadingEnabled={true}
         showsUserLocation={true}
@@ -860,7 +861,7 @@ class MainMapsScreen extends Component {
                     latitude: marker.address.location.coordinates[1],
                     longitude: marker.address.location.coordinates[0]
                   }}
-                  image={require("../../assets/parking_pin/parking_pin.png")}
+                  image={require("../../assets/parkingPin/parkingPin.png")}
                   onPress={() => this.onMarkerPress(key)}
                 />
               : <Marker

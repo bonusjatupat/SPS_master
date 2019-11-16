@@ -1,21 +1,32 @@
 {
   "expo": {
-    "name": "parkernel",
+    "name": "Parkernel",
     "description": "This project is really great.",
     "slug": "parkernel",
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": ["ios", "android"],
-    "version": "3.0.4",
+    "version": "3.7.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/appicon.png",
     "splash": {
       "image": "./assets/splash_screen_2/splash_screen_2@3x.png",
       "resizeMode": "contain",
       "backgroundColor": "#292929"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sps.myapp",
+      "icon": "./assets/appicon.png"
+    },
+    "android": {
+      "package": "com.sps.myapp",
+      "icon": "./assets/appicon.png",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCCisvI7Q2fW2iBKBuH9GHJ69djhkI3Kv4"
+        }
+      }
     }
   }
 }

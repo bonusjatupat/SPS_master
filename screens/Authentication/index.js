@@ -234,7 +234,7 @@ class AuthenticationScreen extends Component {
                             <View style={{ width: '100%', height: '100%' }}>
                                 <ScrollView style={{ width: '100%', height: screen.height - 50, padding: 20 }} keyboardShouldPersistTaps="always">
                                     <View style={{ width: '100%', marginBottom: 40, alignItems: 'center', justifyContent: 'center' }}>
-                                        <Image source={require('../../assets/logo_typo/logo_typo.png')} />
+                                        <Image source={require('../../assets/logo-typo/logo-typo.png')} />
                                     </View>
                                     {this._renderErrorMessage()}
                                     <TextInput 

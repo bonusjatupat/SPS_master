@@ -80,7 +80,7 @@ class AuthenticationSignUpFinalScreen extends Component {
             email: this.state.email.trim(),
             password: this.state.passwordTxt
         };
-        axios.post(`${_CONFIG.API_ENDPOINT_URL}/authen/signup`, data, null)
+        axios.post(`${_CONFIG.API_ENDPOINT_URL}/user/signup`, data, null)
             .then((response) => {
                 if (response.status == 200) {
                     if (response.data.user) {
@@ -166,7 +166,7 @@ class AuthenticationSignUpFinalScreen extends Component {
                                         ref={(input) => { this.inputs['password'] = input; }}
                                         onSubmitEditing={() => { this.onPressSignUp(); }}
                                         onChangeText={(text) => { this.setState({ passwordTxt: text }); }} />
-                                    <DefaultButton onPress={this.onPressSignUp}>
+                                    <DefaultButton onPress={() => this.onPressSignUp()}>
                                         <Text style={styles.button.defaultButton__text}>Next</Text>
                                     </DefaultButton>
                                 </ScrollView>

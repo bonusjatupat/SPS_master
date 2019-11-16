@@ -107,13 +107,13 @@ class App extends React.Component {
     const imageAssets = cacheImages([
       require("./assets/logo/logo.png"),
       require("./assets/logo_header/logo_header.png"),
-      require("./assets/logo_typo/logo_typo.png"),
+      require("./assets/logo-typo/logo-typo.png"),
       require("./assets/parking_list_item_pin/parking_list_item_pin.png"),
       require("./assets/box_arrow_down/box_arrow_down.png"),
       require("./assets/searchbox_pin/searchbox_pin.png"),
       require("./assets/traffic_light/traffic_light.png"),
       require("./assets/traffic_light_off/traffic_light_off.png"),
-      require("./assets/parking_pin/parking_pin.png"),
+      require("./assets/parkingPin/parkingPin.png"),
       require("./assets/gripper/gripper.png"),
       require("./assets/star_activate/star_activate.png"),
       require("./assets/star_deactivate/star_deactivate.png"),
@@ -130,7 +130,8 @@ class App extends React.Component {
       require("./assets/a/locationIcon.png"),
       require("./assets/a/dot.png"),
       require("./assets/a/arrow.png"),
-      require("./assets/parking_pin_yellow/parking_pin.png")
+      require("./assets/parking_pin_yellow/parking_pin.png"),
+      require("./assets/ui.jpg")
     ]);
 
     const fontAssets = cacheFonts([]);
