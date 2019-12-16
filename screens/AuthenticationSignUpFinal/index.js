@@ -131,7 +131,7 @@ class AuthenticationSignUpFinalScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{ width: '100%', flex: 1 }}>
-                    <KeyboardAvoidingView behavior="padding">
+                    <KeyboardAvoidingView behavior="height">
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={{ width: '100%', height: '100%' }}>
                                 <ScrollView style={{ width: '100%', height: '100%' - 50, padding: 20 }} keyboardShouldPersistTaps="always">
@@ -167,7 +167,7 @@ class AuthenticationSignUpFinalScreen extends Component {
                                         onSubmitEditing={() => { this.onPressSignUp(); }}
                                         onChangeText={(text) => { this.setState({ passwordTxt: text }); }} />
                                     <DefaultButton onPress={() => this.onPressSignUp()}>
-                                        <Text style={styles.button.defaultButton__text}>Next</Text>
+                                        <Text style={styles.button.defaultButton__text}>Sign Up</Text>
                                     </DefaultButton>
                                 </ScrollView>
                                 <View style={{ width: '100%', height: 50, flex: 0, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderTopColor: '#E4E4E4', borderTopWidth: 1 }}>

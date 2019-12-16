@@ -252,10 +252,10 @@ class AuthenticationScreen extends Component {
                                         onSubmitEditing={() => { this.focusNextField('password'); }}
                                         onChangeText={(text) => { this.setState({ emailTxt: text }); }} />
                                     <TextInput 
-                                        style={[styles.form.defaultInput, this.state.passwordTxt__wrong]} 
+                                        style={[styles.form.defaultInput, { marginBottom: 15 }, this.state.passwordTxt__wrong]} 
                                         placeholder="Password"
                                         placeholderTextColor="#515151"
-                                        keyboardType="default"
+                                        keyboardType="visible-password"
                                         autoCapitalize="none"
                                         value={this.state.passwordTxt}
                                         secureTextEntry={true}
@@ -265,11 +265,12 @@ class AuthenticationScreen extends Component {
                                         ref={(input) => { this.inputs['password'] = input; }}
                                         onSubmitEditing={() => { this.onPressLocalLogin(); }}
                                         onChangeText={(text) => { this.setState({ passwordTxt: text }); }} />
-                                    <View style={{ paddingVertical: 20 }}>
-                                        <TouchableOpacity style={{ alignSelf: 'flex-end' }} onPress={() => navigate('ForgotPassword')}>
-                                            <Text style={styles.button.orangeLink__text}>Forgot Password?</Text>
+                                    {/*<View style={{ paddingVertical: 20 }}>
+                                        <TouchableOpacity style={{ alignSelf: 'flex-end' }}>
+                                            <Text style={{color: '#F5A623'}}>Parkernel x Secure Parking Space</Text>
                                         </TouchableOpacity>
-                                    </View>
+                                    </View>*/
+                                    }
                                     <DefaultButton onPress={this.onPressLocalLogin}>
                                         <Text style={styles.button.defaultButton__text}>Sign In</Text>
                                     </DefaultButton>

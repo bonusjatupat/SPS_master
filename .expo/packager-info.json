@@ -1,10 +1,10 @@
 {
-  "expoServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://4c-fd6.jatupatbonus.sps-master.exp.direct",
+  "packagerNgrokUrl": "https://packager.4c-fd6.jatupatbonus.sps-master.exp.direct",
+  "ngrokPid": 9960,
   "devToolsPort": 19002,
-  "packagerPort": null,
-  "packagerPid": null,
+  "packagerPort": 19001,
+  "packagerPid": 8180,
   "webpackServerPort": null
 }
